@@ -1,0 +1,32 @@
+<!-- Theme Form - Form + Write Reviev -->
+  <ion-content>
+    <ion-grid *ngIf="data != null">
+      <ion-row padding>
+        <ion-col col-12 text-center>
+          <span font-bold span-small>{{data.rateTitle}}</span>
+        </ion-col>
+        <ion-col col-12 text-center>
+            <ion-icon
+              *ngFor="let item of data.iconsStars;let i = index"
+              color="dark"
+              [name]="item.icon"
+              [ngClass]="{'active':item.isActive}"
+              (click)="onStarClass(data.iconsStars, i, $event)">
+            </ion-icon>
+        </ion-col>
+        <ion-col col-12 text-center>
+          <span font-bold span-small>{{data.title}}</span>
+        </ion-col>
+        <ion-col col-12 textarea>
+          <ion-item no-lines box-shadow>
+            <ion-textarea [placeholder]="data.descriptionPlaceholder" [(ngModel)]="description"></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <button ion-button button-clear-outline round outline block text-capitalize (click)="onEvent('onSubmit', $event)">
+          {{data.btnSubmit}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

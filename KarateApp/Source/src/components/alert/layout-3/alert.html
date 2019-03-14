@@ -1,0 +1,40 @@
+<!--Theme Alert - Alert Subscribe-->
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row *ngIf="data != null">
+      <ion-col col-12 col-lg-6 col-xl-4 *ngFor="let item of data.items;let i = index" (click)="presentAlert(item)">
+        <!-- Card -->
+        <ion-card padding box-shadow>
+          <!--Card image-->
+          <img [src]="item.image" />
+           <ion-card-header>
+             <span font-bold small-font>{{item.time}}</span>
+             <!--Card title-->
+             <h2 card-title>{{item.title}}</h2>
+             <!--Card description-->
+             <p card-subtitle text-wrap>{{item.description}}</p>
+           </ion-card-header>
+          <ion-card-content>
+            <!--Card content-->
+            <ion-row no-padding>
+              <!--Button like-->
+              <ion-col col-auto no-padding>
+                <button ion-button button-icon-clear icon-start clear>
+                  <ion-icon [name]="item.iconLike"></ion-icon>
+                  {{item.numberLike}}
+                </button>
+              </ion-col>
+              <!--Button comment-->
+              <ion-col col-auto no-padding>
+                <button ion-button button-icon-clear icon-start clear>
+                  <ion-icon [name]="item.iconComment"></ion-icon>
+                  {{item.numberCommnet}}
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

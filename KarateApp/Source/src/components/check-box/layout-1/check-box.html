@@ -1,0 +1,17 @@
+<!--Themes Simple -->
+<ion-content>
+<ion-grid no-padding *ngIf="data != null">
+    <ion-row>
+        <ion-col col-12 no-padding>
+            <!-- Content List -->
+            <ion-list>
+                <ion-item no-lines *ngFor="let item of data" (tap)="onEvent('onButton', item)">
+                    <!-- Content Title -->
+                    <ion-label item-title>{{item.title}}</ion-label>
+                    <ion-checkbox [checked]="item.favorite"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+</ion-content>

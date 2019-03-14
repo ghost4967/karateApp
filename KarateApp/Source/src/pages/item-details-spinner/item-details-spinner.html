@@ -1,0 +1,17 @@
+<!--Spinner components-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>{{params.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--Content-->
+<ion-content spinner-view>
+    <ion-slides pager="true" *ngIf="params.data.length">
+        <ion-slide *ngFor="let spinnerItem of params.data">
+            <spinner [data]="spinnerItem"></spinner>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

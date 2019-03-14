@@ -1,0 +1,71 @@
+.default-background {
+  background-color: #fff !important;
+}
+
+
+.title-components{
+    color: theme-colors('mainColors', 'secondary-first');
+    font-size: 16px;
+    font-weight: normal;
+    clear: both;
+    display: block;
+    margin: 15px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid theme-colors('mainColors', 'secondary-first');
+}
+
+span.compomets {
+  display: block;
+  clear: both;
+  color: theme-colors('mainColors', 'secondary-first');
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.block-insert {
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+.example-h1 {
+   font-size: $h1-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-h2 {
+   font-size: $h2-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-h3 {
+   font-size: $h3-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-h4 {
+   font-size: $h4-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-h5 {
+   font-size: $h5-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-h6 {
+   font-size: $h6-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }
+
+ .example-p {
+   font-size: $text-font-size;
+   color: theme-colors('textColors', 'primary');
+   font-weight: 300;
+ }

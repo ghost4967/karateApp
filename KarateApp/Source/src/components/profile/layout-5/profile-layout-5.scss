@@ -1,0 +1,65 @@
+/*  #Style Profile - Profile 1
+================================================*/
+profile-layout-5 {
+  ion-avatar {
+    img {
+      width: 120px !important;
+      height: 120px !important;
+      margin: 15px auto 20px;
+      border: 2px solid theme-colors('mainColors', 'accent');
+    }
+  }
+
+  ion-card {
+    box-shadow: none !important;
+  }
+  ion-col:nth-child(5) {
+    background: theme-colors('mainColors', 'accent') !important;
+
+    ion-label {
+      margin: 15px 8px 15px 0;
+    }
+  }
+
+  .button {
+    [icon-small] {
+      color: theme-colors('textColors', 'accent-first') !important;
+    }
+  }
+
+  .button-inner {
+    display: block;
+  }
+
+  [small-font] {
+    clear: both;
+    display: block;
+  }
+
+  ion-item {
+    border-radius: 4px;
+
+    .item-inner {
+      margin-left: 0 !important;
+    }
+
+  }
+  [item-title] {
+    color: theme-colors('textColors', 'secondary') !important;
+  }
+  [item-subtitle] {
+    color: theme-colors('textColors', 'secondary') !important;
+    text-transform: none
+  }
+  [subitem-title] {
+    color: theme-colors('textColors', 'accent') !important;
+  }
+  [subitem-subtitle] {
+    color: theme-colors('textColors', 'accent') !important;
+    text-transform: none
+  }
+  ion-icon {
+      display: inline-flex !important;
+      align-items: center !important;
+  }
+}

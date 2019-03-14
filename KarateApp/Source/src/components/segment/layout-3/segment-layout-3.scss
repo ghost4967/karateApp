@@ -1,0 +1,12 @@
+/*  #Style -- Segment - Segment Post
+===========================================*/
+segment-layout-3 {
+    .active {
+        color: theme-colors('textColors', 'primary');
+    }
+
+    [card-title],
+    [card-subtitle] {
+      margin-top: 10px;
+    }
+}

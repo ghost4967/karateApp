@@ -1,0 +1,21 @@
+<!--Theme Alert - Alert Info -->
+<ion-content padding-top>
+  <ion-grid no-padding>
+    <ion-row *ngIf="data != null">
+      <ion-col col-12 col-lg-4 *ngFor="let item of data.items;let i = index" (click)="presentAlert(item)">
+        <!--Card-->
+        <ion-card text-left box-shadow padding>
+          <!--Card image-->
+          <img [src]="item.image" />
+          <!--Card content-->
+          <ion-card-content no-padding margin-top>
+            <!--Card title-->
+            <h1 card-title padding-bottom>{{item.title}}</h1>
+            <!--Card description-->
+            <h2 card-body-text text-capitalize>{{item.description}}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

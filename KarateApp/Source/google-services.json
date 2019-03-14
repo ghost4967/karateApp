@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "519928359775",
+    "firebase_url": "https://ionic3-blue-light.firebaseio.com",
+    "project_id": "ionic3-blue-light"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519928359775:android:1ac27bdcceaab4a7",
+        "android_client_info": {
+          "package_name": "com.csform.ionic.blue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519928359775-enb0b27ca1hq35md5ierrua55hnf5nmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnDSymQppFujJQSd61ZqiObUX0Q_EB-ug"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

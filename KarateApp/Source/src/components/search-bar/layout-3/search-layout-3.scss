@@ -1,0 +1,17 @@
+/*  #Style Search Bars - Field + header 2
+===========================================*/
+search-bar-layout-3 {
+  [background-size] {
+    padding-top: 100px;
+    height: 160px;
+    @include darkening-blend-mode;
+  }
+
+  .searchbar-input {
+    @extend .box-shadow;
+  }
+
+  .item-inner {
+    margin-left: 5px !important;
+  }
+}

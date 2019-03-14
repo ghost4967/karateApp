@@ -1,0 +1,30 @@
+<!--Fist Screen-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon class="icon-menu" name="menu"></ion-icon>
+        </button>
+        <div buy *ngIf="isBuyButtonEnabled">
+            <ion-title>{{data.toolbarTitle}}</ion-title>
+            <button ion-button defoult-button onclick="window.open('https://codecanyon.net/item/ionic-3-ui-themetemplate-app-material-design-blue-light/20234423?ref=CreativeForm')">
+              BUY NOW
+            </button>
+        </div>
+        <!---Title-->
+        <ion-title *ngIf="!isBuyButtonEnabled">{{data.toolbarTitle}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<!--Fist Screen Content-->
+<ion-content>
+    <div *ngIf="data.background!=null"  background-size default-background [ngStyle]="{'background-image': 'url(' + data.background + ')'}">
+        <div class="ionic-description" text-center>
+            <h2 item-title>{{data.title}}</h2>
+            <h2 item-title>{{data.subtitle}}</h2>
+            <p item-subtitle>{{data.subtitle2}}</p>
+        </div>
+        <a [href]="data.link">
+            {{data.description}}
+        </a>
+    </div>
+</ion-content>

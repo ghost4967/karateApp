@@ -1,0 +1,17 @@
+<!--Login page component-->
+<ion-header>
+    <ion-navbar header-color>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>{{params.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--Content-->
+
+<!-- PAGE REGISTER - Register + logo 1-->
+<register-layout-1 has-header *ngIf="params.registerLayout1" [data]="params.data | async" [events]="params.events">
+</register-layout-1>
+<!-- PAGE REGISTER - Register + logo 2 -->
+<register-layout-2 has-header *ngIf="params.registerLayout2" [data]="params.data | async" [events]="params.events">
+</register-layout-2>

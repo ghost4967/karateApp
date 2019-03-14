@@ -1,0 +1,36 @@
+<!--Theme Comment - Comments With Timeline -->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle *ngIf="data != null">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <div *ngIf="data != null">
+            <ion-title>{{data.headerTitle}}</ion-title>
+        </div>
+    </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content>
+    <ion-grid *ngIf="data != null">
+      <ion-col col-12 padding-top>
+        <span font-bold span-small padding-left>{{data.allComments}}</span>
+      </ion-col>
+      <ion-col col-12>
+        <ion-list>
+          <ion-item margin-top transparent no-lines *ngFor="let item of data.items; let i = index;" (click)="onEvent('onItemClick', item, $event)">
+            <!-- Avatar -->
+            <ion-avatar item-start>
+              <img [src]="item.image">
+            </ion-avatar>
+            <!-- Title -->
+            <h2 item-title>{{item.title}}</h2>
+            <p>{{item.time}}</p>
+            <!-- Description -->
+            <h3 text-wrap margin-top>
+              {{item.description}}
+            </h3>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-grid>
+</ion-content>

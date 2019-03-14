@@ -1,0 +1,61 @@
+<!--Theme Profile- Profile With Slider-->
+<ion-content>
+  <ion-grid *ngIf="data != null">
+    <ion-col col-12 text-center>
+      <ion-card profile padding text-center box-shadow>
+        <ion-avatar>
+          <img [src]="data.image" alt="">
+        </ion-avatar>
+        <ion-card-content text-center>
+          <h1 ion-text color="primary">{{data.title}}</h1>
+          <p ion-text color="primary">{{data.subtitle}}</p>
+        </ion-card-content>
+        <ion-row no-padding>
+          <ion-col no-padding>
+            <button ion-button button-clear clear no-padding>
+              <h2 small-font font-bold ion-text color="primary">{{data.valueFollowers}}</h2>
+              <span ion-text text-capitalize color="primary">{{data.followers}}</span>
+            </button>
+          </ion-col>
+          <ion-col no-padding>
+            <button ion-button button-clear clear no-padding>
+              <span small-font font-bold ion-text color="primary">{{data.valueFollowing}}</span>
+              <span ion-text text-capitalize color="primary">{{data.following}}</span>
+            </button>
+          </ion-col>
+          <ion-col no-padding>
+            <button ion-button button-clear clear no-padding>
+              <span small-font font-bold ion-text color="primary">{{data.valuePosts}}</span>
+              <span ion-text text-capitalize color="primary">{{data.posts}}</span>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+    <!-- Slider -->
+    <ion-col col-12 text-center padding-top>
+      <span category ion-text font-bold padding-top text-uppercase color="accent">{{data.category}}</span>
+      <ion-slides pager="true">
+        <ion-slide *ngFor="let item of data.items;let i = index" (click)="onEvent('onItemClick', item, $event)">
+          <ion-col col-12 text-center>
+            <ion-card padding box-shadow>
+              <img [src]="item.backgroundCard">
+              <ion-card-content text-center>
+                <span text-uppercase font-bold ion-text color="accent">{{item.category}}</span>
+                <h1 card-title margin-top text-wrap>{{item.title}}</h1>
+              </ion-card-content>
+              <button ion-button button-icon-clear text-capitalize icon-start clear (click)="onEvent('onLike', item, $event)">
+                <ion-icon [ngClass]="{'active' : item.like.isActive}" [name]="item.like.icon"></ion-icon>
+               {{item.like.text}}
+              </button>
+              <button ion-button button-icon-clear text-capitalize icon-start clear (click)="onEvent('onComment', item, $event)">
+                <ion-icon [ngClass]="{'active' : item.comment.isActive}" [name]="item.comment.icon"></ion-icon>
+                {{item.comment.number}} {{item.comment.text}}
+              </button>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-grid>
+</ion-content>

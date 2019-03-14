@@ -1,0 +1,25 @@
+<!--Theme Full Image Cards-->
+<ion-content>
+    <ion-grid no-padding *ngIf="data != null">
+        <ion-row>
+            <ion-col col-12 col-lg-6 col-xl-6 *ngFor="let item of data.items;let i = index">
+                <ion-card box-shadow padding text-center (click)="onEvent('onItemClick', item.title, $event)">
+                    <div card-content>
+                        <!-- Card images -->
+                        <img images-filter src="{{item.image}}" />
+                        <!-- Card Title -->
+                        <div card-title>{{item.title}}</div>
+                        <!-- Card Subtitle -->
+                        <div card-subtitle>{{item.subtitle}}</div>
+                    </div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<!--Fab Button-->
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="onEvent('onFab', data, $event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

@@ -1,0 +1,10 @@
+/* Themes Simple 2 
+===========================================*/
+check-box-layout-3 {
+  ion-item {
+    border-radius: $border-radius;
+  }
+  .item-md ion-icon[item-left] + .item-inner {
+    margin-left: 5px;
+  }
+}

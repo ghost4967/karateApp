@@ -1,0 +1,26 @@
+<!--Animation components-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>{{params.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--Content-->
+
+<!-- PAGE APPEARANCE ANIMATIONS - Fade in left -->
+<appearance-animation-layout-1 has-header *ngIf="params.appearanceAnimationsLayout1" [data]="params.data | async" [events]="params.events">
+</appearance-animation-layout-1>
+<!-- PAGE APPEARANCE ANIMATIONS - Fade in right -->
+<appearance-animation-layout-2 has-header *ngIf="params.appearanceAnimationsLayout2" [data]="params.data | async" [events]="params.events">
+</appearance-animation-layout-2>
+<!-- PAGE APPEARANCE ANIMATIONS - Fade in down -->
+<appearance-animation-layout-3 has-header *ngIf="params.appearanceAnimationsLayout3" [data]="params.data | async" [events]="params.events">
+</appearance-animation-layout-3>
+<!-- PAGE APPEARANCE ANIMATIONS - Fade in -->
+<appearance-animation-layout-4 has-header *ngIf="params.appearanceAnimationsLayout4" [data]="params.data | async" [events]="params.events">
+</appearance-animation-layout-4>
+<!-- PAGE APPEARANCE ANIMATIONS - Fade in zoom -->
+<appearance-animation-layout-5 has-header *ngIf="params.appearanceAnimationsLayout5" [data]="params.data | async" [events]="params.events">
+</appearance-animation-layout-5>

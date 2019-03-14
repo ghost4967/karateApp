@@ -1,0 +1,77 @@
+<!--Theme Small item + header-->
+<ion-content>
+  <ion-grid no-padding *ngIf="data != null">
+    <ion-row>
+      <ion-col col-12>
+        <ion-list no-margin>
+          <!--Header Small item + header-->
+          <ion-list-header color="primary" no-margin no-padding no-lines>
+            <!--Header Icon-->
+            <ion-icon white icon-large item-start>
+              <i class="icon {{data.iconPlay}}"></i>
+            </ion-icon>
+            <!--Header Title-->
+            <h1 header-title>{{data.title}}</h1>
+            <!--Header Subitle-->
+            <h2 header-subtitle>{{data.description}}</h2>
+            <!--Header ShortDescription-->
+            <span span-medium>{{data.shortDescription}}</span>
+            <!--Social icon-->
+            <div float-right social>
+              <ion-icon>
+                <i icon-small class="icon icon-thumb-up" (click)="onEvent('onLike', item, $event)"></i>
+              </ion-icon>
+              <ion-icon>
+                <i icon-small class="icon icon-heart" (click)="onEvent('onFavorite', item, $event)"></i>
+              </ion-icon>
+              <ion-icon>
+                <i icon-small class="icon icon-share-variant" (click)="onEvent('onShare', item, $event)"></i>
+              </ion-icon>
+            </div>
+          </ion-list-header>
+          <!--Swipe To Dismiss -->
+          <ion-item-sliding *ngFor="let item of data.items" #slidingItem>
+            <ion-item no-lines (click)="onEvent('onItemClick', item.title, $event)">
+              <!--Avatar -->
+              <ion-avatar item-start icon-right>
+                <img src="{{item.image}}">
+              </ion-avatar>
+              <!-- Title -->
+              <h2 item-title>{{item.title}}</h2>
+              <!-- Subtitle -->
+              <h3 item-subtitle>{{item.description}}</h3>
+              <!-- ShortDescription -->
+              <span item-end span-small>{{item.shortDescription}}</span>
+              <!-- Icon play -->
+              <ion-icon icon-medium item-end>
+                <i class="icon icon-play"></i>
+              </ion-icon>
+            </ion-item>
+            <ion-item-options no-lines>
+              <!-- Button delete -->
+              <button (click)="delete(item)" transparent>
+                  <!-- Icon delete -->
+                  <ion-icon icon-medium>
+                    <i class="icon {{item.iconDelate}}"></i>
+                  </ion-icon>
+              </button>
+              <!-- Button undo -->
+              <button (click)="undo(slidingItem)" transparent>
+                  <!-- Icon undo -->
+                  <ion-icon icon-medium>
+                    <i class="icon {{item.iconUndo}}"></i>
+                  </ion-icon>
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- Fab Button -->
+<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onEvent('onFab', item, $event)">
+<ion-icon name="add"></ion-icon>
+</button>
+</ion-fab>

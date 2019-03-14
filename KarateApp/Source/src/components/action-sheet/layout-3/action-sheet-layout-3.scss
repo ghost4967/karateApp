@@ -1,0 +1,63 @@
+/*  Action Sheet - With Text Header
+================================================*/
+action-sheet-layout-3 {
+  .header-ios {
+    .toolbar-ios {
+      height: 64px;
+      .bar-button-ios, .toolbar-title-ios{
+        padding-top: 20px !important
+      }
+    }
+  }
+
+  ion-card {
+    border-radius: $border-radius;
+    // New Category
+    [new-category] {
+        display: block;
+        font-size: 11px;
+        color: theme-colors('textColors', 'accent') !important;
+        margin-bottom: 5px;
+        font-weight: 100;
+        letter-spacing: 1px;
+    }
+
+    [card-title], [card-subtitle]{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-transform: capitalize;
+    }
+    // Settings Icon For Android
+    .item-md {
+      [button-action-shit] {
+        z-index: 99999;
+        background-color: transparent !important;
+        border-radius: 100%;
+        top: 5px;
+        right: -5px;
+        box-shadow: none;
+        padding: 0 !important;
+
+        ion-icon {
+          -webkit-transform: rotate(90deg);
+          -moz-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+          -o-transform: rotate(90deg);
+          transform: rotate(90deg);
+          display: inline-block;
+          color: #00bee4;
+          font-size: 30px;
+        }
+      }
+    }
+
+    [button-action-shit] {
+      z-index: 99999;
+      border-radius: 50%;
+      padding: 20px 10px !important;
+      top: 5px;
+      right: 5px;
+
+    }
+  }
+}

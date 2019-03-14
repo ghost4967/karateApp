@@ -1,0 +1,14 @@
+/*  #Style Search Bars - Simple
+===========================================*/
+search-bar-layout-1 {
+  ion-item-divider {
+    .searchbar-input {
+      background-color: transparent;
+      @extend .box-shadow;
+      color: theme-colors('textColors', 'primary') !important;
+    }
+    ion-label {
+      margin: 0 !important;
+    }
+  }
+}

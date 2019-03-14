@@ -1,0 +1,47 @@
+/*  # Time Line -- Timeline With Comments
+===========================================*/
+time-line-layout-3 {
+
+  [item-block] {
+    position: relative;
+
+    &:after {
+      content: "";
+      width: 2px;
+      background: theme-colors('mainColors', 'accent-first') !important;
+      top:0;
+      left: -20px;
+      bottom: -16px;
+      position: absolute;
+    }
+
+    &:before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: theme-colors('mainColors', 'primary') !important;
+      top:0;
+      left: -26px;
+      position: absolute;
+      z-index: 999;
+    }
+
+    [span-medium] {
+      color: theme-colors('textColors', 'primary');
+      font-weight: bold;
+    }
+  }
+
+  [content] {
+    background: theme-colors('mainColors', 'accent') !important;
+    padding-left: 90px;
+  }
+
+  ion-list > [item-block]:last-child {
+    &:after {
+      display: none;
+    }
+  }
+
+}

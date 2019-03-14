@@ -1,0 +1,30 @@
+Hi,
+
+First of all - thank you for buying our template! 
+
+Before you use template, please read documentation for better understanding how to use it.
+http://csform.com/documentation-for-ionic-3-ui-template-app-blue-light/
+
+We added series of video on theme "How to implement and use our template".
+You can watch them here: https://www.youtube.com/watch?v=FMR1BgGYbIE&list=PLQUKcFIakdPZ6cETZo3NRCvikLxZENH9G
+
+Also you can contact us at dev@csform.com if you need.
+
+Happy coding! :)
+
+
+CSForm Dev Team
+
+
+
+
+CREDITS:
+Images from unsplash.com
+
+
+FONT:
+https://developer.apple.com/fonts/
+
+ICONS:
+https://materialdesignicons.com/ 
++ default Ionic icons

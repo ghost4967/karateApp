@@ -1,0 +1,23 @@
+/*  #Style Search Bars - Field + header
+===========================================*/
+search-bar-layout-2 {
+  [background-size] {
+    background: url("../images/background/30.jpg");
+    height: 160px!important;
+    position: relative;
+  }
+
+  [search-bar-bcg] {
+    position: absolute;
+    top: 50px;
+    z-index: 2;
+    right: 0;
+    left: 0;
+
+    .searchbar-input {
+      background-color: theme-colors('mainColors', 'primary');
+      color: theme-colors('textColors', 'primary');
+      @extend .box-shadow;
+    }
+  }
+}

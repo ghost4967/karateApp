@@ -1,0 +1,35 @@
+/*  #Style Toggle - With avatars
+===========================================*/
+
+toggle-layout-1 {
+  [header-title] {
+    font-weight: 100;
+  }
+  ion-item {
+    .input-wrapper {
+      display: block;
+
+      ion-label {
+        margin: 0 !important;
+
+        &[padding-top] {
+          padding-top: 25px;
+        }
+      }
+    }
+  }
+
+  ion-item {
+    .input-wrapper {
+      display: block;
+
+      ion-label {
+        margin: 0 !important;
+
+        &[padding-top] {
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+}

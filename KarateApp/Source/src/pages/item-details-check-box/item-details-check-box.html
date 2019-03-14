@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+        <ion-title>{{params.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--Content-->
+
+<!-- PAGE CHECK BOXES - Simple -->
+<check-box-layout-1 has-header *ngIf="params.checkBoxesLayout1" [data]="params.data | async" [events]="params.events">
+</check-box-layout-1>
+<!-- PAGE CHECK BOXES - With Avatar -->
+<check-box-layout-2 has-header *ngIf="params.checkBoxesLayout2" [data]="params.data | async" [events]="params.events">
+</check-box-layout-2>
+<!-- PAGE CHECK BOXES - Simple 2 -->
+<check-box-layout-3 has-header *ngIf="params.checkBoxesLayout3" [data]="params.data | async" [events]="params.events">
+</check-box-layout-3>

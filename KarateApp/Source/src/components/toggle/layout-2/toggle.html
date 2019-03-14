@@ -1,0 +1,20 @@
+<!--Themes Toggle - Simple 2 -->
+<ion-content>
+  <ion-grid no-padding>
+    <!-- List Section -->
+    <ion-list *ngIf="data != null">
+      <ion-list-header header-section no-margin>
+            <!-- Header-title -->
+            <h1 header-title text-capitalize>{{data.listTitle}}</h1>
+        </ion-list-header>
+      <ion-item no-lines *ngFor="let item of data.items; let i= index">
+        <!-- Toggle -->
+        <ion-toggle item-start [value]="item.id" (ionChange)="onEvent('onSelect',item)" [checked]="item.isChecked"></ion-toggle>
+        <!-- Item-title -->
+        <ion-label item-title>{{item.title}}</ion-label>
+        <!-- Item-subtitle -->
+        <ion-label item-end text-right item-subtitle>{{item.subtitle}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>

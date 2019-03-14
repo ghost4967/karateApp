@@ -1,0 +1,42 @@
+<!-- Themes Small item + header -->
+<ion-content>
+  <ion-grid no-padding *ngIf="data != null">
+    <ion-row>
+      <ion-col col-12>
+        <!-- Header -->
+        <ion-list-header no-margin no-lines no-padding>
+          <ion-item transparent no-pa>
+            <!-- Header title -->
+            <h1 header-title no-margin>{{data.title}}</h1>
+            <!-- Header subtitle -->
+            <h2 header-subtitle no-margin>{{data.description}}</h2>
+            <div item-content>
+              <span span-medium>{{data.duration}}</span>
+              <!-- Header icon -->
+              <ion-icon>
+                <i icon-medium class="icon {{data.icon}}"></i>
+              </ion-icon>
+            </div>
+          </ion-item>
+        </ion-list-header>
+        <!-- Content -->
+        <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
+          <ion-item no-lines padding-left *ngFor="let item of data.items; let i = index;" (click)="onEvent('onItemClick', item.title, $event)">
+            <!-- Content icon -->
+            <ion-icon item-start icon-medium><i class="icon {{item.leftIcon}}"></i></ion-icon>
+            <!-- Content title -->
+            <h2 no-padding item-title>{{item.title}}</h2>
+            <!-- Content subtitle -->
+            <h3 no-padding item-subtitle>{{item.author}}</h3>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- Fab Button -->
+<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onEvent('onFab', data, $event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

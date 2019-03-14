@@ -1,0 +1,59 @@
+/*  #Style First Screen (Home)
+================================================*/
+
+page-home {
+  [default-background] {
+    height: 100%;
+    width: 100%;
+    display: table;
+
+    .ionic-description {
+      display: table-cell;
+      vertical-align: middle;
+
+      h2[item-title] {
+        margin: 0;
+      }
+
+      p[item-subtitle] {
+        color: theme-colors('textColors', 'accent') !important;
+      }
+    }
+
+    a {
+      color: theme-colors('textColors', 'accent') !important;
+      text-decoration: underline;
+      visibility: visible !important;
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+    }
+  }
+
+  ion-navbar {
+    [buy] {
+      .title-ios {
+        width: 90%;
+      }
+
+      .button-ios {
+        height: 3rem !important;
+        position: absolute;
+        right: 5px;
+        top: 20px !important;
+      }
+
+      ion-title {
+        width: 70%;
+      }
+
+      [defoult-button] {
+        background: #FFF;
+        color: #0091D2;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+    }
+  }
+}
