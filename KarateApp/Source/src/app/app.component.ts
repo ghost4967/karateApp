@@ -17,7 +17,7 @@ import { IService } from '../services/IService';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage = "HomePage";
+    rootPage = "KarateLoginPage";
     pages: any;
     params:any;
     leftMenuTitle: string;
@@ -30,19 +30,6 @@ export class MyApp {
         private menuService: MenuService,
         public modalCtrl: ModalController) {
         this.initializeApp();
-        this.pages = menuService.getAllThemes();
-        this.leftMenuTitle = menuService.getTitle();
-        this.menuService.load(null).subscribe( snapshot => {
-            this.params = snapshot;
-            if (AppSettings.SHOW_START_WIZARD) {
-              this.presentProfileModal();
-            }
-        });
-    }
-
-    presentProfileModal() {
-      const profileModal = this.modalCtrl.create("IntroPage");
-      profileModal.present();
     }
 
     initializeApp() {

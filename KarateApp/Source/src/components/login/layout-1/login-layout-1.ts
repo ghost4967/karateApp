@@ -10,7 +10,6 @@ export class LoginLayout1 {
   @Input() data: any;
   @Input() events: any;
 
-  public username: string;
   public password: string;
 
   private isUsernameValid: boolean = true;
@@ -24,7 +23,6 @@ export class LoginLayout1 {
     }
     if (this.events[event]) {
         this.events[event]({
-            'username' : this.username,
             'password' : this.password
         });
     }
@@ -33,9 +31,6 @@ export class LoginLayout1 {
   validate():boolean {
     this.isUsernameValid = true;
     this.isPasswordValid = true;
-    if (!this.username ||this.username.length == 0) {
-        this.isUsernameValid = false;
-    }
 
     if (!this.password || this.password.length == 0) {
         this.isPasswordValid = false;
