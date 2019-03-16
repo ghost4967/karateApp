@@ -34,13 +34,13 @@ export class LoginService implements IService {
     getDataForLayout1 = (): any => {
         return {
             "username": "Username",
-            "password": "Password",
+            "password": "Contraseña",
             "register": "Register",
-            "login": "Login",
+            "login": "Ingresar",
             "skip": "Skip",
-            "logo": "assets/images/logo/login.png",
+            "logo": "assets/images/logo/logoKata.png",
             "errorUser" : "Field can't be empty.",
-            "errorPassword" : "Field can't be empty."
+            "errorPassword" : "Contraseña incorrecta"
         };
     };
 
