@@ -11,6 +11,10 @@ export class KarateHomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  joinSesion() {
+    this.navCtrl.push('JoinSesionPage');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad KarateHomePage');
   }

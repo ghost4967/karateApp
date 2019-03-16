@@ -21,47 +21,17 @@
                         <ion-label error-field color="secondary" no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
                     </ion-item>
                     <ion-item no-padding transparent>
-                        <!--Icon for password-->
+                        <!--Icon for sesion-->
                         <ion-icon item-left>
                             <i icon-small class="icon {{data.iconLock}}"></i>
                         </ion-icon>
-                        <!---Input field password-->
-                        <ion-label floating>{{data.password}}</ion-label>
-                        <ion-input required type="password" [(ngModel)]="password"></ion-input>
+                        <!---Input field sesion-->
+                        <ion-label floating>{{data.sesionCode}}</ion-label>
+                        <ion-input required type="text" [(ngModel)]="sesionCode"></ion-input>
                         <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>
                     </ion-item>
-                    <ion-item no-padding transparent>
-                        <!--Icon for email-->
-                        <ion-icon item-left>
-                            <i icon-small class="icon {{data.iconEmail}}"></i>
-                        </ion-icon>
-                        <!---Input field email-->
-                        <ion-label floating>{{data.email}}</ion-label>
-                        <ion-input required type="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required [(ngModel)]="email"></ion-input>
-                        <ion-label error-field *ngIf="!isEmailValid">{{data.errorEmail}}</ion-label>
-                    </ion-item>
-                    <ion-item no-padding transparent>
-                        <!--Icon for country-->
-                        <ion-icon item-left>
-                            <i icon-small class="icon {{data.iconWeb}}"></i>
-                        </ion-icon>
-                        <!---Input field country-->
-                        <ion-label floating>{{data.country}}</ion-label>
-                        <ion-input required type="text" pattern="[a-zA-Z ]*" required [(ngModel)]="country"></ion-input>
-                        <ion-label error-field *ngIf="!isCountryValid">{{data.errorCountry}}</ion-label>
-                    </ion-item>
-                    <ion-item no-padding transparent>
-                        <!--Icon for city-->
-                        <ion-icon item-left>
-                            <i icon-small class="icon {{data.iconCity}}"></i>
-                        </ion-icon>
-                        <!---Input field city-->
-                        <ion-label floating>{{data.city}}</ion-label>
-                        <ion-input required type="text" pattern="[a-zA-Z ]*" required [(ngModel)]="city"></ion-input>
-                        <ion-label error-field *ngIf="!isCityValid">{{data.errorCity}}</ion-label>
-                    </ion-item>
                     <!---Register button-->
-                    <button ion-button float-right clear button-clear (click)="onEvent('onRegister')">{{data.submit}}</button>
+                    <button ion-button float-right button-clear-outline round outline (click)="onEvent('onRegister')">{{data.button}}</button>
                 </div>
             </ion-col>
         </ion-row>

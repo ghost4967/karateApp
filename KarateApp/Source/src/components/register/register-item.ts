@@ -10,7 +10,7 @@ export class RegisterItem {
     iconWeb             : string;
     button              : string;
     username            : string;
-    password            : string;
+    sesionCode            : string;
     address             : string;
     city                : string;
     state               : string;
@@ -32,7 +32,7 @@ export class RegisterItem {
     iconWeb: string,
     button: string,
     username: string,
-    password: string,
+    sesionCode: string,
     address: string,
     city: string,
     state: string,
@@ -53,7 +53,7 @@ export class RegisterItem {
       this.setIconWeb(iconWeb);
       this.setButton(button);
       this.setUsername(username);
-      this.setPassword(password);
+      this.setSesionCode(sesionCode);
       this.setAddress(address);
       this.setCity(city);
       this.setState(state);
@@ -146,12 +146,12 @@ export class RegisterItem {
     return this.username;
   }
 
-  setPassword(password:string):void {
-    this.password = password;
+  setSesionCode(sesionCode:string):void {
+    this.sesionCode = sesionCode;
   }
 
-  getPassword():string {
-    return this.password;
+  getSesionCode():string {
+    return this.sesionCode;
   }
 
   setAddress(address:string):void {

@@ -12,7 +12,7 @@ export class RegisterLayout2 {
     @Input() events: any;
 
     public username: string;
-    public password: string;
+    public sesionCode: string;
     public country: string;
     public city: string;
     public email: string;
@@ -34,7 +34,7 @@ export class RegisterLayout2 {
         if (this.events[event]) {
             this.events[event]({
                 'username': this.username,
-                'password': this.password,
+                'sesionCode': this.sesionCode,
                 'country': this.country,
                 'city': this.city,
                 'email': this.email
@@ -53,11 +53,11 @@ export class RegisterLayout2 {
             this.isUsernameValid = false;
         }
     
-        if (!this.password || this.password.length == 0) {
+        if (!this.sesionCode || this.sesionCode.length == 0) {
             this.isPasswordValid = false;
         }
 
-        if (!this.password || this.password.length == 0) {
+        if (!this.sesionCode || this.sesionCode.length == 0) {
             this.isPasswordValid = false;
         }
 

@@ -12,7 +12,7 @@
                     <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>
                 </ion-item>
                 <!---Login button-->
-                <button ion-button float-left button-clear-outline round outline (click)="onEvent('onLogin')">{{data.login}}</button>
+                <button ion-button float-right button-clear-outline round outline (click)="onEvent('onLogin')">{{data.login}}</button>
             </ion-col>
         </ion-row>
     </ion-grid>

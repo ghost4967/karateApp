@@ -26,8 +26,4 @@ export class KarateLoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad KarateLoginPage');
   }
-
-
-  
-
 }
