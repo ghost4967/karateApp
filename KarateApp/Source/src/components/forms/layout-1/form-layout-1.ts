@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
+import { KarateService } from '../../../services/karate.service';
 
 @IonicPage()
 @Component({
@@ -13,8 +14,9 @@ export class FormLayout1 {
     name:String;
     title:String;
     description:String;
+    type: number;
 
-    constructor() { }
+    constructor(private karateService: KarateService) { }
 
     onEvent(event: string, e: any) {
         if (e) {
@@ -22,6 +24,7 @@ export class FormLayout1 {
         }
         if (this.events[event]) {
             this.events[event](this.getItemData());
+            this.karateService.createJudge(this.getItemData());
             this.resetValue();
         }
     }
@@ -30,7 +33,8 @@ export class FormLayout1 {
         return {
             'name': this.name,
             'title': this.title,
-            'description': this.description
+            'description': this.description,
+            'type': this.type
         };
     }
 

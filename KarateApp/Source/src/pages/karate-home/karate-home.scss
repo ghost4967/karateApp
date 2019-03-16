@@ -1,10 +1,14 @@
 page-karate-home {
-    .karate-home {
+    .create-panel {
+        padding: 15px
+    }
 
-    background-color: rgb(208, 211, 208);
+    .join-to-panel {
+        padding: 15px
     }
 
     h1 {
+        padding: 10px;
         text-align: center
     }
 }

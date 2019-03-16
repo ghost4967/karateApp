@@ -19,4 +19,8 @@ export class KarateHomePage {
     console.log('ionViewDidLoad KarateHomePage');
   }
 
+  goToCreate () {
+    this.navCtrl.push('CreatePanelPage');
+  }
+
 }

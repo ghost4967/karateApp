@@ -3,23 +3,28 @@
   <ion-grid *ngIf="data != null">
     <ion-row padding>
       <ion-col col-12>
-        <ion-item no-lines box-shadow>
-         <ion-input no-margin type="text" [placeholder]="data.yourName" [(ngModel)]="name"></ion-input>
-      </ion-item>
+        <ion-thumbnail>
+          <img src="assets/images/icon-KataManager/crearPanelDeJueces.png">
+        </ion-thumbnail>
       </ion-col>
       <ion-col col-12>
-        <ion-item no-lines box-shadow>
-           <ion-input no-margin type="text" [placeholder]="data.title" [(ngModel)]="title"></ion-input>
+        <ion-item no-lines>
+          <ion-input no-margin type="text" [placeholder]="data.yourName" [(ngModel)]="name"></ion-input>
         </ion-item>
       </ion-col>
-      <ion-col col-12 textarea>
-        <ion-item no-lines box-shadow>
-          <ion-textarea no-margin  [placeholder]="data.description" [(ngModel)]="description"></ion-textarea>
+      <ion-col>
+        <ion-item>
+          <ion-select placeholder="Tipo de panel" [(ngModel)]="type" class="select">
+            <ion-option value="7">7</ion-option>
+            <ion-option value="5">5</ion-option>
+
+          </ion-select>
         </ion-item>
       </ion-col>
+
       <ion-col col-12>
         <button ion-button button-clear-outline round outline block text-capitalize (click)="onEvent('onSubmit', $event)">
-        {{data.button}}
+          {{data.button}}
         </button>
       </ion-col>
     </ion-row>

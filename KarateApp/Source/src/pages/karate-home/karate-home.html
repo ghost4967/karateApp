@@ -1,22 +1,21 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Kata-Manager</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>¿Qué hacer?</ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content padding background-size class="karate-home">
   <div>
-    <div>
-      <h1>¿Qué hacer?</h1>
-    </div>
     <ion-thumbnail>
       <img src="assets/images/icon-KataManager/Tatami.png">
     </ion-thumbnail>
-    <ion-row>
-      <ion-col width-50 style="text-align: right">
-        <button ion-button round outline>Crear panel</button>
+    <ion-row class="create-panel">
+      <ion-col width-100 style="text-align: center">
+        <button ion-button button-clear-outline round outline block (click)="goToCreate()">Crear panel</button>
       </ion-col>
-      <ion-col width-50 style="text-align: left">
-        <button ion-button round outline (click)="joinSesion()">Unirse a panel</button>
+    </ion-row>
+    <ion-row class="joint-to-panel">
+      <ion-col width-100 style="text-align: center">
+        <button ion-button button-clear-outline round outline block (click)="joinSesion()">Unirse a panel</button>
       </ion-col>
     </ion-row>
   </div>
