@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
+import { KarateService } from '../../../services/karate.service';
 
 @IonicPage()
 @Component({
@@ -25,20 +26,16 @@ export class RegisterLayout2 {
     
     private regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    constructor() { }
+    constructor(private karateService: KarateService) { }
 
     onEvent = (event: string): void => {
         if (event == "onRegister" && !this.validate()) {
             return;
         }
         if (this.events[event]) {
-            this.events[event]({
-                'username': this.username,
-                'sesionCode': this.sesionCode,
-                'country': this.country,
-                'city': this.city,
-                'email': this.email
-            });
+            this.events[event](
+                this.karateService.joinToPanel(this.username, this.sesionCode)    
+            );
         }
     }
 

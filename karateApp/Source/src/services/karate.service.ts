@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 export class KarateService {
 
   panels: any;
+  joinpanel: any;
 
   constructor(public http: HttpClient, private firebase: AngularFireDatabase) {
     console.log('Hello KarateProvider Provider');
@@ -30,12 +31,21 @@ export class KarateService {
 
   createJudge(panel: any) {
     this.panels = this.firebase.list('/JohnFinalKarate' + '/' + panel.name);
-    
+
     let data = {
       judges: panel.type,
     }
 
     this.panels.push(data);
+  }
+
+  joinToPanel(judge: any, panels) {
+    this.joinpanel = this.firebase.list('/JohnFinalKarate' + '/' + panels + '/' + 'Group');
+    let data = {
+      name: judge,
+      value: "true"
+    }
+    this.joinpanel.push(data);
   }
 
 }
