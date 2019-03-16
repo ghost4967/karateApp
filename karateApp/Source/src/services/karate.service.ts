@@ -7,11 +7,10 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class KarateService {
 
-  judges: any;
+  panels: any;
 
   constructor(public http: HttpClient, private firebase: AngularFireDatabase) {
     console.log('Hello KarateProvider Provider');
-    this.judges = firebase.list('/JohnFinalKarate');
   }
 
   getPassword(): any {
@@ -29,12 +28,14 @@ export class KarateService {
     });
   }
 
-  createJudge(judge: any) {
+  createJudge(panel: any) {
+    this.panels = this.firebase.list('/JohnFinalKarate' + '/' + panel.name);
+    
     let data = {
-      name: judge.name,
-      judges: judge.type,
+      judges: panel.type,
     }
-    this.judges.push(data);
+
+    this.panels.push(data);
   }
 
 }
