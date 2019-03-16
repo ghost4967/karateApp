@@ -8,16 +8,16 @@
         </ion-thumbnail>
       </ion-col>
       <ion-col col-12>
-        <ion-item no-lines>
-          <ion-input no-margin type="text" [placeholder]="data.yourName" [(ngModel)]="name"></ion-input>
+        <ion-item no-padding transparent>
+          <ion-label floating>{{data.yourName}}</ion-label>
+          <ion-input required type="text" [(ngModel)]="name"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
-        <ion-item>
+        <ion-item no-padding transparent>
           <ion-select placeholder="Tipo de panel" [(ngModel)]="type" class="select">
-            <ion-option value="7">7</ion-option>
             <ion-option value="5">5</ion-option>
-
+            <ion-option value="7">7</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
