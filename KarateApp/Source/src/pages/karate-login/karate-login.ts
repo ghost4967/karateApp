@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { KarateService } from '../../services/karate.service';
+import { KarateLoginPageModule } from './karate-login.module';
 
 @IonicPage()
 @Component({
   selector: 'page-karate-login',
   templateUrl: 'karate-login.html',
+  providers: [KarateService]
 })
 export class KarateLoginPage {
   params: any = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  kataPassword: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+    
     this.params.data = {
        "password": "Contraseña",
        "login": "Ingresar",
@@ -24,7 +29,7 @@ export class KarateLoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad KarateLoginPage');
+    
   }
 
 

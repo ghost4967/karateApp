@@ -24,7 +24,7 @@ import { Camera } from '@ionic-native/camera';
     providers: [
         StatusBar, SplashScreen, BarcodeScanner, Camera, 
         ToastService, LoadingService,
-        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        { provide: ErrorHandler, useClass: IonicErrorHandler }
     ],
     imports: [
         BrowserModule,

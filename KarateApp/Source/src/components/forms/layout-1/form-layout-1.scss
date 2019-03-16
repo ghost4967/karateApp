@@ -15,18 +15,8 @@ form-layout-1 {
     }
   }
 
-  [textarea] {
-    height: calc(100% - 170px);
-    min-height: 280px;
-
-    ion-item {
-      height: 100%;
-
-      textarea {
-        height: calc(100% - 30px);
-        padding-top: 10px;
-      }
-    }
+  .select{
+    max-width: 100% !important;
   }
 
   .item.item-input.input-has-focus .item-inner,
