@@ -29,7 +29,8 @@ export class CreatePanelPage {
   createPanel() {
     this.karateService.createJudge(this.data);
     this.navCtrl.push('StartKataPage', {
-      sessionName: this.data.name
+      sessionName: this.data.name,
+      judgesNumber: this.data.type
     });
    
 

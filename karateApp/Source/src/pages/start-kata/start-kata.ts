@@ -12,7 +12,7 @@ export class StartKataPage {
 
   sessionName:string;
   judgeName: string;
-  judgesList:any;
+  judgesList:Array<any>;
   judgesNumber: number;
 
   isReadyToStart:boolean;
@@ -25,7 +25,7 @@ export class StartKataPage {
   ionViewDidLoad() {
     this.service.getByName(this.sessionName).subscribe(data => {
       this.judgesList = data;
-      this.isReadyToStart = this.judgesList.lenght == this.judgesNumber;
+      this.isReadyToStart = this.judgesList.length == this.judgesNumber;
     }) 
   }
 
