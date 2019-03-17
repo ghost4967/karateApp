@@ -1,29 +1,26 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{sessionName}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{sessionName}}</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
     <ion-row>
-    <ion-col col-12>
-        <ion-list no-margin>
-            <ion-item no-lines [ngClass]="animateClass" *ngFor="let item of judgesList; let i = index;" >
+        <ion-col col-12>
+            <ion-list no-margin>
+                <ion-item no-lines [ngClass]="animateClass" *ngFor="let item of judgesList; let i = index;">
                     <ion-icon item-left icon-medium name="contact"></ion-icon>
-                <h2 item-title >{{item.Nombre}}</h2>
-            </ion-item>
-        </ion-list>
-    </ion-col>
+                    <h2 item-title>{{item.Nombre}}</h2>
+                </ion-item>
+            </ion-list>
+        </ion-col>
     </ion-row>
-    <ion-row >
-            <button ion-button button-clear-outline round outline block (click)="goToGrade()"  
-            float-right    
-            bottom-right
-            [disabled]="!isReadyToStart">
-            Iniciar
-        </button>
-        </ion-row>          
 </ion-content>
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="goToGrade()" [hidden]="!isReadyToStart">
+            <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+</ion-fab>
