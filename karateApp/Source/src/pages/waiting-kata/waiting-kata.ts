@@ -24,8 +24,16 @@ export class WaitingKataPage {
   ionViewDidLoad() {
     this.service.getByName(this.sessionName).subscribe(data => {
         this.judgeList = data;
-        console.log(this.judgeList);
     });
+
+    this.service.getStatusBySession(this.sessionName).subscribe(data => {
+      if (data) {
+        this.navCtrl.push('KarateGradePage', {
+          sessionName: this.sessionName,
+          judgeName: this.judgeName
+        })
+      }
+    })
 
   }
 

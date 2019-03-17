@@ -15,6 +15,8 @@ export class StartKataPage {
   judgesList:any;
   judgesNumber: number;
 
+  isReadyToStart:boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
     this.sessionName = navParams.get('sessionName');
     this.judgesNumber = parseInt(navParams.get('judgesNumber'));
@@ -23,6 +25,7 @@ export class StartKataPage {
   ionViewDidLoad() {
     this.service.getByName(this.sessionName).subscribe(data => {
       this.judgesList = data;
+      this.isReadyToStart = this.judgesList.lenght == this.judgesNumber;
     }) 
   }
 
