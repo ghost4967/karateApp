@@ -13,7 +13,6 @@ export class WaitingKataPage {
   sessionName: string;
 
   judgeList: Array<any>;
-  judgesNumber:number;
   judgeName:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
@@ -28,15 +27,6 @@ export class WaitingKataPage {
         console.log(this.judgeList);
     });
 
-    this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
-      this.judgesNumber = parseInt(JSON.parse(data));
-      if (this.judgesNumber <= this.judgeList.length) {
-        this.navCtrl.push('StartKataPage', {
-          judgeName: this.judgeName,
-          sessionName: this.sessionName
-        });
-      }
-    })
   }
 
 }
