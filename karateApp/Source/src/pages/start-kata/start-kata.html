@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-    <button ion-button button-clear-outline round outline block (click)="goToGrade()">Iniciar</button>
+    <button ion-button button-clear-outline round outline block (click)="goToGrade()"  [disabled]="!isReadyToStart">Iniciar</button>
     
     <ion-col col-12>
         <ion-list no-margin>

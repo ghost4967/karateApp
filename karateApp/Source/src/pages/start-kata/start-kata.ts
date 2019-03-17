@@ -13,10 +13,11 @@ export class StartKataPage {
   sessionName:string;
   judgeName: string;
   judgesList:any;
+  judgesNumber: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
     this.sessionName = navParams.get('sessionName');
-    this.judgeName = navParams.get('judgeName');
+    this.judgesNumber = parseInt(navParams.get('judgesNumber'));
   }
 
   ionViewDidLoad() {
@@ -26,7 +27,7 @@ export class StartKataPage {
   }
 
   goToGrade() {
-    
+
   }
 
 }

@@ -13,24 +13,26 @@ import { KarateService } from '../../services/karate.service';
 export class CreatePanelPage {
 
   params: any = [];
+  data = {
+    name: '',
+    type: ''
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
-    this.params.data = {
-      "yourName": "Nombre del panel",
-      "title": "Title",
-      "description": "Enter a description",
-      "button": " Crear"
-    }
-
-    this.params.events = {
-      "onSubmit": function (item: any) {
-          
-      }
-    };
+   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreatePanelPage');
+  }
+
+  createPanel() {
+    this.karateService.createJudge(this.data);
+    this.navCtrl.push('StartKataPage', {
+      sessionName: this.data.name
+    });
+   
+
   }
 
 }
