@@ -43,12 +43,12 @@ export class KarateService {
 
   joinToPanel(formData) {
     this.joinpanel = this.firebase.database
-    .ref('/JohnFinalKarate' + '/' + formData.sessionName + '/' + 'Group' + '/' + formData.judge)
+    .ref('/JohnFinalKarate' + '/' + formData.sessionName + '/' + 'Group' + '/' + formData.judgeName)
     .set({value: "true"});
   }
 
   getByName(sessionName): any {
-    return this.firebase.database.ref('/JohnFinalKarate').orderByChild('andy');
+    return this.firebase.database.ref('/JohnFinalKarate/'+ sessionName + '/' + 'Group' + '/').orderByValue();
   }
 
 }
