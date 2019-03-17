@@ -23,13 +23,15 @@
           <ion-label floating>Nombre de Juez</ion-label>
           <ion-input required type="text" [(ngModel)]="data.judgeName"></ion-input>
         </ion-item>
+        <p *ngIf="this.errorName" class="alert alert-danger" style='color: red' padding>{{this.errorName}}</p>
+
 
         <ion-item no-padding transparent>
           <ion-icon item-left icon-small name="key"></ion-icon>
           <ion-label floating>Nombre del panel</ion-label>
           <ion-input required type="text" [(ngModel)]="data.sessionName"></ion-input>
-          <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>
         </ion-item>
+        <p *ngIf="this.error" class="alert alert-danger" style='color: red' padding>{{this.error}}</p>
         <!---Register button-->
         <button ion-button float-right button-clear-outline round outline (click)="joinToSession()">Unirse</button>
       </div>
