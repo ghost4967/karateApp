@@ -40,9 +40,8 @@ export class KarateService {
   }
 
   joinToPanel(judge: any, panels) {
-    this.joinpanel = this.firebase.list('/JohnFinalKarate' + '/' + panels + '/' + 'Group');
+    this.joinpanel = this.firebase.list('/JohnFinalKarate' + '/' + panels + '/' + 'Group' + '/' + judge);
     let data = {
-      name: judge,
       value: "true"
     }
     this.joinpanel.push(data);
