@@ -1,6 +1,14 @@
 page-karate-home {
     .create-panel {
-        padding: 15px
+        padding: 15px;
+        
+    }
+
+    img {
+        max-width: 80%;
+        max-height: 70%;
+        margin: auto;
+        display: block;
     }
 
     .join-to-panel {
