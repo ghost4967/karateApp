@@ -24,7 +24,7 @@ export class FormLayout1 {
         }
         if (this.events[event]) {
             this.events[event](this.getItemData());
-            this.karateService.createJudge(this.getItemData());
+            this.karateService.createPanel(this.getItemData());
             this.resetValue();
         }
     }
