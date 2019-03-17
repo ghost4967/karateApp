@@ -30,21 +30,15 @@ export class KarateService {
   }
 
   createJudge(panel: any) {
-    this.panels = this.firebase.list('/JohnFinalKarate' + '/' + panel.name);
-
-    let data = {
+    this.panels = this.firebase.database.ref('/JohnFinalKarate' + '/' + panel.name)
+    .set({
       judges: panel.type,
-    }
-
-    this.panels.push(data);
+    });
   }
 
   joinToPanel(judge: any, panels) {
-    this.joinpanel = this.firebase.list('/JohnFinalKarate' + '/' + panels + '/' + 'Group' + '/' + judge);
-    let data = {
-      value: "true"
-    }
-    this.joinpanel.push(data);
+    this.joinpanel = this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + panels + '/' + 'Group' + '/' + judge)
+    .set({value: "true"});
   }
-
 }
