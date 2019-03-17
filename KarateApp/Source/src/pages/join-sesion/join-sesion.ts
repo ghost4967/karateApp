@@ -27,6 +27,7 @@ export class JoinSesionPage {
     this.karateService.joinToPanel(this.data);
     this.navCtrl.push('WaitingKataPage',{
       sessionName: this.data.sessionName,
+      judgeName: this.data.judgeName
     });
   }
 
