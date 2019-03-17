@@ -36,10 +36,16 @@ export class KarateService {
     });
   }
 
-  createJudge(panel: any) {
+  createPanel(panel: any) {
     this.panels = this.firebase.database.ref('/JohnFinalKarate' + '/' + panel.name)
     .set({
       judges: panel.type,
+      states: [
+        {
+          start: false,
+          restart: false
+        }
+      ]
     });
   }
 
@@ -84,17 +90,14 @@ export class KarateService {
   }
 
   getStatusBySession(sessionName): any {
-    return new Observable(observer => {
-      this.firebase
-        .object('JohnFinalKarate/'+sessionName+'/start/')
-        .valueChanges()
-        .subscribe(snapshot => {
-          observer.next(snapshot);
-          observer.complete();
-        }, err => {
-          observer.error([]);
-          observer.complete();
-        });
+    return this.firebase.list('JohnFinalKarate/'+sessionName+'/states/').valueChanges();
+  }
+
+  startGrading(sessionName) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
+    .set({
+      start: true
     });
   }
 
