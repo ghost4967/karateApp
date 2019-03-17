@@ -29,8 +29,10 @@ export class StartKataPage {
     }) 
   }
 
-  goToGrade() {
-
+  goToWaitingKataManager() {
+    this.navCtrl.push('WaitingKataManagerPage', {
+      sessionName: this.sessionName
+    })
   }
 
 }
