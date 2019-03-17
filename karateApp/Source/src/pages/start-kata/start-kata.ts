@@ -15,7 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StartKataPage {
 
+  sessionName:string;
+  judgeName: string;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.sessionName = navParams.get('sessionName');
+    this.judgeName = navParams.get('judgeName');
   }
 
   ionViewDidLoad() {

@@ -13,14 +13,30 @@ export class WaitingKataPage {
   sessionName: string;
 
   judgeList: Array<any>;
+  judgesNumber:number;
+  judgeName:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
     this.sessionName = navParams.get('sessionName');
+    this.judgeName = navParams.get('judgeName');
 
   }
 
   ionViewDidLoad() {
-   console.log(this.service.getByName(this.sessionName));
+    this.service.getByName(this.sessionName).subscribe(data => {
+        this.judgeList = data;
+        console.log(this.judgeList);
+    });
+
+    this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
+      this.judgesNumber = parseInt(JSON.parse(data));
+      if (this.judgesNumber <= this.judgeList.length) {
+        this.navCtrl.push('StartKataPage', {
+          judgeName: this.judgeName,
+          sessionName: this.sessionName
+        });
+      }
+    })
   }
 
 }
