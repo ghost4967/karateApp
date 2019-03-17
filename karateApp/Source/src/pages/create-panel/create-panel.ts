@@ -24,7 +24,7 @@ export class CreatePanelPage {
 
     this.params.events = {
       "onSubmit": function (item: any) {
-          console.log(this);
+          
       }
     };
   }

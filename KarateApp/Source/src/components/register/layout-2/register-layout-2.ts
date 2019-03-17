@@ -34,7 +34,6 @@ export class RegisterLayout2 {
         }
         if (this.events[event]) {
             this.events[event](
-                this.karateService.joinToPanel(this.username, this.sesionCode)    
             );
         }
     }

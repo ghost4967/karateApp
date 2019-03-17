@@ -1,15 +1,35 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>join-sesion</ion-title>
+    <ion-title>Unirse a un panel</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <register-layout-2 
-  [data]="params.data" 
-  [events]="params.events">
-  </register-layout-2>
-</ion-content>
+  <ion-content white-background padding>
+      <ion-row wrap padding>
+        <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+          <!--Logo-->
+          <div logo>
+            <img src="assets/images/icon-KataManager/bandera.png"/>
+          </div>
+          <!--End logo-->
+          <!--Form-->
+          <div class="form">
+            <ion-item no-padding transparent>
+              <!---Input field username-->
+              <ion-label floating>Nombre de Juez</ion-label>
+              <ion-input required type="text" [(ngModel)]="data.judgeName"></ion-input>
+            </ion-item>
+            <ion-item no-padding transparent>
+              <ion-label floating>Nombre del panel</ion-label>
+              <ion-input required type="text" [(ngModel)]="data.sessionName"></ion-input>
+              <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>
+            </ion-item>
+            <!---Register button-->
+            <button ion-button float-right button-clear-outline round outline (click)="joinToSession()">Unirse</button>
+          </div>
+        </ion-col>
+      </ion-row>
+  </ion-content>

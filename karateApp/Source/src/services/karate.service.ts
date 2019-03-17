@@ -1,14 +1,19 @@
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { formatDate } from '@angular/common/src/i18n/format_date';
 
 @Injectable()
 export class KarateService {
 
   panels: any;
   joinpanel: any;
+
+  list: AngularFireList<any>;
+  private noteListRef = this.firebase.list<any>('/JohnFinalKarate');
+  
 
   constructor(public http: HttpClient, private firebase: AngularFireDatabase) {
     console.log('Hello KarateProvider Provider');
@@ -36,9 +41,14 @@ export class KarateService {
     });
   }
 
-  joinToPanel(judge: any, panels) {
+  joinToPanel(formData) {
     this.joinpanel = this.firebase.database
-    .ref('/JohnFinalKarate' + '/' + panels + '/' + 'Group' + '/' + judge)
+    .ref('/JohnFinalKarate' + '/' + formData.sessionName + '/' + 'Group' + '/' + formData.judge)
     .set({value: "true"});
   }
+
+  getByName(sessionName): any {
+    return this.firebase.database.ref('/JohnFinalKarate').orderByChild('andy');
+  }
+
 }
