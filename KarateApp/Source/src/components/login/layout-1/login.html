@@ -7,6 +7,7 @@
                 <img padding-bottom [src]="data.logo" *ngIf="data.logo != null">
                 <!---Input field password-->
                 <ion-item transparent>
+                    <ion-icon item-left icon-small name="lock"></ion-icon>                        
                     <ion-label floating>{{data.password}}</ion-label>
                     <ion-input required type="password" [(ngModel)]="password"></ion-input>
                     <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>

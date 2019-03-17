@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Jueces: {{sessionName}}</ion-title>
+    <ion-title>{{sessionName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,10 +13,8 @@
     <ion-col col-12>
         <ion-list no-margin>
             <ion-item no-lines [ngClass]="animateClass" *ngFor="let item of judgesList; let i = index;" >
-                <ion-avatar item-start>
-                    <img src="assets/images/icon-KataManager/Icon-People.png" />
-                </ion-avatar>
-                <h2 item-title padding-left>{{item.Nombre}}</h2>
+                    <ion-icon item-left icon name="contact"></ion-icon>
+                <h2 item-title >{{item.Nombre}}</h2>
             </ion-item>
         </ion-list>
     </ion-col>
