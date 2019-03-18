@@ -21,14 +21,16 @@
                 <ion-label floating>Nombre del panel</ion-label>
                 <ion-input required type="text" [(ngModel)]="data.name"></ion-input>
               </ion-item>
+              <p *ngIf="this.error" class="alert alert-danger" style='color: red' padding>{{this.error}}</p>
             </ion-col>
             <ion-col>
               <ion-item no-padding transparent>
-                <ion-select placeholder="Tipo de panel" [(ngModel)]="data.type" class="select">
+                <ion-select required placeholder="Tipo de panel" [(ngModel)]="data.type" class="select">
                   <ion-option value="5">5</ion-option>
                   <ion-option value="7">7</ion-option>
                 </ion-select>
               </ion-item>
+              <p *ngIf="this.errorType" class="alert alert-danger" style='color: red' padding>{{this.errorType}}</p>
             </ion-col>
       
             <ion-col col-12>

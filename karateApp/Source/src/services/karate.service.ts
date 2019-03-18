@@ -21,7 +21,7 @@ export class KarateService {
     console.log('Hello KarateProvider Provider');
   }
 
-  getPassword(): any {
+  getPasswordKArata(): any {
     return new Observable(observer => {
       this.firebase
         .object('JohnFinalKarate/password')
@@ -133,4 +133,32 @@ export class KarateService {
     return finalList;
   }
 
+  getPanelName(sessionName): any {
+    return new Observable(observer => {
+      this.firebase
+        .object('JohnFinalKarate/'+sessionName)
+        .valueChanges()
+        .subscribe(snapshot => {
+          observer.next(snapshot);
+          observer.complete();
+        }, err => {
+          observer.error([]);
+          observer.complete();
+        });
+    });
+  }
+  judgeExist(sessionName, judgeName): any {
+    return new Observable(observer => {
+      this.firebase
+        .object('JohnFinalKarate/'+sessionName+'/Group/'+judgeName)
+        .valueChanges()
+        .subscribe(snapshot => {
+          observer.next(snapshot);
+          observer.complete();
+        }, err => {
+          observer.error([]);
+          observer.complete();
+        });
+    });
+  }
 }
