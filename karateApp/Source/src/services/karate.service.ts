@@ -14,6 +14,7 @@ export class KarateService {
   
 
   items: Observable<any[]>;
+  grades: Observable<any[]>;
   private noteListRef = this.firebase.list<any>('/JohnFinalKarate');
 
 
@@ -90,7 +91,8 @@ export class KarateService {
   }
 
   getGrades(sessionName): any {
-   return this.firebase.list('JohnFinalKarate/'+sessionName+'/Grades/').valueChanges();
+    this.grades = this.firebase.list('JohnFinalKarate/'+sessionName+'/Grades/').valueChanges();
+    return this.grades;
   }
 
   getStatusBySession(sessionName): any {
@@ -150,4 +152,5 @@ export class KarateService {
         });
     });
   }
+
 }

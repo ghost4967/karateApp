@@ -22,10 +22,9 @@ export class JudgeGradeListPage {
 
   ionViewDidLoad() {
     this.service.getByName(this.sessionName).subscribe(data => {
-      this.judgeGradeList = data;
-      this.isEnableViewGrades = this.judgeGradeList.some(function (element) {
-          return element.value;
-      });
+      this.judgeGradeList = data; 
+      this.isEnableViewGrades = this.judgeGradeList.length == this.service.getGrades(this.sessionName).length;
+      console.log(this.isEnableViewGrades);
     });
   }
 

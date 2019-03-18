@@ -13,9 +13,20 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Final{{notaFinal}}</h3>
-      <ion-item *ngFor="let item of gradeList; let i = index;">
-          <h2>Tecnico: {{item.Tecnico}} | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
-          <h2>Fisico: nota | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
-      </ion-item>
+  <h1>Final:  {{promedio}}</h1><br>
+      <h2>Tecnico:     </h2>
+        <div *ngFor="let item of gradeList; let i = index;">
+          <h2 id=tecnico{{i}}>{{item.Tecnico}}  |</h2>
+        </div>
+        <br/>
+        <h3>Promedio Tecnico:     </h3>
+        <h3>{{promedioTecnico}}</h3>
+        <br/>
+        <h2>Fisico:    </h2>
+        <div *ngFor="let orderFisico of gradeList; let i = index;">
+          <h2 id=fisico{{i}}>{{orderFisico.Fisico}}  |</h2>
+        </div>
+        <br/>
+        <h3>Promedio Fisico:    </h3>
+        <h3>{{promedioFisico}}</h3><br>
 </ion-content>

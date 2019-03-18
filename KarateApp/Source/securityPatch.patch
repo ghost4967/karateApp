@@ -1,0 +1,196 @@
+diff --git a/KarateApp/Source/src/pages/display-grade/display-grade.html b/KarateApp/Source/src/pages/display-grade/display-grade.html
+index 9681743..5a923d2 100644
+--- a/KarateApp/Source/src/pages/display-grade/display-grade.html
++++ b/KarateApp/Source/src/pages/display-grade/display-grade.html
+@@ -14,8 +14,13 @@
+ 
+ <ion-content padding>
+   <h3>Final{{notaFinal}}</h3>
+-      <ion-item *ngFor="let item of gradeList; let i = index;">
+-          <h2>Tecnico: {{item.Tecnico}} | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
+-          <h2>Fisico: nota | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
+-      </ion-item>
++  <h2>Tecnico:     </h2>
++  <div *ngFor="let item of gradeList; let i = index;">
++    <h2>{{item.Tecnico}}  |</h2>
++  </div>
++  <br/>
++  <h2>Fisico:    </h2>
++  <div *ngFor="let orderFisico of gradeList; let i = index;">
++    <h2>{{orderFisico.Fisico}}  |</h2>
++  </div>
+ </ion-content>
+\ No newline at end of file
+diff --git a/KarateApp/Source/src/pages/display-grade/display-grade.scss b/KarateApp/Source/src/pages/display-grade/display-grade.scss
+index 5765546..4471898 100644
+--- a/KarateApp/Source/src/pages/display-grade/display-grade.scss
++++ b/KarateApp/Source/src/pages/display-grade/display-grade.scss
+@@ -1,8 +1,12 @@
+ page-display-grade {
+     h2 {
+-         font-size: 150% 
++         font-size: 150%;
++         display: inline;
+         }
+     h3 {
+-        font-size: 550% 
++        font-size: 550%;
+         }
++    div {
++        display: inline;
++    }
+ }
+diff --git a/KarateApp/Source/src/pages/display-grade/display-grade.ts b/KarateApp/Source/src/pages/display-grade/display-grade.ts
+index a4737b4..75844c8 100644
+--- a/KarateApp/Source/src/pages/display-grade/display-grade.ts
++++ b/KarateApp/Source/src/pages/display-grade/display-grade.ts
+@@ -21,32 +21,34 @@ export class DisplayGradePage {
+ 
+   sessionName:string;
+   gradeList:Array<any>;
+-  orderTecnico:any;
+-  orderFisico:any;
++  orderTecnico:Array<any>;
++  orderFisico:Array<any>;
+ 
+   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
+-    this.sessionName = navParams.get('sessionName');
++    //this.sessionName = navParams.get('sessionName');
++    this.sessionName = 'john2';
++    this.orderFisico = new Array();
++    this.orderTecnico = new Array();
+   }
+ 
+   ionViewDidLoad() {
+     this.service.getGrades(this.sessionName).subscribe(data => {
+       this.gradeList = data;
+-      //this.orderList(this.gradeList);
+-      console.log("notasasdsad"+this.gradeList);
++      console.log("datos");
++      console.log(data);    
++      this.gradeList.forEach(element => {
++        this.orderTecnico.push(element.Tecnico);
++        this.orderFisico.push(element.Fisico);      
++      });
++      console.log("datos antes del sort");
++      console.log( this.orderTecnico);
++      console.log( this.orderFisico);
++      this.orderTecnico.sort();    
++      this.orderFisico.sort();       
++      console.log("datos despues del sort");
++      console.log( this.orderTecnico);
++      console.log( this.orderFisico);   
+     })
+-    console.log("notas"+this.orderTecnico);
+-    console.log('ionViewDidLoad DisplayGradePage'+this.orderFisico);
+-  }  
+-
+-  orderList(gradeList) { 
+-    gradeList.forEach(element => {
+-      this.orderTecnico = element;
+-    });
+-    gradeList.array.forEach(element => {
+-      this.orderFisico = element;
+-    });
+-    console.log("notas"+this.orderTecnico);
+-    console.log('ionViewDidLoad DisplayGradePage'+this.orderFisico);
+-  }
++  } 
+ 
+ }
+diff --git a/karateApp/Source/src/pages/create-panel/create-panel.ts b/karateApp/Source/src/pages/create-panel/create-panel.ts
+index a4e49a9..0ea78a2 100644
+--- a/karateApp/Source/src/pages/create-panel/create-panel.ts
++++ b/karateApp/Source/src/pages/create-panel/create-panel.ts
+@@ -17,8 +17,6 @@ export class CreatePanelPage {
+     name: '',
+     type: ''
+   }
+-  error:string;
+-  errorType: string;
+ 
+   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+    
+@@ -29,21 +27,13 @@ export class CreatePanelPage {
+   }
+ 
+   createPanel() {
+-    if (this.data.type.length > 0) {
+-      this.karateService.getPanelName(this.data.name).subscribe(dataSesion => {
+-        console.log(dataSesion);
+-        if (!dataSesion) {
+-          this.karateService.createPanel(this.data);
+-          this.navCtrl.push('StartKataPage', {
+-            sessionName: this.data.name,
+-            judgesNumber: this.data.type
+-          });
+-        } else {
+-          this.error = "El panel ya existe por favor ingrese otro nombre.";
+-        }
+-      })
+-    } else {
+-      this.errorType = "Por favor seleccione un tipo de panel.";
+-    }
++    this.karateService.createPanel(this.data);
++    this.navCtrl.push('StartKataPage', {
++      sessionName: this.data.name,
++      judgesNumber: this.data.type
++    });
++   
++
+   }
++
+ }
+diff --git a/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.html b/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.html
+index 9405fb6..0fb8d8d 100644
+--- a/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.html
++++ b/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.html
+@@ -28,7 +28,7 @@
+ </ion-content>
+ 
+ <ion-fab #fab bottom right>
+-    <button button-ion-fab ion-fab  [hidden]="!isEnableViewGrades" (click)="goToGradeView()">
++    <button button-ion-fab ion-fab  [hidden]="isEnableViewGrades" (click)="goToGradeView()">
+             <ion-icon name="arrow-forward"></ion-icon>
+     </button>
+ </ion-fab>
+diff --git a/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.ts b/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.ts
+index 9948269..c4a565c 100644
+--- a/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.ts
++++ b/karateApp/Source/src/pages/judge-grade-list/judge-grade-list.ts
+@@ -22,10 +22,9 @@ export class JudgeGradeListPage {
+ 
+   ionViewDidLoad() {
+     this.service.getByName(this.sessionName).subscribe(data => {
+-      this.judgeGradeList = data;
+-      this.isEnableViewGrades = this.judgeGradeList.some(function (element) {
+-          return element.value;
+-      });
++      this.judgeGradeList = data; 
++      this.isEnableViewGrades = this.judgeGradeList.length == this.service.getGrades(this.sessionName).length;
++      console.log(this.isEnableViewGrades);
+     });
+   }
+ 
+diff --git a/karateApp/Source/src/services/karate.service.ts b/karateApp/Source/src/services/karate.service.ts
+index a4cdf28..5d56549 100644
+--- a/karateApp/Source/src/services/karate.service.ts
++++ b/karateApp/Source/src/services/karate.service.ts
+@@ -14,6 +14,7 @@ export class KarateService {
+   
+ 
+   items: Observable<any[]>;
++  grades: Observable<any[]>;
+   private noteListRef = this.firebase.list<any>('/JohnFinalKarate');
+ 
+ 
+@@ -90,7 +91,8 @@ export class KarateService {
+   }
+ 
+   getGrades(sessionName): any {
+-   return this.firebase.list('JohnFinalKarate/'+sessionName+'/Grades/').valueChanges();
++   this.grades = this.firebase.list('JohnFinalKarate/'+sessionName+'/Grades/').valueChanges();
++   return this.grades;
+   }
+ 
+   getStatusBySession(sessionName): any {
