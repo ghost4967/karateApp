@@ -26,7 +26,9 @@
     <h3>Promedio Fisico: </h3>
     <h3>{{promedioFisico}}</h3>
     <br>
-    <button ion-button float-right button-clear-outline round outline (click)="restartGrading()">
-        Reiniciar votación
-      </button>
 </ion-content>
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab  (click)="restartGrading()">
+        <ion-icon name="sync"></ion-icon>
+    </button>
+</ion-fab>
