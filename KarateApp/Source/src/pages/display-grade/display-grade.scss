@@ -1,8 +1,22 @@
 page-display-grade {
     h2 {
-         font-size: 150% 
+        text-align: center;
+        color: #0090d0 !important;
+        font-weight: 500;
+         font-size: 150%;
         }
     h3 {
-        font-size: 550% 
+        text-align: center;
+        color: #0090d0 !important;
+        font-weight: 500;
+        font-size: 550%;
         }
+        
+    img {
+        position: absolute;
+        top: 0; bottom:0; left: 0; right:0;
+        margin: auto;
+        max-width: 80%;
+        max-height: 70%;
+    }
 }
