@@ -7,27 +7,26 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-  <h1>Final:  {{promedio}}</h1><br>
-      <h2>Tecnico:     </h2>
-        <div *ngFor="let item of orderFisico; let i = index;">
-          <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)' >{{item}}  |</h2>
-        </div>
-        <br/>
-        <h3>Promedio Tecnico:     </h3>
-        <h3>{{promedioTecnico}}</h3>
-        <br/>
-        <h2>Fisico:    </h2>
-        <div *ngFor="let orderFisico of orderTecnico; let i = index;">
-          <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico}}  |</h2>
-        </div>
-        <br/>
-        <h3>Promedio Fisico:    </h3>
-        <h3>{{promedioFisico}}</h3><br>
-  </ion-row>
-  <ion-col col-12>
-      <button ion-button button-clear-outline round outline block text-capitalize (click)="restartGrading()">
+    <h3 style="display: inline">Final:</h3>
+    <h1 style="display: inline">{{promedio}}</h1>
+    <br>
+    <h2>Tecnico: </h2>
+    <div *ngFor="let item of orderTecnico; let i = index;">
+      <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)'>{{item}} |</h2>
+    </div>
+    <br/>
+    <h3>Promedio Tecnico: </h3>
+    <h3>{{promedioTecnico}}</h3>
+    <br/>
+    <h2>Fisico: </h2>
+    <div *ngFor="let orderFisico of orderFisico; let i = index;">
+      <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico}} |</h2>
+    </div>
+    <br/>
+    <h3>Promedio Fisico: </h3>
+    <h3>{{promedioFisico}}</h3>
+    <br>
+    <button ion-button float-right button-clear-outline round outline (click)="restartGrading()">
         Reiniciar votación
       </button>
-    </ion-col>
 </ion-content>

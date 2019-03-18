@@ -16,8 +16,9 @@
 <ion-content padding>
   <h1>{{sessionName}}</h1>
   <img src="assets/images/icon-KataManager/ejecutandoKata.png" >
-  <button ion-button button-clear-outline round outline block (click)="enableGrade()"  
-  float-right>
-  Iniciar votación
-</button>
 </ion-content>
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab  (click)="enableGrade()">
+        votar
+    </button>
+</ion-fab>
