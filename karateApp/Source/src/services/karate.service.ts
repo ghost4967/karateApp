@@ -117,6 +117,12 @@ export class KarateService {
     });
   }
 
+  restartJudgeStatus(sessionName, judgeName) {
+    this.joinpanel = this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Group' + '/' + judgeName+'/value')
+    .set(false);
+  }
+
   getGradeList(): any {
     let finalList: Array<any> = new Array();
     this.numberArray.forEach(element => {

@@ -22,6 +22,7 @@ export class DisplayGradePage {
 
   sessionName:string;
   gradeList:Array<any>;
+  judgeList: Array<any>;
   orderTecnico:Array<any>;
   orderFisico:Array<any>;
   tecnicoPintar:Array<any>;
@@ -40,6 +41,9 @@ export class DisplayGradePage {
     this.fisicoPintar = new Array();
     this.tecnicoPromedio = new Array();
     this.fisicoPromedio = new Array();
+    this.service.getByName(this.sessionName).subscribe(data => {
+      this.judgeList = data;
+    })
   }
 
   ionViewDidLoad() {
@@ -120,6 +124,9 @@ export class DisplayGradePage {
 
   restartGrading() {
     this.service.restartSession(this.sessionName);
+    this.judgeList.forEach(element => {
+      this.service.restartJudgeStatus(this.sessionName, element.Nombre);
+    });
     this.navCtrl.push('WaitingKataManagerPage', {
       sessionName: this.sessionName
     });
