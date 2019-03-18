@@ -13,10 +13,11 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-row>
   <h1>Final:  {{promedio}}</h1><br>
       <h2>Tecnico:     </h2>
         <div *ngFor="let item of gradeList; let i = index;">
-          <h2 id=tecnico{{i}}>{{item.Tecnico}}  |</h2>
+          <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)' >{{item.Tecnico}}  |</h2>
         </div>
         <br/>
         <h3>Promedio Tecnico:     </h3>
@@ -24,9 +25,15 @@
         <br/>
         <h2>Fisico:    </h2>
         <div *ngFor="let orderFisico of gradeList; let i = index;">
-          <h2 id=fisico{{i}}>{{orderFisico.Fisico}}  |</h2>
+          <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico.Fisico}}  |</h2>
         </div>
         <br/>
         <h3>Promedio Fisico:    </h3>
         <h3>{{promedioFisico}}</h3><br>
+  </ion-row>
+  <ion-col col-12>
+      <button ion-button button-clear-outline round outline block text-capitalize (click)="restartGrading()">
+        Reiniciar votación
+      </button>
+    </ion-col>
 </ion-content>

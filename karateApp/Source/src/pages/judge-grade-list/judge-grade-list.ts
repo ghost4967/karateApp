@@ -12,18 +12,25 @@ export class JudgeGradeListPage {
 
   sessionName: string;
   judgeGradeList: Array<any>;
+  judgeGradeListSended: Array<any> = new Array();
   animateClass: any;
   isEnableViewGrades: boolean = false;
+  judgesNumber: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
-    this.sessionName = navParams.get('sessionName');
-    this.animateClass = { 'fade-in-left-item': true };
+   // this.sessionName = navParams.get('sessionName');
+    this.sessionName = "kata29"; 
+   this.animateClass = { 'fade-in-left-item': true };
+   this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
+      this.judgesNumber = data;
+   })
   }
 
   ionViewDidLoad() {
     this.service.getByName(this.sessionName).subscribe(data => {
       this.judgeGradeList = data; 
-      this.isEnableViewGrades = this.judgeGradeList.length == this.service.getGrades(this.sessionName).length;
+      this.fillSendedList();
+      this.isEnableViewGrades = this.judgeGradeListSended.length == parseInt(this.judgesNumber);
       console.log(this.isEnableViewGrades);
     });
   }
@@ -32,6 +39,15 @@ export class JudgeGradeListPage {
       this.navCtrl.push('DisplayGradePage', {
         sessionName: this.sessionName
       })
+  }
+
+  fillSendedList() {
+    this.judgeGradeListSended = [];
+    this.judgeGradeList.forEach(element => {
+      if (element.value) {
+        this.judgeGradeListSended.push(element);
+      }
+    })
   }
 
 }

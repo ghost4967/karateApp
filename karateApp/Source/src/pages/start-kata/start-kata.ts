@@ -33,7 +33,7 @@ export class StartKataPage {
   goToWaitingKataManager() {
     this.navCtrl.push('WaitingKataManagerPage', {
       sessionName: this.sessionName
-    })
+    });
   }
 
 }

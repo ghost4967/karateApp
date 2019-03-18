@@ -34,7 +34,7 @@ export class DisplayGradePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
     //this.sessionName = navParams.get('sessionName');
-    this.sessionName = 'john2';
+    this.sessionName = "kata29";
     this.orderFisico = new Array();
     this.orderTecnico = new Array();
     this.tecnicoPintar = new Array();
@@ -50,6 +50,8 @@ export class DisplayGradePage {
         this.orderTecnico.push(element.Tecnico);
         this.orderFisico.push(element.Fisico);      
       });
+      this.orderFisico = this.sortList(this.orderFisico);
+      this.orderTecnico = this.sortList(this.orderTecnico);
       if(this.orderFisico.length === 7) {
         this.fisicoPintar.push(this.orderFisico[0]);
         this.fisicoPintar.push(this.orderFisico[1]);
@@ -87,18 +89,6 @@ export class DisplayGradePage {
         this.promedio = this.total(this.promedioTecnico, this.promedioFisico);
 
         this.orderFisico.indexOf(this.tecnicoPintar[0]);
-
-        console.log("index order fisico");
-        //el array fisico pintar es el q contiene los elementos que se deben marcar con rojo en la vista
-        // los elementos se ven asi => <h2 id="fisico0"> 
-        console.log(this.orderFisico.indexOf(this.fisicoPintar[0]));
-        let x = this.orderFisico.indexOf(this.fisicoPintar[0]);
-        let y = 'fisico'.concat(x.toString());
-        //hasta aqui ya esta el id dentro de la variable y
-        document.getElementById('fisico0').setAttribute('color','red');
-        console.log(this.orderFisico);
-        console.log(this.fisicoPintar);
-
       }
     })
   }  
@@ -127,6 +117,45 @@ export class DisplayGradePage {
     });
     console.log("notas"+this.orderTecnico);
     console.log('ionViewDidLoad DisplayGradePage'+this.orderFisico);
+  }
+
+  restartGrading() {
+    this.service.restartSession(this.sessionName);
+    this.navCtrl.push('WaitingKataManagerPage', {
+      sessionName: this.sessionName
+    });
+  }
+
+  sortList(array): Array<any> {
+    var sortedArray = array.sort((n1,n2) => n1 - n2);
+    return sortedArray;
+  }
+
+  getColorFiveLength(index, list) {
+    console.log(index);
+    if (index == 0 || (list.length - 1 == index)) {
+      return 'red'
+    } else {
+      return '#0090d0';
+    }
+  }
+
+  getColorSevenLength(index, list) {
+    console.log(index);
+    if (index == 0 || (list.length - 1 == index) 
+        || index == 1 || (list.length - 2 == index)) {
+      return 'red'
+    } else {
+      return '#0090d0';
+    }
+  }
+
+  getColor(index, list) {
+    if (list.length == 5) {
+      return this.getColorFiveLength(index, list);
+    } else {
+      return this.getColorSevenLength(index, list);
+    }
   }
 
 }

@@ -50,6 +50,15 @@ export class KarateService {
     });
   }
 
+  restartSession(sessionName) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
+    .set({
+      restart: true,
+      start: false
+    });
+  }
+
   createGrade(grade, sessionName, judge) {
     console.log(parseFloat(grade.phisicLevel));
     console.log(parseFloat(grade.tecnicLevel));
@@ -103,7 +112,8 @@ export class KarateService {
     this.firebase.database
     .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
     .set({
-      start: true
+      start: true,
+      restart: false
     });
   }
 
