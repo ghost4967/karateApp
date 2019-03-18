@@ -21,12 +21,18 @@ export class JudgeGradeListPage {
   }
 
   ionViewDidLoad() {
-    this.service.getByName("kata23").subscribe(data => {
+    this.service.getByName(this.sessionName).subscribe(data => {
       this.judgeGradeList = data;
       this.isEnableViewGrades = this.judgeGradeList.some(function (element) {
           return element.value;
       });
     });
+  }
+
+  goToGradeView() {
+      this.navCtrl.push('DisplayGradePage', {
+        sessionName: this.sessionName
+      })
   }
 
 }

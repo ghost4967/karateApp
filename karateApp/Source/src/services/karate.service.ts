@@ -90,18 +90,7 @@ export class KarateService {
   }
 
   getGrades(sessionName): any {
-    return new Observable(observer => {
-      this.firebase
-        .object('JohnFinalKarate/'+sessionName+'/Grades')
-        .valueChanges()
-        .subscribe(snapshot => {
-          observer.next(snapshot);
-          observer.complete();
-        }, err => {
-          observer.error([]);
-          observer.complete();
-        });
-    });
+   return this.firebase.list('JohnFinalKarate/'+sessionName+'/Grades/').valueChanges();
   }
 
   getStatusBySession(sessionName): any {

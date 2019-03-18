@@ -28,7 +28,7 @@
 </ion-content>
 
 <ion-fab #fab bottom right>
-    <button button-ion-fab ion-fab  [hidden]="isEnableViewGrades">
+    <button button-ion-fab ion-fab  [hidden]="!isEnableViewGrades" (click)="goToGradeView()">
             <ion-icon name="arrow-forward"></ion-icon>
     </button>
 </ion-fab>

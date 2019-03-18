@@ -20,7 +20,7 @@ import { Element } from '@angular/compiler';
 export class DisplayGradePage {
 
   sessionName:string;
-  gradeList:any;
+  gradeList:Array<any>;
   orderTecnico:any;
   orderFisico:any;
 
@@ -31,20 +31,18 @@ export class DisplayGradePage {
   ionViewDidLoad() {
     this.service.getGrades(this.sessionName).subscribe(data => {
       this.gradeList = data;
+      //this.orderList(this.gradeList);
       console.log("notasasdsad"+this.gradeList);
     })
-    this.orderList(this.gradeList);
     console.log("notas"+this.orderTecnico);
     console.log('ionViewDidLoad DisplayGradePage'+this.orderFisico);
   }  
 
-  orderList(gradeList: any) { 
+  orderList(gradeList) { 
     gradeList.forEach(element => {
-      element.orderList(element.Tecnico)
       this.orderTecnico = element;
     });
     gradeList.array.forEach(element => {
-      element.orderList(element.Fisico)
       this.orderFisico = element;
     });
     console.log("notas"+this.orderTecnico);
