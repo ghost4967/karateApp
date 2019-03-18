@@ -1,3 +1,5 @@
 page-start-kata {
-
+    ion-header > ion-navbar > div.toolbar-content.toolbar-content-md > ion-title > div {
+        text-transform: none !important;
+    }
 }
