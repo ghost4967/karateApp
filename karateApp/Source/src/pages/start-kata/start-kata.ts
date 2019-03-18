@@ -19,6 +19,7 @@ export class StartKataPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
     this.sessionName = navParams.get('sessionName');
+    console.log(this.sessionName);
     this.judgesNumber = parseInt(navParams.get('judgesNumber'));
   }
 
