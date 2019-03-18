@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>judge-grade-list</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-row>
+        <ion-col col-12>
+            <ion-list no-margin>
+                <ion-item no-lines [ngClass]="animateClass" *ngFor="let item of judgeGradeList; let i = index;">
+                    <ion-avatar item-start>
+                        <ion-icon item-left icon-medium name="contact"></ion-icon>                        
+                    </ion-avatar>
+                    <h2 item-title padding-left>{{item.Nombre}}</h2>
+                    <ion-icon *ngIf="item.value" icon-small item-right name="checkbox">
+                      </ion-icon>    
+                        <ion-icon *ngIf="!item.value" icon-small item-right name="checkbox-outline">
+                    </ion-icon>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
+</ion-content>
+
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab  [hidden]="isEnableViewGrades">
+            <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+</ion-fab>

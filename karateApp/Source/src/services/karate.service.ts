@@ -58,14 +58,14 @@ export class KarateService {
       Nombre: judge,
       Tecnico: parseFloat(grade.tecnicLevel)
     });
-    this.firebase.database.ref('/JohnFinalKarate' + '/' + sessionName+'/Sent/'+ judge)
+    this.firebase.database.ref('/JohnFinalKarate' + '/' + sessionName+'/Group/'+ judge+'/value')
     .set(true);
   }
 
   joinToPanel(formData) {
     this.joinpanel = this.firebase.database
     .ref('/JohnFinalKarate' + '/' + formData.sessionName + '/' + 'Group' + '/' + formData.judgeName)
-    .set({value: "true",
+    .set({value: false,
         Nombre: formData.judgeName});
   }
 
