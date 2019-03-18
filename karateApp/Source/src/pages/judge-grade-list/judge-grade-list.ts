@@ -18,8 +18,7 @@ export class JudgeGradeListPage {
   judgesNumber: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
-   // this.sessionName = navParams.get('sessionName');
-    this.sessionName = "kata29"; 
+   this.sessionName = navParams.get('sessionName');
    this.animateClass = { 'fade-in-left-item': true };
    this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
       this.judgesNumber = data;

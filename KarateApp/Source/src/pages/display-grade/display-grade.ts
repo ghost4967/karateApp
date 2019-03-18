@@ -33,8 +33,7 @@ export class DisplayGradePage {
   promedio:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
-    //this.sessionName = navParams.get('sessionName');
-    this.sessionName = "kata29";
+    this.sessionName = navParams.get('sessionName');
     this.orderFisico = new Array();
     this.orderTecnico = new Array();
     this.tecnicoPintar = new Array();
