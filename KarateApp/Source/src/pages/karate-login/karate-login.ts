@@ -21,9 +21,11 @@ export class KarateLoginPage {
     }
     this.params.events = {
       onLogin: function (params) {
-         if (params.password === "kata") {
-           navCtrl.push('KarateHomePage');
-         }
+        karateService.getPasswordKArata().subscribe(data => {
+          if (params.password === data) {
+            navCtrl.push('KarateHomePage');
+          }
+        })
       },
    };
   }
