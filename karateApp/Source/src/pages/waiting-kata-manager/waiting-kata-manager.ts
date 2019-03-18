@@ -29,13 +29,9 @@ export class WaitingKataManagerPage {
 
   enableGrade() {
     this.karateService.startGrading(this.sessionName);
-<<<<<<< Updated upstream
-    this.navCtrl.push('DisplayGradePage', this.sessionName );
-=======
     this.navCtrl.push('JudgeGradeListPage', {
       sessionName: this.sessionName
     });
->>>>>>> Stashed changes
   }
 
 }
