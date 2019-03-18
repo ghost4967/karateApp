@@ -38,7 +38,7 @@ export class KarateService {
 
   createPanel(panel: any) {
     this.panels = this.firebase.database.ref('/JohnFinalKarate' + '/' + panel.name)
-    .set({
+    .update({
       judges: panel.type,
       states: [
         {
@@ -78,6 +78,21 @@ export class KarateService {
     return new Observable(observer => {
       this.firebase
         .object('JohnFinalKarate/'+sessionName+'/judges/')
+        .valueChanges()
+        .subscribe(snapshot => {
+          observer.next(snapshot);
+          observer.complete();
+        }, err => {
+          observer.error([]);
+          observer.complete();
+        });
+    });
+  }
+
+  getGrades(sessionName): any {
+    return new Observable(observer => {
+      this.firebase
+        .object('JohnFinalKarate/'+sessionName+'/Grades')
         .valueChanges()
         .subscribe(snapshot => {
           observer.next(snapshot);
