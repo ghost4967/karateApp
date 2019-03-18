@@ -7,12 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>displayGrade</ion-title>
+    <ion-title text-center>Resutado</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
+  <h3>Final{{notaFinal}}</h3>
+      <ion-item *ngFor="let item of judgesList; let i = index;">
+          <h2>Tecnico: {{item.Tecnico}} | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
+          <h2>Fisico: nota | nota2 | nota3 | nota4 | nota5 | nota6 | nota7 </h2>
+      </ion-item>
 </ion-content>
