@@ -17,6 +17,8 @@ export class CreatePanelPage {
     name: '',
     type: ''
   }
+  error:string;
+  errorType: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
    
@@ -27,13 +29,21 @@ export class CreatePanelPage {
   }
 
   createPanel() {
-    this.karateService.createPanel(this.data);
-    this.navCtrl.push('StartKataPage', {
-      sessionName: this.data.name,
-      judgesNumber: this.data.type
-    });
-   
-
+    if (this.data.type.length > 0) {
+      this.karateService.getPanelName(this.data.name).subscribe(dataSesion => {
+        console.log(dataSesion);
+        if (!dataSesion) {
+          this.karateService.createPanel(this.data);
+          this.navCtrl.push('StartKataPage', {
+            sessionName: this.data.name,
+            judgesNumber: this.data.type
+          });
+        } else {
+          this.error = "El panel ya existe por favor ingrese otro nombre.";
+        }
+      })
+    } else {
+      this.errorType = "Por favor seleccione un tipo de panel.";
+    }
   }
-
 }
