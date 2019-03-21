@@ -31,11 +31,12 @@ export class CreatePanelPage {
 
   createPanel() {
     this.karateService.createPanel(this.data);
-    this.navCtrl.push('StartKataPage', {
+    this.navCtrl.setRoot('StartKataPage', {
       sessionName: this.data.name,
       judgesNumber: this.data.type
     });
-
+    this.navCtrl.popToRoot();
+    
     
    /** if (this.data.type.length > 0) {
       this.karateService.getPanelName(this.data.name).subscribe(dataSesion => {
@@ -71,8 +72,7 @@ export class CreatePanelPage {
         }, {
           text: 'Si',
           handler: () => {
-            this.navCtrl.setRoot('KarateLoginPage');
-            this.navCtrl.popToRoot();
+            this.navCtrl.setRoot('KarateHomePage');
           }
         }
       ]

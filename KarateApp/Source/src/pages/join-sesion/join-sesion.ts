@@ -46,7 +46,6 @@ export class JoinSesionPage {
             sessionName: this.data.sessionName,
             judgeName: this.data.judgeName
           });
-          this.navCtrl.popToRoot();
         }
       })
      } 
@@ -71,7 +70,7 @@ export class JoinSesionPage {
         }, {
           text: 'Si',
           handler: () => {
-            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.setRoot('KarateHomePage');
             this.navCtrl.popToRoot();
           }
         }

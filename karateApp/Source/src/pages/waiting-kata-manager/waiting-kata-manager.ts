@@ -44,7 +44,7 @@ export class WaitingKataManagerPage {
         }, {
           text: 'Si',
           handler: () => {
-            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.setRoot('KarateHomePage');
             this.navCtrl.popToRoot();
           }
         }

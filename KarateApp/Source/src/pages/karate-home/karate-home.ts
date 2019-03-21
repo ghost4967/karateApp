@@ -12,8 +12,7 @@ export class KarateHomePage {
   }
 
   joinSesion() {
-    this.navCtrl.setRoot('JoinSesionPage');
-    this.navCtrl.popToRoot();
+    this.navCtrl.push('JoinSesionPage');
   }
 
   ionViewDidLoad() {
@@ -21,8 +20,7 @@ export class KarateHomePage {
   }
 
   goToCreate () {
-    this.navCtrl.setRoot('CreatePanelPage');
-    this.navCtrl.popToRoot();
+    this.navCtrl.push('CreatePanelPage');
   }
 
  async alertExit() {
