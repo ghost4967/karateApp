@@ -127,9 +127,10 @@ export class DisplayGradePage {
     this.judgeList.forEach(element => {
       this.service.restartJudgeStatus(this.sessionName, element.Nombre);
     });
-    this.navCtrl.push('WaitingKataManagerPage', {
+    this.navCtrl.setRoot('WaitingKataManagerPage', {
       sessionName: this.sessionName
     });
+    this.navCtrl.popToRoot();
   }
 
   sortList(array): Array<any> {

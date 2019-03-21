@@ -23,10 +23,11 @@ export class GradeSendedPage {
     this.karateService.getStatusBySession(this.sessionName).subscribe(data => {
       this.restartSession = data[0].restart;
       if (this.restartSession) {
-        this.navCtrl.push('WaitingKataPage',{
+        this.navCtrl.setRoot('WaitingKataPage',{
           sessionName: this.sessionName,
           judgeName: this.judgeName
         });
+        this.navCtrl.popToRoot();
       }
     })
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 import { KarateLoginPageModule } from './karate-login.module';
 
@@ -12,7 +12,8 @@ import { KarateLoginPageModule } from './karate-login.module';
 export class KarateLoginPage {
   params: any = [];
   kataPassword: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService ,
+              public viewController:ViewController) {
     
     this.params.data = {
        "password": "Contraseña",
@@ -23,7 +24,8 @@ export class KarateLoginPage {
       onLogin: function (params) {
         karateService.getPasswordKArata().subscribe(data => {
           if (params.password === data) {
-            navCtrl.push('KarateHomePage');
+            navCtrl.setRoot('KarateHomePage');
+            navCtrl.popToRoot();
           }
         })
       },

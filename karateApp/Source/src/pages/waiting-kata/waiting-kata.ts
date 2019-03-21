@@ -31,10 +31,11 @@ export class WaitingKataPage {
 
   checkData() {
     if (this.isReadyToGrade) {
-      this.navCtrl.push('KarateGradePage', {
+      this.navCtrl.setRoot('KarateGradePage', {
         sessionName: this.sessionName,
         judgeName: this.judgeName
-      })
+      });
+      this.navCtrl.popToRoot();
     }
   }
 

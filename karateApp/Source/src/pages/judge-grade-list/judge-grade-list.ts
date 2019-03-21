@@ -35,9 +35,10 @@ export class JudgeGradeListPage {
   }
 
   goToGradeView() {
-      this.navCtrl.push('DisplayGradePage', {
+      this.navCtrl.setRoot('DisplayGradePage', {
         sessionName: this.sessionName
-      })
+      });
+      this.navCtrl.popToRoot();
   }
 
   fillSendedList() {

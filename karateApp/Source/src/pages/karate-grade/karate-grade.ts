@@ -31,10 +31,11 @@ export class KarateGradePage {
 
   sendGrade() {
     this.karateService.createGrade(this.data,this.sessioName, this.judgeName);
-    this.navCtrl.push('GradeSendedPage', {
+    this.navCtrl.setRoot('GradeSendedPage', {
       sessionName: this.sessioName,
       judgeName: this.judgeName
-    })
+    });
+    this.navCtrl.popToRoot();
   }
 
   async presentAlertConfirm() {

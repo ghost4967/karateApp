@@ -34,10 +34,11 @@ export class CreatePanelPage {
         console.log(dataSesion);
         if (!dataSesion) {
           this.karateService.createPanel(this.data);
-          this.navCtrl.push('StartKataPage', {
+          this.navCtrl.setRoot('StartKataPage', {
             sessionName: this.data.name,
             judgesNumber: this.data.type
           });
+          this.navCtrl.popToRoot();
         } else {
           this.error = "El panel ya existe por favor ingrese otro nombre.";
         }

@@ -29,9 +29,10 @@ export class WaitingKataManagerPage {
 
   enableGrade() {
     this.karateService.startGrading(this.sessionName);
-    this.navCtrl.push('JudgeGradeListPage', {
+    this.navCtrl.setRoot('JudgeGradeListPage', {
       sessionName: this.sessionName
     });
+    this.navCtrl.popToRoot();
   }
 
 }

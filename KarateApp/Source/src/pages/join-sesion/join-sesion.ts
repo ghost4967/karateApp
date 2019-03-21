@@ -41,10 +41,11 @@ export class JoinSesionPage {
          } else {
            this.karateService.joinToPanel(this.data);
            console.log("Guardandojuez");
-            this.navCtrl.push('WaitingKataPage',{
+            this.navCtrl.setRoot('WaitingKataPage',{
             sessionName: this.data.sessionName,
             judgeName: this.data.judgeName
           });
+          this.navCtrl.popToRoot();
         }
       })
      } 

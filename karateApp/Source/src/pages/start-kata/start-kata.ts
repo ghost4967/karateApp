@@ -31,9 +31,10 @@ export class StartKataPage {
   }
 
   goToWaitingKataManager() {
-    this.navCtrl.push('WaitingKataManagerPage', {
+    this.navCtrl.setRoot('WaitingKataManagerPage', {
       sessionName: this.sessionName
     });
+    this.navCtrl.popToRoot();
   }
 
 }
