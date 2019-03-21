@@ -29,7 +29,12 @@ export class CreatePanelPage {
   }
 
   createPanel() {
-    if (this.data.type.length > 0) {
+    this.karateService.createPanel(this.data);
+    this.navCtrl.push('StartKataPage', {
+      sessionName: this.data.name,
+      judgesNumber: this.data.type
+    });
+   /** if (this.data.type.length > 0) {
       this.karateService.getPanelName(this.data.name).subscribe(dataSesion => {
         console.log(dataSesion);
         if (!dataSesion) {
@@ -44,6 +49,7 @@ export class CreatePanelPage {
       })
     } else {
       this.errorType = "Por favor seleccione un tipo de panel.";
-    }
+    }**/
   }
+  
 }

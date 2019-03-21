@@ -116,7 +116,7 @@ export class DisplayGradePage {
 
   total(tecnico:any, fisico:any) {
     var total = Number(tecnico.toString()) + Number(fisico.toString());
-    return total;
+    return (total).toFixed(2);
   }
 
   orderList(gradeList) { 
