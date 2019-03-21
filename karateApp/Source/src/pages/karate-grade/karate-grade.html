@@ -12,14 +12,15 @@
       <ion-col>
         <ion-item no-padding transparent>
           <ion-label>Nivel Técnico</ion-label>
-          <ion-select placeholder="Tipo de panel" [(ngModel)]="data.tecnicLevel" class="select">
+          <ion-select placeholder="7.0" [(ngModel)]="data.tecnicLevel" class="select">
             <ion-option *ngFor="let grade of gradeList" value="{{grade.value}}">{{grade.value}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item  no-padding transparent >
             <ion-label>Nivel Fisico</ion-label>
-            <ion-select placeholder="Tipo de panel" [(ngModel)]="data.phisicLevel" class="select">
-                <ion-option *ngFor="let grade of gradeList" value="{{grade.value}}">{{grade.value}}</ion-option>                
+            <ion-select placeholder="7.0" [(ngModel)]="data.phisicLevel" class="select">
+                <ion-option ng-selected="grade.value == 7.0"
+                 *ngFor="let grade of gradeList" value="{{grade.value}}">{{grade.value}}</ion-option>                
             </ion-select>
           </ion-item>
       </ion-col>

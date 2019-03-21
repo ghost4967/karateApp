@@ -37,7 +37,7 @@ export class JoinSesionPage {
          if (dataJudge){
            console.log(dataJudge);
            this.error = '';
-           this.errorName = 'El juez ya existe por favor increse otro';
+           this.errorName = 'El juez ya existe por favor ingrese otro';
          } else {
            this.karateService.joinToPanel(this.data);
            console.log("Guardandojuez");

@@ -15,8 +15,8 @@ export class KarateGradePage {
   gradeList: Array<any>;
 
   data = {
-    tecnicLevel: '',
-    phisicLevel: ''
+    tecnicLevel: "7.0",
+    phisicLevel: "7.0"
   }
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
             private alertController: AlertController) {
