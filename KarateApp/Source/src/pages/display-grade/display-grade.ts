@@ -63,7 +63,7 @@ export class DisplayGradePage {
         this.fisicoPromedio.push(this.orderFisico[2]);
         this.fisicoPromedio.push(this.orderFisico[3]);
         this.fisicoPromedio.push(this.orderFisico[4]);
-        this.promedioFisico = this.average(this.fisicoPromedio);
+        this.promedioFisico = this.averageFisico(this.fisicoPromedio);
 
         this.tecnicoPintar.push(this.orderTecnico[0]);
         this.tecnicoPintar.push(this.orderTecnico[1]);
@@ -72,7 +72,7 @@ export class DisplayGradePage {
         this.tecnicoPromedio.push(this.orderTecnico[2]);
         this.tecnicoPromedio.push(this.orderTecnico[3]);
         this.tecnicoPromedio.push(this.orderTecnico[4]);
-        this.promedioTecnico = this.average(this.tecnicoPromedio);
+        this.promedioTecnico = this.averageTecnico(this.tecnicoPromedio);
         this.promedio = this.total(this.promedioTecnico, this.promedioFisico);
       }
       if(this.orderFisico.length === 5) {
@@ -81,14 +81,14 @@ export class DisplayGradePage {
         this.fisicoPromedio.push(this.orderFisico[1]);
         this.fisicoPromedio.push(this.orderFisico[2]);
         this.fisicoPromedio.push(this.orderFisico[3]);
-        this.promedioFisico = this.average(this.fisicoPromedio);
+        this.promedioFisico = this.averageFisico(this.fisicoPromedio);
 
         this.tecnicoPintar.push(this.orderTecnico[0]);
         this.tecnicoPintar.push(this.orderTecnico[4]);
         this.tecnicoPromedio.push(this.orderTecnico[1]);
         this.tecnicoPromedio.push(this.orderTecnico[2]);
         this.tecnicoPromedio.push(this.orderTecnico[3]);
-        this.promedioTecnico = this.average(this.tecnicoPromedio);
+        this.promedioTecnico = this.averageTecnico(this.tecnicoPromedio);
         this.promedio = this.total(this.promedioTecnico, this.promedioFisico);
 
         this.orderFisico.indexOf(this.tecnicoPintar[0]);
@@ -96,19 +96,27 @@ export class DisplayGradePage {
     })
   }  
 
-  average(list:Array<any>) {
+  averageTecnico(list:Array<any>) {
     let count = 0;
     let size = list.length;
     list.forEach(element => {
       count = count + element;
     });
-    return (count / size).toFixed(2);
+    return ((count * 70) / 100).toFixed(2);
   }
 
-  total(tecnico:number, fisico:number) {
-    tecnico = (tecnico * 70) / 100;
-    fisico = (fisico * 30) / 100;
-    return (tecnico + fisico).toFixed(2);
+  averageFisico(list:Array<any>) {
+    let count = 0;
+    let size = list.length;
+    list.forEach(element => {
+      count = count + element;
+    });
+    return ((count * 30) / 100).toFixed(2);
+  }
+
+  total(tecnico:any, fisico:any) {
+    var total = Number(tecnico.toString()) + Number(fisico.toString());
+    return (total).toFixed(2);
   }
 
   orderList(gradeList) { 
