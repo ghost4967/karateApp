@@ -24,8 +24,8 @@ export class KarateLoginPage {
       onLogin: function (params) {
         karateService.getPasswordKArata().subscribe(data => {
           if (params.password === data) {
-            navCtrl.setRoot('KarateHomePage');
-            navCtrl.popToRoot();
+            this.navCtrl.setRoot('KarateHomePage');
+            this.navCtrl.popToRoot();
           }
         })
       },

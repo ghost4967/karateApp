@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 
 @IonicPage()
@@ -15,7 +15,8 @@ export class WaitingKataPage {
   judgeName:string;
   isReadyToGrade: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
+    private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
   }
@@ -38,5 +39,30 @@ export class WaitingKataPage {
       this.navCtrl.popToRoot();
     }
   }
+
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
 
 }

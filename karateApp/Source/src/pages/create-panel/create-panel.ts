@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 
 
@@ -20,7 +20,8 @@ export class CreatePanelPage {
   error:string;
   errorType: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
+      private alertController: AlertController) {
    
   }
 
@@ -34,6 +35,8 @@ export class CreatePanelPage {
       sessionName: this.data.name,
       judgesNumber: this.data.type
     });
+
+    
    /** if (this.data.type.length > 0) {
       this.karateService.getPanelName(this.data.name).subscribe(dataSesion => {
         console.log(dataSesion);
@@ -52,5 +55,30 @@ export class CreatePanelPage {
       this.errorType = "Por favor seleccione un tipo de panel.";
     }**/
   }
+
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
   
 }

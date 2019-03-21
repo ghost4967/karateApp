@@ -62,4 +62,29 @@ export class KarateGradePage {
     await alert.present();
   }
 
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
+
 }

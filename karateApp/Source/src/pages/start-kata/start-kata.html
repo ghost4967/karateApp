@@ -2,6 +2,11 @@
 
     <ion-navbar>
         <ion-title>{{sessionName}}</ion-title>
+        <ion-buttons end>
+                <button ion-button icon-only (click)="alertExit()">
+                  <ion-icon name="exit"></ion-icon>
+                </button>
+              </ion-buttons>
     </ion-navbar>
 
 </ion-header>
@@ -21,6 +26,6 @@
 </ion-content>
 <ion-fab #fab bottom right>
     <button button-ion-fab ion-fab (click)="goToWaitingKataManager()" [hidden]="!isReadyToStart">
-            <ion-icon name="arrow-forward"></ion-icon>
+        <ion-icon name="arrow-forward"></ion-icon>
     </button>
 </ion-fab>

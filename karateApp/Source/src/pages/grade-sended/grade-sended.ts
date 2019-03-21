@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 
 @IonicPage()
@@ -14,7 +14,8 @@ export class GradeSendedPage {
   judgeName: string;
   restartSession: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
+    private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
   }
@@ -31,5 +32,30 @@ export class GradeSendedPage {
       }
     })
   }
+
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
 
 }

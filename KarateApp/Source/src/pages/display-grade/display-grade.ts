@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 import { Element } from '@angular/compiler';
 import { filterQueryId } from '@angular/core/src/view/util';
-
-
-/**
- * Generated class for the DisplayGradePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -33,7 +25,8 @@ export class DisplayGradePage {
   promedioFisico:any;
   promedio:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
+      private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
     this.orderFisico = new Array();
     this.orderTecnico = new Array();
@@ -172,5 +165,30 @@ export class DisplayGradePage {
       return this.getColorSevenLength(index, list);
     }
   }
+
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
 
 }

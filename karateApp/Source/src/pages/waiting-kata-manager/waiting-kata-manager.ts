@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
-
-/**
- * Generated class for the WaitingKataManagerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,7 +12,8 @@ export class WaitingKataManagerPage {
 
   sessionName: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
+      private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName')
   }
 
@@ -34,5 +28,30 @@ export class WaitingKataManagerPage {
     });
     this.navCtrl.popToRoot();
   }
+
+  async alertExit() {
+    const alert = await this.alertController.create({
+      title: 'Salir',
+      message: 'Estas seguro de esta salir',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.navCtrl.setRoot('KarateLoginPage');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+}
 
 }
