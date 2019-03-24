@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 @IonicPage()
 @Component({
@@ -19,14 +20,24 @@ export class KarateGradePage {
     phisicLevel: "7.0"
   }
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
-            private alertController: AlertController) {
+            private alertController: AlertController, private selector: WheelSelector) {
     this.sessioName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
     this.gradeList = this.karateService.getGradeList();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad KarateGradePage');
+    this.selector.show({
+      title: "How Many?",
+      items: [
+        this.gradeList
+      ],
+    }).then(
+      result => {
+        console.log(result[0].description + ' at index: ' + result[0].index);
+      },
+      err => console.log('Error: ', err)
+    );
   }
 
   sendGrade() {

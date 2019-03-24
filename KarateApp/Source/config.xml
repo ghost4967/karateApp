@@ -96,4 +96,5 @@
     </plugin>
     <plugin name="cordova-plugin-firebase" spec="^1.1.4" />
     <engine name="android" spec="7.1.4" />
+    <plugin name="cordova-wheel-selector-plugin" spec="~1.0.0" />
 </widget>
