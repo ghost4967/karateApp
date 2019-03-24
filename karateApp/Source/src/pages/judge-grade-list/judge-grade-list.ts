@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ export class JudgeGradeListPage {
   animateClass: any;
   isEnableViewGrades: boolean = false;
   judgesNumber: string;
+  subscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
       private alertController: AlertController) {
@@ -27,12 +29,16 @@ export class JudgeGradeListPage {
   }
 
   ionViewDidLoad() {
-    this.service.getByName(this.sessionName).subscribe(data => {
+    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
       this.judgeGradeList = data; 
       this.fillSendedList();
       this.isEnableViewGrades = this.judgeGradeListSended.length == parseInt(this.judgesNumber);
       console.log(this.isEnableViewGrades);
     });
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   goToGradeView() {

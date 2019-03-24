@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import { KarateService } from '../../services/karate.service';
 export class WaitingKataPage {
 
   sessionName: string;
+  subscription: Subscription;
 
   judgeName:string;
   isReadyToGrade: boolean;
@@ -22,12 +24,15 @@ export class WaitingKataPage {
   }
 
   ionViewDidLoad() {
-    this.service.getStatusBySession(this.sessionName).subscribe(data => {
+    this.subscription = this.service.getStatusBySession(this.sessionName).subscribe(data => {
       this.isReadyToGrade = data[0].start;
       console.log(this.isReadyToGrade);
       this.checkData();
-     
     });
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   checkData() {

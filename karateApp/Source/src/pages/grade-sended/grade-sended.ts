@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,7 @@ export class GradeSendedPage {
   sessionName: string;
   judgeName: string;
   restartSession: boolean;
+  subscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
     private alertController: AlertController) {
@@ -21,7 +23,7 @@ export class GradeSendedPage {
   }
 
   ionViewDidLoad() {
-    this.karateService.getStatusBySession(this.sessionName).subscribe(data => {
+    this.subscription = this.karateService.getStatusBySession(this.sessionName).subscribe(data => {
       this.restartSession = data[0].restart;
       if (this.restartSession) {
         this.navCtrl.setRoot('WaitingKataPage',{
@@ -31,6 +33,10 @@ export class GradeSendedPage {
         this.navCtrl.popToRoot();
       }
     })
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   async alertExit() {

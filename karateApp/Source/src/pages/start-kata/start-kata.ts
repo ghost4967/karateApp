@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ export class StartKataPage {
   judgeName: string;
   judgesList:Array<any>;
   judgesNumber: number;
+  subscription: Subscription;
 
   isReadyToStart:boolean;
 
@@ -25,10 +27,14 @@ export class StartKataPage {
   }
 
   ionViewDidLoad() {
-    this.service.getByName(this.sessionName).subscribe(data => {
+    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
       this.judgesList = data;
       this.isReadyToStart = this.judgesList.length == this.judgesNumber;
-    }) 
+    }); 
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   goToWaitingKataManager() {
