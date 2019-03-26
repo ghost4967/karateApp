@@ -13,8 +13,7 @@ export class KarateGradePage {
 
   sessioName: string;
   judgeName: string;
-  gradeList: Array<any>;
-
+  gradeList = [];
   data = {
     tecnicLevel: "7.0",
     phisicLevel: "7.0"
@@ -24,9 +23,30 @@ export class KarateGradePage {
     this.sessioName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
     this.gradeList = this.karateService.getGradeList();
+    
   }
 
   ionViewDidLoad() {
+    const jsonData = {
+      list : this.gradeList
+    }
+    this.selector.show({
+      title: "How Many?",
+      items: [
+        jsonData.list
+      ],
+    }).then(
+      result => {
+        console.log(result[0].description + ' at index: ' + result[0].index);
+      },
+      err => console.log('Error: ', err)
+    );
+  }
+
+  select() {
+    const jsonData = {
+      list : this.gradeList
+    }
     this.selector.show({
       title: "How Many?",
       items: [
