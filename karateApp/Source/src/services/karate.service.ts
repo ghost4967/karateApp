@@ -129,13 +129,13 @@ export class KarateService {
       this.pairNumberArray.forEach(value => {
         if (element != 10) {
           finalList.push({
-            value: element + '.' + value
+            description: element + '.' + value
           })
         }
       });
     });
     finalList.push({
-      value: '10.0'
+      description: '10.0'
     });
     return finalList;
   }

@@ -14,6 +14,7 @@ export class KarateGradePage {
   sessioName: string;
   judgeName: string;
   gradeList = [];
+
   data = {
     tecnicLevel: "7.0",
     phisicLevel: "7.0"
@@ -22,22 +23,65 @@ export class KarateGradePage {
             private alertController: AlertController, private selector: WheelSelector) {
     this.sessioName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
-    this.gradeList = this.karateService.getGradeList();
+    
     
   }
 
   ionViewDidLoad() {
+    const dummyJson = {
+      integers: [
+        {
+          description: '5'
+        },
+        {
+          description: '6'
+        },
+        {
+          description: '7'
+        },
+        {
+          description: '8'
+        },
+        {
+          description: '9'
+        },
+        {
+          description: '10'
+        }
+      ],
+      floats: [
+        {
+          description: '0'
+        },
+        {
+          description: '2'
+        },
+        {
+          description: '4'
+        },
+        {
+          description: '6'
+        },
+        {
+          description: '8'
+        },
+      ]
+    }
+    this.gradeList = this.karateService.getGradeList();
     const jsonData = {
       list : this.gradeList
     }
     this.selector.show({
       title: "How Many?",
       items: [
-        jsonData.list
+        dummyJson.integers,
+        dummyJson.floats
       ],
     }).then(
       result => {
-        console.log(result[0].description + ' at index: ' + result[0].index);
+        console.log(result);
+        this.data = result[0];
+        this.presentAlertConfirm();
       },
       err => console.log('Error: ', err)
     );
