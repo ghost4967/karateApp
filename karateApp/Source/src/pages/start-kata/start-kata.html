@@ -1,12 +1,33 @@
-<ion-header>
+<ion-menu [content]="content">
+    <ion-header header-background-image>
+        <ion-thumbnail>
+            <img src="/assets/images/icon-KataManager/LOGOKATA.png">
+        </ion-thumbnail>
+        <h2 item-title text-center>Menu</h2>
+    </ion-header>
+    <ion-content main-menu>
+        <ion-list no-margin no-padding>
+            <button menuClose ion-item paddinge-left no-lines item-title *ngFor="let p of pages" (click)="openPage(p)">
+                <ion-icon icon-small item-left>
+                    <i class="icon {{p.icon}}"></i>
+                </ion-icon>
+                {{p.title}}
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav [root]="StartKataPage" main #content swipeBackEnabled="false"></ion-nav>
 
+<ion-header>
     <ion-navbar>
+
         <ion-title>{{sessionName}}</ion-title>
         <ion-buttons end>
-                <button ion-button icon-only (click)="alertExit()">
-                  <ion-icon name="exit"></ion-icon>
-                </button>
-              </ion-buttons>
+            <button ion-button icon-only (click)="alertExit()">
+                <ion-icon name="exit"></ion-icon>
+            </button>
+        </ion-buttons>
+
     </ion-navbar>
 
 </ion-header>

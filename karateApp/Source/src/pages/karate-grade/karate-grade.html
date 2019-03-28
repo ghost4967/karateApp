@@ -2,10 +2,10 @@
   <ion-navbar>
     <ion-title>Calificar</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="alertExit()">
-          <ion-icon name="exit"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only (click)="alertExit()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -14,29 +14,25 @@
   <h1>Sesión: {{sessioName}}</h1>
   <h2>Juez: {{judgeName}}</h2>
   <ion-row padding>
-      <ion-col>
-        <ion-item no-padding transparent>
-          <ion-label>Nivel Técnico</ion-label>
-          <ion-select placeholder="7.0" [(ngModel)]="data.tecnicLevel" class="select">
-            <ion-option *ngFor="let grade of gradeList" value="{{grade.value}}">{{grade.value}}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item  no-padding transparent >
-            <ion-label>Nivel Fisico</ion-label>
-            <ion-select placeholder="7.0" [(ngModel)]="data.phisicLevel" class="select">
-                <ion-option ng-selected="grade.value == 7.0"
-                 *ngFor="let grade of gradeList" value="{{grade.value}}">{{grade.value}}</ion-option>                
-            </ion-select>
-          </ion-item>
-      </ion-col>
+    <ion-col>
+      <ion-item no-padding transparent>
+        <ion-label>Nivel Técnico</ion-label>
+        <button ion-button icon-only (click)="selectTecnic()" item-end>
+            <ion-icon name="create"></ion-icon>
+          </button>
+      </ion-item>
+      <ion-item no-padding transparent>
+        <ion-label>Nivel Fisico</ion-label>
+        <button ion-button icon-only (click)="selectPhisic()" item-end>
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-col>
 
-      <ion-col col-12>
-        <button ion-button button-clear-outline round outline block text-capitalize (click)="presentAlertConfirm()">
-          Enviar calificacion
-        </button>
-        <button ion-button button-clear-outline round outline block text-capitalize (click)="select()">
-          Select
-        </button>
-      </ion-col>
-    </ion-row>
+    <ion-col col-12>
+      <button ion-button button-clear-outline round outline block text-capitalize (click)="presentAlertConfirm()">
+        Enviar calificacion
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

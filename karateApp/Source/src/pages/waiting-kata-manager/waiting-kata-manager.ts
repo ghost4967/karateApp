@@ -12,8 +12,16 @@ export class WaitingKataManagerPage {
 
   sessionName: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
-      private alertController: AlertController) {
+  pages = [
+    {
+      icon: 'trash',
+      title: 'Eliminar jueces',
+      component: 'DeleteJudgesPage'
+    }
+  ]
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService,
+    private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName')
   }
 
@@ -52,6 +60,12 @@ export class WaitingKataManagerPage {
     });
     await alert.present();
 
-}
+  }
+
+  openPage(page) {
+    this.navCtrl.push(page.component, {
+      sessionName: this.sessionName
+    });
+  }
 
 }

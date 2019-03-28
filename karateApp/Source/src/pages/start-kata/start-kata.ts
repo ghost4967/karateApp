@@ -11,16 +11,25 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class StartKataPage {
 
-  sessionName:string;
+  sessionName: string;
   judgeName: string;
-  judgesList:Array<any>;
+  judgesList: Array<any>;
   judgesNumber: number;
   subscription: Subscription;
 
-  isReadyToStart:boolean;
+  pages = [
+    {
+      icon: 'trash',
+      title: 'Eliminar jueces',
+      component: 'DeleteJudgesPage'
+    }
+  ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
-      private alertController: AlertController) {
+
+  isReadyToStart: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService,
+    private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
     console.log(this.sessionName);
     this.judgesNumber = parseInt(navParams.get('judgesNumber'));
@@ -30,7 +39,14 @@ export class StartKataPage {
     this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
       this.judgesList = data;
       this.isReadyToStart = this.judgesList.length == this.judgesNumber;
-    }); 
+    });
+  }
+
+  ionViewWillEnter() {
+    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
+      this.judgesList = data;
+      this.isReadyToStart = this.judgesList.length == this.judgesNumber;
+    });
   }
 
   ionViewWillLeave() {
@@ -67,6 +83,12 @@ export class StartKataPage {
     });
     await alert.present();
 
-}
+  }
+
+  openPage(page) {
+    this.navCtrl.push(page.component, {
+      sessionName: this.sessionName
+    });
+  }
 
 }

@@ -1,4 +1,55 @@
 page-waiting-kata-manager {
+    [header-background-image] {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    @include darkening-blend-mode;
+
+    img {
+      padding-top: 40px;
+      margin: 0 auto;
+      display: block;
+      position: relative;
+      z-index: 9;
+      max-width: 60px;
+    }
+
+    [item-title] {
+      color: theme-colors('textColors', 'accent-first') !important;
+      position: relative;
+      z-index: 9;
+    }
+  }
+// Settings Icon Header
+ion-header {
+  [class^="icon-"]:before, [class*=" icon-"]:before {
+    width: auto !important;
+    margin-left: 0 !important;
+  }
+}
+
+  // Settings Main  Menu
+  [main-menu] {
+    button {
+      padding-left: 30px;
+    }
+
+    .item-inner {
+      margin-left: 0 !important;
+    }
+
+    [icon-small] {
+      margin-top: 18px !important;
+    }
+  }
+  // Settings Submenu
+
+  [submenu] {
+    ion-label {
+      padding-left: 30px !important;
+    }
+  }
+
     img {
         position: absolute;
         top: 0; bottom:0; left: 0; right:0;

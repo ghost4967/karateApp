@@ -1,0 +1,29 @@
+page-delete-judges {
+    .fade-in-left-item {
+        -webkit-animation: fadeInLeft 800ms;
+        -moz-animation: fadeInLeft 800ms;
+        -o-animation: fadeInLeft 800ms;
+        animation: fadeInLeft 800ms;
+      }
+
+      
+    img {
+      position: absolute;
+      top: 0; bottom:0; left: 0; right:0;
+      margin: auto;
+      max-width: 80%;
+      max-height: 70%;
+  }
+
+  h1 {
+      text-align: center;
+      color: #0090d0 !important;
+      font-weight: 500;
+  }
+
+  h2 {
+      text-align: center;
+      color: #0090d0 !important;
+      font-weight: 500;
+  }
+}

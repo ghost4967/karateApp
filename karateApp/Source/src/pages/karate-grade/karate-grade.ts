@@ -28,77 +28,50 @@ export class KarateGradePage {
   }
 
   ionViewDidLoad() {
-    const dummyJson = {
-      integers: [
-        {
-          description: '5'
-        },
-        {
-          description: '6'
-        },
-        {
-          description: '7'
-        },
-        {
-          description: '8'
-        },
-        {
-          description: '9'
-        },
-        {
-          description: '10'
-        }
-      ],
-      floats: [
-        {
-          description: '0'
-        },
-        {
-          description: '2'
-        },
-        {
-          description: '4'
-        },
-        {
-          description: '6'
-        },
-        {
-          description: '8'
-        },
-      ]
-    }
     this.gradeList = this.karateService.getGradeList();
+  }
+
+  selectPhisic() {
     const jsonData = {
       list : this.gradeList
     }
     this.selector.show({
-      title: "How Many?",
+      title: "Seleccionar nivel físico",
       items: [
-        dummyJson.integers,
-        dummyJson.floats
+        this.gradeList
       ],
+      positiveButtonText: 'Elegir',
+      negativeButtonText: 'Cancelar',
+      defaultItems: [ 
+        { index: 0, value: jsonData.list[10].description }
+      ]
     }).then(
       result => {
-        console.log(result);
-        this.data = result[0];
-        this.presentAlertConfirm();
+        console.log(result[0].description + ' at index: ' + result[0].index);
+        this.data.phisicLevel = result[0];
       },
       err => console.log('Error: ', err)
     );
   }
 
-  select() {
+  selectTecnic() {
     const jsonData = {
       list : this.gradeList
     }
     this.selector.show({
-      title: "How Many?",
+      title: "Seleccionar nivel técnico",
       items: [
         this.gradeList
       ],
+      positiveButtonText: 'Elegir',
+      negativeButtonText: 'Cancelar',
+      defaultItems: [ 
+        { index: 0, value: jsonData.list[10].description }
+      ]
     }).then(
       result => {
         console.log(result[0].description + ' at index: ' + result[0].index);
+        this.data.tecnicLevel = result[0];
       },
       err => console.log('Error: ', err)
     );

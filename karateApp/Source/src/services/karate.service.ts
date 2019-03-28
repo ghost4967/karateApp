@@ -169,4 +169,18 @@ export class KarateService {
     });
   }
 
+  deleteJudgeBySession(sessionName, judgeName) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Group/' + judgeName )
+    .remove();
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Grades/' + judgeName )
+    .remove();
+    this.panels = this.firebase.database.ref('/JohnFinalKarate' + '/' + sessionName + '/states/0/')
+    .update({
+      start: false
+    });
+    
+  }
+
 }

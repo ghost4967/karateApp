@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Eliminar jueces</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-row>
+        <ion-col col-12>
+            <ion-list no-margin>
+                <ion-item no-lines [ngClass]="animateClass" *ngFor="let item of judgeGradeList; let i = index;">
+                    <ion-avatar item-start>
+                        <ion-icon item-left icon-medium name="contact"></ion-icon>                        
+                    </ion-avatar>
+                    <h2 item-title padding-left>{{item.Nombre}}</h2>
+                    <button ion-button icon-only (click)="deleteJudge(item.Nombre)" item-end>
+                      <ion-icon name="trash"></ion-icon>
+                      </button>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

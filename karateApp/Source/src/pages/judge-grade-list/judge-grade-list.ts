@@ -18,34 +18,46 @@ export class JudgeGradeListPage {
   isEnableViewGrades: boolean = false;
   judgesNumber: string;
   subscription: Subscription;
+  pages = [
+    {
+      icon: 'trash',
+      title: 'Eliminar jueces',
+      component: 'DeleteJudgesPage'
+    }
+  ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
-      private alertController: AlertController) {
-   this.sessionName = navParams.get('sessionName');
-   this.animateClass = { 'fade-in-left-item': true };
-   this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService,
+    private alertController: AlertController) {
+    this.sessionName = navParams.get('sessionName');
+    this.animateClass = { 'fade-in-left-item': true };
+    this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
       this.judgesNumber = data;
-   })
+    })
   }
 
   ionViewDidLoad() {
     this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
-      this.judgeGradeList = data; 
+      this.judgeGradeList = data;
       this.fillSendedList();
       this.isEnableViewGrades = this.judgeGradeListSended.length == parseInt(this.judgesNumber);
       console.log(this.isEnableViewGrades);
     });
   }
-
+  ionViewWillEnter() {
+    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
+      this.judgeGradeList = data;
+      this.isEnableViewGrades = this.judgeGradeListSended.length == parseInt(this.judgesNumber);
+    });
+  }
   ionViewWillLeave() {
     this.subscription.unsubscribe();
   }
 
   goToGradeView() {
-      this.navCtrl.setRoot('DisplayGradePage', {
-        sessionName: this.sessionName
-      });
-      this.navCtrl.popToRoot();
+    this.navCtrl.setRoot('DisplayGradePage', {
+      sessionName: this.sessionName
+    });
+    this.navCtrl.popToRoot();
   }
 
   fillSendedList() {
@@ -80,6 +92,11 @@ export class JudgeGradeListPage {
     });
     await alert.present();
 
-}
+  }
+  openPage(page) {
+    this.navCtrl.push(page.component, {
+      sessionName: this.sessionName
+    });
+  }
 
 }
