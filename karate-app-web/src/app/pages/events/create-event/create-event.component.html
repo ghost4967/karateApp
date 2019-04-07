@@ -1,3 +1,82 @@
-<p>
-  create-event works!
-</p>
+<nb-card class="col-md-12">
+  <nb-card-header>Crear Evento</nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal" #stepper>
+      <nb-step [stepControl]="createEventForm" label="Datos del evento">
+        <div class="row">
+          <div class="col-md-12">
+            <nb-card>
+              <nb-card-body>
+                <form class="form" [formGroup]="createEventForm">
+                  <div class="form-group">
+                    <label for="eventName">Nombre del Evento</label>
+                    <input type="text" class="form-control" id="EventName" placeholder="Ingrese el nombre del evento" formControlName="createEventControl"
+                      name="name" [(ngModel)]="event.name">
+                  </div>
+                  <div class="form-group">
+                    <label for="caracteristic">Caracteristica</label>
+                    <input type="text" class="form-control" id="caracteristic" placeholder="Ingrese una Caracteristica" name="caracteristic"
+                      formControlName="createEventControl" [(ngModel)]="event.caracteristic">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Descripcion</label>
+                    <input type="text" class="form-control" id="description" placeholder="Ingrese una Descripcion" formControlName="createEventControl"
+                      name="description" [(ngModel)]="event.description">
+                  </div>
+                  <div class="form-group">
+                    <label for="organizer">Organizador</label>
+                    <input type="text" class="form-control" id="organizer" placeholder="Ingrese el nombre de un organizador" name="organizer"
+                      [(ngModel)]="event.organizer" formControlName="createEventControl">
+                  </div>
+                  <div class="form-group">
+                    <label for="city">Pais</label>
+                    <input type="text" class="form-control" id="country" placeholder="Ingrese el pais" formControlName="createEventControl" name="city"
+                      [(ngModel)]="event.country">
+                  </div>
+                  <div class="form-group">
+                    <label for="city">Ciudad</label>
+                    <input type="text" class="form-control" id="city" placeholder="Ingrese la ciudad" formControlName="createEventControl" name="city"
+                      [(ngModel)]="event.city">
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="startDate">Fecha inicio</label>
+                        <input nbInput class="form-control" placeholder="Ingrese la fecha de inicio" [nbDatepicker]="startDatePicker" [(ngModel)]="event.startDate"
+                          formControlName="createEventControl" name="startDate">
+                        <nb-datepicker #startDatePicker></nb-datepicker>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="endDate">Fecha fin</label>
+                        <input nbInput class="form-control" placeholder="Ingrese la fecha de inicio" [nbDatepicker]="endDatePicker" [(ngModel)]="event.endDate"
+                          formControlName="createEventControl" name="endDate">
+                        <nb-datepicker #endDatePicker></nb-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <button nbButton nbStepperNext >Siguiente</button>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </nb-step>
+      <nb-step label="Agregar Categorias">
+        <nb-card>
+          <nb-card-header>Elige las categorias</nb-card-header>
+          <nb-card-body>
+            <form>
+            <div class="form-group row">
+              <nb-checkbox *ngFor="let categorie of categories" 
+              [(ngModel)]="categorie.check" name="categorie" class="form-control">{{ categorie.name }}</nb-checkbox>
+              </div>
+              <button nbButton (click)="createEvent()"> Crear Evento </button>
+              </form>
+          </nb-card-body>
+        </nb-card>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>
