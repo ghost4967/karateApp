@@ -11,9 +11,11 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { EventService } from './services/event-service/event.service';
+import { CategorieFilterPipe } from './pipes/categorie/categorie-filter.pipe';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { EventService } from './services/event-service/event.service';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-        AngularFireDatabaseModule, AngularFireAuthModule,
+    AngularFireDatabaseModule, AngularFireAuthModule,
+    AngularFirestoreModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

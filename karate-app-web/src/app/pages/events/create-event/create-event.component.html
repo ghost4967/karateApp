@@ -56,7 +56,7 @@
                       </div>
                     </div>
                   </div>
-                  <button nbButton nbStepperNext >Siguiente</button>
+                  <button nbButton nbStepperNext>Siguiente</button>
                 </form>
               </nb-card-body>
             </nb-card>
@@ -68,12 +68,20 @@
           <nb-card-header>Elige las categorias</nb-card-header>
           <nb-card-body>
             <form>
-            <div class="form-group row">
-              <nb-checkbox *ngFor="let categorie of categories" 
-              [(ngModel)]="categorie.check" name="categorie" class="form-control">{{ categorie.name }}</nb-checkbox>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <nb-checkbox *ngFor="let categorie of categories | categorieFilter: 'female'" [(ngModel)]="categorie.check" name="categorie" class="form-control">{{ categorie.name }}</nb-checkbox>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <nb-checkbox *ngFor="let categorie of categories | categorieFilter: 'male'" [(ngModel)]="categorie.check" name="categorie" class="form-control">{{ categorie.name }}</nb-checkbox>
+                  </div>
+                </div>
               </div>
               <button nbButton (click)="createEvent()"> Crear Evento </button>
-              </form>
+            </form>
           </nb-card-body>
         </nb-card>
       </nb-step>

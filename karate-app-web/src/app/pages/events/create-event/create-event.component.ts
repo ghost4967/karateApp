@@ -12,7 +12,7 @@ export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
 
-  event: Event = new Event;
+  event: Event = new Event();
   categories: any;
 
   constructor(private formBuilder: FormBuilder, private eventService: EventService) { 

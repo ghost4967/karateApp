@@ -1,26 +1,66 @@
 [
     {
-        "name": "INDIVIDUAL 12-13 AÑOS"
+        "name": "KATA INDIVIDUAL MASCULINO 12-13 AÑOS",
+        "gender": "male"
     },
     {
-        "name": "INDIVIDUAL 14-15 AÑOS"
+        "name": "KATA INDIVIDUAL FEMENINO 12-13 AÑOS",
+        "gender": "female"
     },
     {
-        "name": "INDIVIDUAL 16-17 AÑOS"
+        "name": "KATA INDIVIDUAL MASCULINO 14-15 AÑOS",
+        "gender": "male"
     },
     {
-        "name": "INDIVIDUAL 18-20 AÑOS (ABAJO DE 21)"
+        "name": "KATA INDIVIDUAL FEMENINO 14-15 AÑOS",
+        "gender": "female"
     },
     {
-        "name": "INDIVIDUAL SENIOR + 16 AÑOS"
+        "name": "KATA INDIVIDUAL MASCULINO 16-17 AÑOS",
+        "gener": "male"
     },
     {
-        "name": "EQUIPO 14-17 AÑOS"
+        "name": "KATA INDIVIDUAL FEMENINO 16-17 AÑOS",
+        "gener": "female"
     },
     {
-        "name": "EQUIPO 18-20 AÑOS (ABAJO DE 21)"
+        "name": "KATA INDIVIDUAL MASCULINO 18-20 AÑOS (ABAJO DE 21)",
+        "gender": "male"
     },
     {
-        "name": "EQUIPO SENIOR + 16 AÑOS"
+        "name": "KATA INDIVIDUAL FEMENINO 18-20 AÑOS (ABAJO DE 21)",
+        "gender": "female"
+    },
+    {
+        "name": "KATA INDIVIDUAL MASCULINO SENIOR + 16 AÑOS",
+        "gender": "male"
+    },
+    {
+        "name": "KATA INDIVIDUAL FEMENINO SENIOR + 16 AÑOS",
+        "gender": "female"
+    },
+    {
+        "name": "KATA EQUIPO MASCULINO 14-17 AÑOS",
+        "gender": "male"
+    },
+    {
+        "name": "KATA EQUIPO FEMENINO 14-17 AÑOS",
+        "gender": "female"
+    },
+    {
+        "name": "KATA EQUIPO MASCULINO 18-20 AÑOS (ABAJO DE 21)",
+        "gender": "male"
+    },
+    {
+        "name": "KATA EQUIPO FEMENINO 18-20 AÑOS (ABAJO DE 21)",
+        "gender": "female"
+    },
+    {
+        "name": "EQUIPO SENIOR MASCULINO + 16 AÑOS",
+        "gender": "male"
+    },
+    {
+        "name": "EQUIPO SENIOR FEMENINO + 16 AÑOS",
+        "gender": "female"
     }
 ]

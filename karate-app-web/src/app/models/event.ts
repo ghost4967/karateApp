@@ -7,9 +7,7 @@ export class Event {
     city: string;
     startDate: Date;
     endDate: Date;
-    place: string;
-    image: ImageData;
+   // place: string;
+    //image: ImageData;
     categories: Array<any>
-
-    public Event() {}
 }
