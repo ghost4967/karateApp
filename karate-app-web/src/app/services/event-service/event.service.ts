@@ -26,5 +26,9 @@ export class EventService {
     return this.storeFirebase.collection('events').snapshotChanges();
   }
 
+  getEventById(id: string) {
+    return this.storeFirebase.doc('events/' + id).snapshotChanges();
+  }
+
  
 }

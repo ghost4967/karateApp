@@ -1,4 +1,5 @@
 export class Event {
+    id: string;ng
     name: string;
     caracteristic: string;
     description: string;

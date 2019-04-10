@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { EventsComponent } from './events.component';
 import { CreateEventComponent } from './create-event/create-event.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { EventProfileComponent } from './event-profile/event-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,6 +12,12 @@ const routes: Routes = [{
   children: [{
     path: 'create-event',
     component: CreateEventComponent,
+  }, {
+    path: 'event-list',
+    component: EventListComponent
+  }, {
+    path: ':eventId',
+    component: EventProfileComponent
   }],
 }];
 
@@ -21,5 +29,7 @@ export class EventsRoutingModule { }
 
 export const routedComponents = [
   EventsComponent,
-  CreateEventComponent
+  CreateEventComponent,
+  EventListComponent, 
+  EventProfileComponent
 ];

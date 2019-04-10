@@ -1,0 +1,27 @@
+<nb-card class="col-md-12">
+  <nb-card-header> Eventos </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="align-center">
+            <p>
+              <b>Id</b>
+            </p>
+          </th>
+          <th class="text-center">
+            <p>
+              <b>Nombre del evento</b>
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td class="align-right">{{ event.id }}</td>
+          <td ngClass="text-center" [routerLink]="['/pages/events', event.id]">{{ event.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
