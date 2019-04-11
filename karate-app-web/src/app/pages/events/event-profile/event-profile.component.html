@@ -1,3 +1,22 @@
-<nb-card class="col-md-12">
-  <nb-card-header>{{ event.name }}</nb-card-header>
-</nb-card>
+<div class="row">
+  <nb-card>
+    <nb-card-header>{{ event.name }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-6">
+          <img src="./assets/images/logo-karate.jpg">
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-group">
+
+            <button nbButton>Sortear</button>
+            <button nbButton [routerLink]="['add-countries']">Paises</button>
+            <button nbButton>Sabe tu</button>
+            <button nbButton >Katas</button>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+<router-outlet></router-outlet>

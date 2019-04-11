@@ -1,0 +1,44 @@
+<nb-card>
+  <nb-card-header>Agregar Paises</nb-card-header>
+  <nb-card-body>
+    <ng-select 
+    [items]="countries"
+    bindLabel="name"
+    bindValue="id"
+    labelForId="state"
+    [multiple]="true"
+    placeholder="Seleccione un pais">
+</ng-select>
+<button nbButton>Guardar</button>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <table class="table">
+        <thead>
+          <tr>
+            <th class="align-center">
+              <p>
+                <b>Id</b>
+              </p>
+            </th>
+            <th class="text-center">
+              <p>
+                <b>Pais</b>
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td class="align-right">hola</td>
+            <td ngClass="text-center">andy</td>
+            <td> <button type="button" class="btn btn-primary btn-icon">
+                <i class="nb-home"></i>
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
+</nb-card>
+
+   
