@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Country } from '../../../models/country';
+import { ActivatedRoute } from '@angular/router';
+import { CountryService } from '../../../services/country-service/country.service';
+import { CompetitorService } from '../../../services/competitor-service/competitor.service';
+import { Competitor } from '../../../models/competitor';
 
 @Component({
   selector: 'ngx-country-profile',
@@ -7,9 +12,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountryProfileComponent implements OnInit {
 
-  constructor() { }
+  country: Country = new Country();
+  countryId: string;
+  eventId: string;
+  competitors: Competitor[];
+
+  constructor(private route: ActivatedRoute, private countryService: CountryService, private competitorService: CompetitorService) { 
+    this.countryId = route.snapshot.paramMap.get('countryId');
+    this.eventId = route.snapshot.paramMap.get('eventId');
+    this.competitorService.getCompetitorsByCountry(this.countryId).subscribe(data => {
+      this.competitors = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Competitor;
+      });
+    });
+  }
 
   ngOnInit() {
+    this.countryService.getCountryById(this.countryId).subscribe(data => {
+      this.country = {
+        id: data.payload.id,
+        ...data.payload.data()
+      } as Country;
+    });
   }
 
 }

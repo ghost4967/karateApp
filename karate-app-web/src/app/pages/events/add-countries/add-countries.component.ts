@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../../services/country-service/country.service';
+import { ActivatedRoute } from '@angular/router';
+import { Country } from '../../../models/country';
 
 @Component({
   selector: 'ngx-add-countries',
@@ -8,15 +10,65 @@ import { CountryService } from '../../../services/country-service/country.servic
 })
 export class AddCountriesComponent implements OnInit {
 
-  countries: any;
+  defaultCountries: Array<any> = new Array();
+  eventId: string;
+  countries: Country[];
+  countriesToAdd: Array<Country> = new Array();
 
-  constructor(private countryService: CountryService) {
+
+  constructor(private countryService: CountryService, private route: ActivatedRoute) {
+    this.eventId = route.snapshot.paramMap.get('eventId');
     this.countryService.getCountries().subscribe(data => {
-      this.countries = data;
-    })
+      this.defaultCountries = <Array<any>>data;
+    });
+    this.countryService.getCountriesByEvent(this.eventId).subscribe(data => {
+      this.countries = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Country;
+      });
+      this.cleanDefaultCountries();
+    });
   }
 
   ngOnInit() {
+    this.countryService.getCountriesByEvent(this.eventId).subscribe(data => {
+      this.countries = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Country;
+      });
+      this.cleanDefaultCountries();      
+    });
+  }
+
+  addToList(event) {
+    let country = new Country();
+    country.eventId = this.eventId;
+    country.name = event.name;
+    this.countriesToAdd.push(country);
+  }
+
+  removeFromList(event) {
+    this.countriesToAdd =  this.countriesToAdd.filter(country => country.name != event.value.name );
+  }
+
+  addCountries() {
+    this.countryService.addCountriesToEvent(this.countriesToAdd);
+    this.cleanDefaultCountries();
+    this.countriesToAdd = [];
+  }
+
+  cleanDefaultCountries() {
+    this.countries.forEach(country => {
+      let index = this.defaultCountries.findIndex(defaultCountry => defaultCountry.name == country.name);
+      if (index != -1) {
+        this.defaultCountries =  this.defaultCountries.filter(defaultCountry => defaultCountry.name != country.name );        
+        console.log('se elimino');
+      }
+    });
   }
 
 }

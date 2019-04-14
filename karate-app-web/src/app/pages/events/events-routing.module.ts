@@ -8,6 +8,8 @@ import { EventProfileComponent } from './event-profile/event-profile.component';
 import { AddCountriesComponent } from './add-countries/add-countries.component';
 import { CompetitorRegisterComponent } from './competitor-register/competitor-register.component';
 import { CountryProfileComponent } from './country-profile/country-profile.component';
+import { CategorieListComponent } from './categorie-list/categorie-list.component';
+import { CompetitorListComponent } from './competitor-list/competitor-list.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,7 +21,7 @@ const routes: Routes = [{
     path: 'event-list',
     component: EventListComponent
   }, {
-    path: ':eventId',
+    path: 'event-view/:eventId',
     component: EventProfileComponent,
   }, {
     path: ':eventId/add-countries',
@@ -28,7 +30,7 @@ const routes: Routes = [{
     path: ':eventId/add-countries/:countryId',
     component: CountryProfileComponent
   }, {
-    path: 'country/add-competitor/:eventId/:countryId',
+    path: ':eventId/country/:countryId/add-competitor',
     component: CompetitorRegisterComponent
   }],
 }];
@@ -46,5 +48,7 @@ export const routedComponents = [
   EventProfileComponent,
   AddCountriesComponent,
   CompetitorRegisterComponent,
-  CountryProfileComponent
+  CountryProfileComponent,
+  CategorieListComponent,
+  CompetitorListComponent
 ];

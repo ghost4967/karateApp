@@ -2,27 +2,23 @@
   <nb-card-header>Agregar Paises</nb-card-header>
   <nb-card-body>
     <ng-select 
-    [items]="countries"
+    [items]="defaultCountries"
     bindLabel="name"
     bindValue="id"
     labelForId="state"
     [multiple]="true"
-    placeholder="Seleccione un pais">
+    placeholder="Seleccione un pais"
+    (add)=addToList($event)
+    (remove)="removeFromList($event)">
 </ng-select>
-<button nbButton>Guardar</button>
+<button nbButton (click)="addCountries()">Guardar</button>
   </nb-card-body>
 </nb-card>
-
 <nb-card>
     <table class="table">
         <thead>
           <tr>
-            <th class="align-center">
-              <p>
-                <b>Id</b>
-              </p>
-            </th>
-            <th class="text-center">
+            <th class="text-left">
               <p>
                 <b>Pais</b>
               </p>
@@ -30,11 +26,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr >
-            <td class="align-right">hola</td>
-            <td ngClass="text-center">andy</td>
-            <td> <button type="button" class="btn btn-primary btn-icon">
-                <i class="nb-home"></i>
+          <tr *ngFor="let country of countries">
+            <td class="align-right">{{ country.name }}</td>
+            <td> <button type="button" class="btn btn-primary btn-icon" 
+                  routerLink="/pages/events/{{eventId}}/add-countries/{{country.id}}">
+                <i class="ion-plus-round"></i>
               </button></td>
           </tr>
         </tbody>

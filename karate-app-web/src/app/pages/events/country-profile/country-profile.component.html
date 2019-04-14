@@ -1,3 +1,15 @@
-<p>
-  country-profile works!
-</p>
+<nb-card>
+  <nb-card-header>{{country.name}}</nb-card-header>
+  <button type="button" class="btn btn-primary btn-icon" routerLink="/pages/events/{{eventId}}/country/{{countryId}}/add-competitor">
+    <i class="ion-plus-round"></i>
+  </button>
+</nb-card>
+<nb-card>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item *ngFor="let competitor of competitors">
+        {{ competitor.name }}
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>
