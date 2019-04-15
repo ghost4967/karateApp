@@ -1,3 +1,26 @@
-<p>
-  competitor-list works!
-</p>
+<nb-card>
+  <nb-card-header>Lista de competidores</nb-card-header>
+  <nb-card-body>
+    <div *ngFor="let group of groupArray">
+      {{group.side}}
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center">
+                <p>
+                  <b>Nombre del competidor</b>
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let offlineCompetitor of group.competitors">
+              <td class="align-right">{{ offlineCompetitor.competitor.name }} ( {{ offlineCompetitor.country.name }} ) </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+  </nb-card-body>
+
+</nb-card>

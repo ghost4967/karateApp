@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Event } from '../../../models/event';
+import { ActivatedRoute } from '@angular/router';
+import { EventService } from '../../../services/event-service/event.service';
 
 @Component({
   selector: 'ngx-categorie-list',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategorieListComponent implements OnInit {
 
-  constructor() { }
+  event: Event = new Event();
+  eventId: string;
+
+  constructor(private route: ActivatedRoute, private eventService: EventService) {
+    this.eventId = route.snapshot.paramMap.get('eventId');
+    
+   }
 
   ngOnInit() {
+    this.eventService.getEventById(this.eventId).subscribe(data => {
+      this.event = {
+        id: data.payload.id,
+        ...data.payload.data()
+      } as Event;
+    });
   }
 
 }

@@ -13,6 +13,11 @@ export class CompetitorService {
     return this.storeFirebase.collection('competitors', ref => ref.where("countryId", "==", countryId)).snapshotChanges();
   }
 
+  getCompetitorsByCategorie(eventId: string, categorie: string) {
+    return this.storeFirebase.collection('competitors', ref => ref.where("eventId", "==", eventId)
+    .where("categorie.name", "==", categorie)).snapshotChanges();    
+  }
+
   createCompetitor(competitor: Competitor) {
     return this.storeFirebase.collection('competitors').add(Object.assign({}, competitor));
   }

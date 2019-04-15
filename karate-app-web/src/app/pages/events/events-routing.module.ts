@@ -32,6 +32,12 @@ const routes: Routes = [{
   }, {
     path: ':eventId/country/:countryId/add-competitor',
     component: CompetitorRegisterComponent
+  }, {
+    path: ':eventId/categories',
+    component: CategorieListComponent
+  }, {
+    path: ':eventId/categories/:categorieName',
+    component: CompetitorListComponent
   }],
 }];
 

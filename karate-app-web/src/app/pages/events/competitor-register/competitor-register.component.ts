@@ -39,11 +39,8 @@ export class CompetitorRegisterComponent implements OnInit {
   }
 
   registerCompetitor() {
-    console.log(this.competitor);
     this.competitor.eventId = this.eventId;
     this.competitor.countryId = this.countryId;
-    let categorie = this.categories.find(categorie => categorie.name == this.competitor.categorie.name);
-    this.competitor.categorie = categorie;
     this.competitorService.createCompetitor(this.competitor);
   }
 

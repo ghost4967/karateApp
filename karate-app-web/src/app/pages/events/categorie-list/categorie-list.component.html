@@ -1,3 +1,26 @@
-<p>
-  categorie-list works!
-</p>
+<nb-card>
+  <nb-card-header>Categorias del evento: {{event.name}}</nb-card-header>
+  <nb-card-body>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-left">
+            <p>
+              <b>Categoria</b>
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categorie of event.categories">
+          <td class="align-right">{{ categorie.name }}</td>
+          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}">
+            <button nbButton>
+              Sortear
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
