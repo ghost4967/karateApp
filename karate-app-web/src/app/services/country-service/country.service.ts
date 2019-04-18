@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Country } from '../../models/country';
+import { Competitor } from '../../models/competitor';
+import { OfflineCompetitor } from '../../models/offline-competitor';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,22 @@ export class CountryService {
 
   getCountryById(countryId: string) {
     return this.storeFirebase.doc('countries/' + countryId).snapshotChanges();
+  }
+
+  buildOfflineCompetitorList(countries: Array<Country>, competitors: Array<Competitor>) {
+    let offlineCompetitorList = new Array<Array<OfflineCompetitor>>();
+    countries.forEach(country => {
+      let data = competitors.filter(competitor => competitor.countryId == country.id);
+      let competitorOfflineArray = new Array<OfflineCompetitor>();
+      data.forEach(competitor => {
+        let offlineCompetitor = new OfflineCompetitor();
+        offlineCompetitor.competitor = competitor;
+        offlineCompetitor.country = country;
+        competitorOfflineArray.push(offlineCompetitor);
+      });
+      offlineCompetitorList.push(competitorOfflineArray);
+    });
+    return offlineCompetitorList;
   }
 
 

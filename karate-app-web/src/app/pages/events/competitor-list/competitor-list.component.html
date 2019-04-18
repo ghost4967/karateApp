@@ -1,24 +1,53 @@
 <nb-card>
-  <nb-card-header>Lista de competidores</nb-card-header>
+  <nb-card-header>Lista de competidores
+    <button nbButton (click)="shuffleGroups()"> Sortear </button>
+  </nb-card-header>
   <nb-card-body>
-    <div *ngFor="let group of groupArray">
-      {{group.side}}
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th class="text-center">
-                <p>
-                  <b>Nombre del competidor</b>
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let offlineCompetitor of group.competitors">
-              <td class="align-right">{{ offlineCompetitor.competitor.name }} ( {{ offlineCompetitor.country.name }} ) </td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="row">
+      <div class="col-md-6">
+        <div *ngFor="let group of blueGroups">
+          {{group.side}}
+          <table class="table table-bordered">
+            <thead  [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#73a1ff' }">
+              <tr>
+                <th class="text-center">
+                  <p>
+                    <b>Nombre del competidor</b>
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let offlineCompetitor of group.competitors">
+                <td class="align-right">{{ offlineCompetitor.competitor.name }} ( {{ offlineCompetitor.country.name }} )
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div *ngFor="let group of redGroups">
+              Grupo {{group.side}}
+              <table class="table table-bordered" >
+                <thead [ngStyle]="{'background-color': side == 'red' ? '#ff3333' : '#ff3333' }">
+                  <tr>
+                    <th class="text-center">
+                      <p>
+                        <b>Nombre del competidor</b>
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let offlineCompetitor of group.competitors">
+                    <td class="align-right">{{ offlineCompetitor.competitor.name }} ( {{ offlineCompetitor.country.name }} )
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
     </div>
 
   </nb-card-body>

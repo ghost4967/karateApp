@@ -22,16 +22,19 @@ export class CompetitorListComponent implements OnInit {
   eventId: string;
   categorieName: string;
   competitors: Competitor[];
-  competitorList: Array<Array<OfflineCompetitor>> = new Array();
+  offlineCompetitorList: Array<Array<OfflineCompetitor>> = new Array();
   competition: Competition = new Competition();
   firebaseCompetition: FirebaseCompetition = new FirebaseCompetition();
-  groupArray: Array<Group> = new Array();
+  groupArray: Array<Group>;
+  blueGroups: Array<Group>;
+  redGroups: Array<Group>;
   countries: Array<Country> = new Array();
 
   constructor(private route: ActivatedRoute, private competitorService: CompetitorService, private countryService: CountryService,
     private sortService: SortService) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.categorieName = route.snapshot.paramMap.get('categorieName');
+    this.groupArray = new Array();
     console.log(this.categorieName);
   }
 
@@ -58,47 +61,54 @@ export class CompetitorListComponent implements OnInit {
           ...e.payload.doc.data()
         } as Country;
       });
-      this.countries.forEach(country => {
-        let competitors = this.competitors.filter(competitor => competitor.countryId == country.id);
-        let competitorOfflineArray = new Array<OfflineCompetitor>();
-        competitors.forEach(competitor => {
-          let offlineCompetitor = new OfflineCompetitor();
-          offlineCompetitor.competitor = competitor;
-          offlineCompetitor.country = country;
-          competitorOfflineArray.push(offlineCompetitor);
-        });
-        this.competitorList.push(competitorOfflineArray);
-      });
-      console.log(this.competitorList);
-      this.competitorList.forEach(offlineCompetitors => {
-        let randomIndex = Math.floor(Math.random() * offlineCompetitors.length);
-        let data = offlineCompetitors[randomIndex];
-        offlineCompetitors.forEach(competitor => {
-          if (data == competitor && this.groupArray.some(group => !group.competitors.find(competitor => competitor == competitor))) {
-            let blueGroup = this.groupArray.find(group => group.kata == this.competition.numberOfKatas && group.side == "blue");
-            blueGroup.competitors.push(data);
-          } else {
-            let redGroup = this.groupArray.find(group => group.kata == this.competition.numberOfKatas && group.side == "red");
-            redGroup.competitors.push(competitor);
-          }
-        });
-      });
-      this.firebaseCompetition.categorie = this.categorieName;
-      this.firebaseCompetition.eventId = this.eventId;
-      this.groupArray.forEach(group => {
-        const competitors = group.competitors.map((obj)=> {return Object.assign({}, obj)});
-        group.competitors = competitors;
-      })
-      const groups = this.groupArray.map((obj)=> {return Object.assign({}, obj)});
-      this.firebaseCompetition.groups = groups;
-      this.sortService.createCompetition(this.firebaseCompetition);
+      this.offlineCompetitorList = this.countryService.buildOfflineCompetitorList(this.countries, this.competitors);
+      this.groupArray = this.sortService.shuffleGroups(this.offlineCompetitorList, this.competition.numberOfKatas, this.groupArray);
+      this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      console.log(this.groupArray)
     });
+  }
+
+  shuffleGroups() {
+    this.cleanCompetitors();
+    this.groupArray = this.sortService.shuffleGroups(this.offlineCompetitorList, this.competition.numberOfKatas, this.groupArray);
+    this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+    this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+    this.randomOrder(this.redGroups);
+    this.randomOrder(this.blueGroups);
+
+  }
+
+  cleanCompetitors() {
+    this.groupArray.forEach(group => {
+      group.competitors = new Array();
+    })
+  }
+
+  randomOrder(group: Array<Group>) {
+    group.forEach(group => {
+      group.competitors.sort(function () { 
+        return 0.5 - Math.random()
+      })
+    });
+  }
+
+  saveOrderGroups() {
+    this.firebaseCompetition.categorie = this.categorieName;
+    this.firebaseCompetition.eventId = this.eventId;
+    this.groupArray.forEach(group => {
+      const competitors = group.competitors.map((obj) => { return Object.assign({}, obj) });
+      group.competitors = competitors;
+    })
+    const groups = this.groupArray.map((obj) => { return Object.assign({}, obj) });
+    this.firebaseCompetition.groups = groups;
+    this.sortService.createCompetition(this.firebaseCompetition);
   }
 
   fillBlueSide(side) {
     let kataNumbers = this.competition.numberOfKatas;
     while (side > 0) {
-      let group = this.createGroup(kataNumbers, "blue");
+      let group = this.createGroup(kataNumbers, 'blue');
       this.groupArray.push(group);
       side--;
       kataNumbers--;
@@ -115,7 +125,7 @@ export class CompetitorListComponent implements OnInit {
   fillRedSide(side) {
     let kataNumbers = this.competition.numberOfKatas;
     while (side > 0) {
-      let group = this.createGroup(kataNumbers, "red");
+      let group = this.createGroup(kataNumbers, 'red');
       this.groupArray.push(group);
       side--;
       kataNumbers--;

@@ -8,6 +8,7 @@ import { CreateEventComponent } from './create-event/create-event.component';
 import { CategorieFilterPipe } from '../../pipes/categorie/categorie-filter.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { GroupsFilterPipe } from '../../pipes/groups/groups-filter.pipe';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
     
   ],
   declarations: [
-    ...routedComponents, CategorieFilterPipe
+    ...routedComponents, CategorieFilterPipe, GroupsFilterPipe
   ],
   providers:[]
 })
