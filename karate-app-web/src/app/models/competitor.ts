@@ -6,8 +6,9 @@ export class Competitor {
     lastName: string;
     secondLastName: string;
     gender: string;
-    categorie: Categorie;
-    age: number;
+    categorie?: Categorie;
+    birthDate: Date;
+    ci: number;
     eventId: string;
     countryId: string;
 }

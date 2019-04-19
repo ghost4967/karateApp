@@ -1,0 +1,66 @@
+<nb-card>
+  <nb-card-header> Registro de equipo para {{country.name}} 
+    <button class="btn btn-primary" (click)="saveTeam()"  routerLink="/pages/events/{{eventId}}/add-countries/{{country.id}}">
+      Guardar equipo
+      </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Categoria:</label>
+          <select class="form-control" placeholder="Seleccione la categoria" [(ngModel)]="team.categorie"
+            name="categorie">
+            <option *ngFor="let categorie of categories" [ngValue]="categorie">{{categorie.name}}</option>
+          </select>
+        </div>
+        <label> Competidores: </label>
+        <nb-list>
+          <nb-list-item *ngFor="let competitor of team.competitors">
+            {{competitor.name}} {{competitor.lastName}}
+          </nb-list-item>
+        </nb-list>
+        
+      </div>
+      <div class="col-md-6">
+        <form>
+          <div class="form-group">
+            <label for="name">Nombres:</label>
+            <input type="text" class="form-control" placeholder="Nombres" [(ngModel)]="competitor.name" name="name">
+          </div>
+          <div class="form-group">
+            <label>Apellido Paterno:</label>
+            <input type="text" class="form-control" placeholder="Apellido paterno" [(ngModel)]="competitor.lastName"
+              name="lastName">
+          </div>
+          <div class="form-group">
+            <label>Apellido Materno:</label>
+            <input type="text" class="form-control" placeholder="Apellido materno"
+              [(ngModel)]="competitor.secondLastName" name="secondLastName">
+          </div>
+          <div class="form-group">
+            <label>Fecha de nacimiento:</label>
+            <input nbInput class="form-control" placeholder="Fecha de nacimiento" [nbDatepicker]="birthDatePicker"
+              [(ngModel)]="competitor.birthDate" name="birthDate">
+            <nb-datepicker #birthDatePicker></nb-datepicker>
+          </div>
+          <div class="form-group">
+            <label>Nro de documento:</label>
+            <input type="number" class="form-control" placeholder="Numero de documento" [(ngModel)]="competitor.ci"
+              name="ci">
+          </div>
+          <div class="form-group">
+            <label>Genero:</label>
+            <select class="form-control" placeholder="Seleccione el genero" 
+              [(ngModel)]="competitor.gender" name="gender">
+              <option value="male">Masculino</option>
+              <option value="female">Femenino</option>
+            </select>
+          </div>
+
+          <button nbButton (click)="addCompetitor()"> AgregarCompetidor </button>
+        </form>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

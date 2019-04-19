@@ -1,66 +1,82 @@
 [
     {
         "name": "KATA INDIVIDUAL MASCULINO 12-13 AÑOS",
-        "gender": "male"
+        "gender": "male",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO 12-13 AÑOS",
-        "gender": "female"
+        "gender": "female",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL MASCULINO 14-15 AÑOS",
-        "gender": "male"
+        "gender": "male",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO 14-15 AÑOS",
-        "gender": "female"
+        "gender": "female",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL MASCULINO 16-17 AÑOS",
-        "gener": "male"
+        "gener": "male",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO 16-17 AÑOS",
-        "gener": "female"
+        "gener": "female",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL MASCULINO 18-20 AÑOS (ABAJO DE 21)",
-        "gender": "male"
+        "gender": "male",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO 18-20 AÑOS (ABAJO DE 21)",
-        "gender": "female"
+        "gender": "female",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL MASCULINO SENIOR + 16 AÑOS",
-        "gender": "male"
+        "gender": "male",
+        "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO SENIOR + 16 AÑOS",
-        "gender": "female"
+        "gender": "female",
+        "type": "single"
     },
     {
         "name": "KATA EQUIPO MASCULINO 14-17 AÑOS",
-        "gender": "male"
+        "gender": "male",
+        "type": "team"
     },
     {
         "name": "KATA EQUIPO FEMENINO 14-17 AÑOS",
-        "gender": "female"
+        "gender": "female",
+        "type": "team"
     },
     {
         "name": "KATA EQUIPO MASCULINO 18-20 AÑOS (ABAJO DE 21)",
-        "gender": "male"
+        "gender": "male",
+        "type": "team"
     },
     {
         "name": "KATA EQUIPO FEMENINO 18-20 AÑOS (ABAJO DE 21)",
-        "gender": "female"
+        "gender": "female",
+        "type": "team"
     },
     {
         "name": "KATA EQUIPO SENIOR MASCULINO + 16 AÑOS",
-        "gender": "male"
+        "gender": "male",
+        "type": "team"
     },
     {
         "name": "KATA EQUIPO SENIOR FEMENINO + 16 AÑOS",
-        "gender": "female"
+        "gender": "female",
+        "type": "team"
     }
 ]

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CountryService } from '../../../services/country-service/country.service';
 import { CompetitorService } from '../../../services/competitor-service/competitor.service';
 import { Competitor } from '../../../models/competitor';
+import { Team } from '../../../models/team';
 
 @Component({
   selector: 'ngx-country-profile',
@@ -16,6 +17,7 @@ export class CountryProfileComponent implements OnInit {
   countryId: string;
   eventId: string;
   competitors: Competitor[];
+  teams: Team[];
 
   constructor(private route: ActivatedRoute, private countryService: CountryService, private competitorService: CompetitorService) { 
     this.countryId = route.snapshot.paramMap.get('countryId');
@@ -26,6 +28,15 @@ export class CountryProfileComponent implements OnInit {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
         } as Competitor;
+      });
+    });
+
+    this.competitorService.getTeamsByCountry(this.countryId).subscribe(data => {
+      this.teams = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Team;
       });
     });
   }

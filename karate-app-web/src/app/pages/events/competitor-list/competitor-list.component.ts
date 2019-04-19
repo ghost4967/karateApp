@@ -9,8 +9,8 @@ import { Competition } from '../../../models/competition';
 import { SortService } from '../../../services/sort-service/sort.service';
 import { FirebaseCompetition } from '../../../models/firebase-competition';
 import { Group } from '../../../models/group';
-import { group } from '@angular/animations/src/animation_metadata';
-import { Final } from '../../../models/final';
+import * as jspdf from 'jspdf'; 
+import html2canvas from 'html2canvas'; 
 
 @Component({
   selector: 'ngx-competitor-list',
@@ -22,7 +22,9 @@ export class CompetitorListComponent implements OnInit {
   eventId: string;
   categorieName: string;
   competitors: Competitor[];
-  offlineCompetitorList: Array<Array<OfflineCompetitor>> = new Array();
+  startSort: boolean = false;
+  listToSortGroups: Array<Array<OfflineCompetitor>> = new Array();
+  offlineCompetitors: Array<OfflineCompetitor> = new Array();
   competition: Competition = new Competition();
   firebaseCompetition: FirebaseCompetition = new FirebaseCompetition();
   groupArray: Array<Group>;
@@ -61,17 +63,27 @@ export class CompetitorListComponent implements OnInit {
           ...e.payload.doc.data()
         } as Country;
       });
-      this.offlineCompetitorList = this.countryService.buildOfflineCompetitorList(this.countries, this.competitors);
-      this.groupArray = this.sortService.shuffleGroups(this.offlineCompetitorList, this.competition.numberOfKatas, this.groupArray);
+      this.listToSortGroups = this.countryService.buildOfflineCompetitorList(this.countries, this.competitors);
+      this.fillOfflineCompetitors();
+      this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
       this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
       this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
-      console.log(this.groupArray)
     });
+  }
+
+  fillOfflineCompetitors() {
+    this.listToSortGroups.forEach(data => {
+      data.forEach(offlineCompetitor => {
+        this.offlineCompetitors.push(offlineCompetitor);
+      })
+    })
   }
 
   shuffleGroups() {
     this.cleanCompetitors();
-    this.groupArray = this.sortService.shuffleGroups(this.offlineCompetitorList, this.competition.numberOfKatas, this.groupArray);
+    this.startSort = true;
+    this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
+     this.fillEmptyKataGroups();
     this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
     this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
     this.randomOrder(this.redGroups);
@@ -79,10 +91,42 @@ export class CompetitorListComponent implements OnInit {
 
   }
 
+  fillEmptyKataGroups() {
+    this.groupArray.forEach(group => {
+      if ((this.competition.numberOfKatas - 1) == group.kata) {
+        for(let i = 1 ; i <= 8 ; i++) {
+          let offlineCompetitor = new OfflineCompetitor();
+          offlineCompetitor.competitor = new Competitor();
+          offlineCompetitor.competitor.name = '';
+          offlineCompetitor.competitor.lastName = '';
+          offlineCompetitor.country = new Country();
+          offlineCompetitor.country.name='';
+          group.competitors.push(offlineCompetitor);
+        }
+      }
+    })
+  }
+
   cleanCompetitors() {
     this.groupArray.forEach(group => {
       group.competitors = new Array();
     })
+  }
+
+  exportPdf() {
+    var data = document.getElementById('sortTable'); 
+    html2canvas(data).then(canvas => { 
+    var imgWidth = 208; 
+    var pageHeight = 295; 
+    var imgHeight = canvas.height * imgWidth / canvas.width; 
+    var heightLeft = imgHeight; 
+    
+    const contentDataURL = canvas.toDataURL('image/png') 
+    let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF 
+    var position = 0; 
+    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight) 
+    pdf.save('MYPdf.pdf');
+    }); 
   }
 
   randomOrder(group: Array<Group>) {
@@ -102,6 +146,7 @@ export class CompetitorListComponent implements OnInit {
     })
     const groups = this.groupArray.map((obj) => { return Object.assign({}, obj) });
     this.firebaseCompetition.groups = groups;
+    this.firebaseCompetition.numberOfKatas = this.competition.numberOfKatas;
     this.sortService.createCompetition(this.firebaseCompetition);
   }
 

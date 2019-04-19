@@ -1,4 +1,5 @@
 export class Categorie {
     name: string;
-    gender: string
+    gender: string;
+    type: string;
 }

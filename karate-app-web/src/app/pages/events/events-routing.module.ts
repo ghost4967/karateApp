@@ -10,6 +10,7 @@ import { CompetitorRegisterComponent } from './competitor-register/competitor-re
 import { CountryProfileComponent } from './country-profile/country-profile.component';
 import { CategorieListComponent } from './categorie-list/categorie-list.component';
 import { CompetitorListComponent } from './competitor-list/competitor-list.component';
+import { TeamRegisterComponent } from './team-register/team-register.component';
 
 const routes: Routes = [{
   path: '',
@@ -32,6 +33,9 @@ const routes: Routes = [{
   }, {
     path: ':eventId/country/:countryId/add-competitor',
     component: CompetitorRegisterComponent
+  }, {
+    path: ':eventId/country/:countryId/add-team',
+    component: TeamRegisterComponent
   }, {
     path: ':eventId/categories',
     component: CategorieListComponent
@@ -56,5 +60,6 @@ export const routedComponents = [
   CompetitorRegisterComponent,
   CountryProfileComponent,
   CategorieListComponent,
-  CompetitorListComponent
+  CompetitorListComponent,
+  TeamRegisterComponent
 ];
