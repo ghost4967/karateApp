@@ -23,6 +23,11 @@ export class CompetitorService {
     .where("categorie.name", "==", categorie)).snapshotChanges();    
   }
 
+  getTeamsByCategorie(eventId: string, categorie: string) {
+    return this.storeFirebase.collection('teams', ref => ref.where("eventId", "==", eventId)
+    .where("categorie.name", "==", categorie)).snapshotChanges();  
+  }
+
   createCompetitor(competitor: Competitor) {
     return this.storeFirebase.collection('competitors').add(Object.assign({}, competitor));
   }

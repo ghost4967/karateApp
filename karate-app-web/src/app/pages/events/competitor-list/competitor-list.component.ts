@@ -9,8 +9,12 @@ import { Competition } from '../../../models/competition';
 import { SortService } from '../../../services/sort-service/sort.service';
 import { FirebaseCompetition } from '../../../models/firebase-competition';
 import { Group } from '../../../models/group';
-import * as jspdf from 'jspdf'; 
-import html2canvas from 'html2canvas'; 
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { TeamFirebaseCompetition } from '../../../models/team-firebase-competition';
+import { TeamGroup } from '../../../models/team-group';
+import { OfflineTeam } from '../../../models/offline-team';
+import { Team } from '../../../models/team';
 
 @Component({
   selector: 'ngx-competitor-list',
@@ -22,39 +26,71 @@ export class CompetitorListComponent implements OnInit {
   eventId: string;
   categorieName: string;
   competitors: Competitor[];
+  teams: Team[];
   startSort: boolean = false;
+  isSingle: boolean = false;
+  isTeam: boolean = false;
+
   listToSortGroups: Array<Array<OfflineCompetitor>> = new Array();
+  listToSortTeamGroups: Array<Array<OfflineTeam>> = new Array();
   offlineCompetitors: Array<OfflineCompetitor> = new Array();
+  offlineTeams: Array<OfflineTeam> = new Array();
+
   competition: Competition = new Competition();
   firebaseCompetition: FirebaseCompetition = new FirebaseCompetition();
+  firebaseTeamCompetition: TeamFirebaseCompetition = new TeamFirebaseCompetition();
+
   groupArray: Array<Group>;
   blueGroups: Array<Group>;
   redGroups: Array<Group>;
+  teamGroupArray: Array<TeamGroup>;
+  teamBlueGroups: Array<TeamGroup>;
+  teamRedGroups: Array<TeamGroup>;
   countries: Array<Country> = new Array();
 
-  constructor(private route: ActivatedRoute, private competitorService: CompetitorService, private countryService: CountryService,
+  constructor(private route: ActivatedRoute, private competitorService: CompetitorService,
+    private countryService: CountryService,
     private sortService: SortService) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.categorieName = route.snapshot.paramMap.get('categorieName');
+    this.isSingle = this.categorieName.includes("INDIVIDUAL");
+    this.isTeam = this.categorieName.includes("EQUIPO");
     this.groupArray = new Array();
-    console.log(this.categorieName);
   }
 
   ngOnInit() {
-    this.competitorService.getCompetitorsByCategorie(this.eventId, this.categorieName).subscribe(data => {
-      this.competitors = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as Competitor;
+    if (this.isSingle) {
+      this.competitorService.getCompetitorsByCategorie(this.eventId, this.categorieName).subscribe(data => {
+        this.competitors = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as Competitor;
+        });
+        this.competition = this.sortService.buildCompetition(this.competitors.length);
+        let totalGroups = this.sortService.getTotalGroups(this.competition.numberOfKatas);
+        let dividedSides = totalGroups / 2;
+        this.fillBlueSide(dividedSides);
+        this.fillRedSide(dividedSides);
       });
-      this.competition = this.sortService.buildCompetition(this.competitors.length);
-      let totalGroups = this.sortService.getTotalGroups(this.competition.numberOfKatas);
-      let dividedSides = totalGroups / 2;
-      this.fillBlueSide(dividedSides);
-      this.fillRedSide(dividedSides);
-      console.log(this.groupArray);
-    });
+    }
+
+    if (this.isTeam) {
+      console.log('is team')
+      this.competitorService.getTeamsByCategorie(this.eventId, this.categorieName).subscribe(data => {
+        this.teams = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as Team;
+        });
+        this.competition = this.sortService.buildCompetition(this.teams.length);
+        let totalGroups = this.sortService.getTotalGroups(this.competition.numberOfKatas);
+        let dividedSides = totalGroups / 2;
+        this.fillBlueSideTeams(dividedSides);
+        this.fillRedSideTeams(dividedSides);
+      })
+    }
 
     this.countryService.getCountriesByEvent(this.eventId).subscribe(data => {
       this.countries = data.map(e => {
@@ -63,11 +99,21 @@ export class CompetitorListComponent implements OnInit {
           ...e.payload.doc.data()
         } as Country;
       });
-      this.listToSortGroups = this.countryService.buildOfflineCompetitorList(this.countries, this.competitors);
-      this.fillOfflineCompetitors();
-      this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
-      this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
-      this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      if (this.isSingle) {
+        this.listToSortGroups = this.countryService.buildOfflineCompetitorList(this.countries, this.competitors);
+        this.fillOfflineCompetitors();
+        this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
+        this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+        this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      }
+      if (this.isTeam) {
+        this.listToSortTeamGroups = this.countryService.buildOfflineTeamList(this.countries, this.teams);
+        this.fillOfflineTeams();
+        this.teamGroupArray = this.sortService.shuffleTeamGroups(this.listToSortTeamGroups, this.competition.numberOfKatas, this.teamGroupArray);
+        this.teamBlueGroups = this.teamBlueGroups.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+        this.teamRedGroups = this.teamBlueGroups.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      }
+
     });
   }
 
@@ -79,29 +125,61 @@ export class CompetitorListComponent implements OnInit {
     })
   }
 
+  fillOfflineTeams() {
+    this.listToSortTeamGroups.forEach(data => {
+      data.forEach(offlineTeam => {
+        this.offlineTeams.push(offlineTeam);
+      })
+    })
+  }
+
   shuffleGroups() {
-    this.cleanCompetitors();
-    this.startSort = true;
-    this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
-     this.fillEmptyKataGroups();
-    this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
-    this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
-    this.randomOrder(this.redGroups);
-    this.randomOrder(this.blueGroups);
+    if (this.isSingle) {
+      this.cleanCompetitors();
+      this.startSort = true;
+      this.groupArray = this.sortService.shuffleGroups(this.listToSortGroups, this.competition.numberOfKatas, this.groupArray);
+      this.fillEmptyKataGroups();
+      this.blueGroups = this.groupArray.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      this.redGroups = this.groupArray.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      this.randomOrder(this.redGroups);
+      this.randomOrder(this.blueGroups);
+    } else if(this.isTeam) {
+      this.cleanTeams();
+      this.startSort = true;
+      this.teamGroupArray = this.sortService.shuffleTeamGroups(this.listToSortTeamGroups, this.competition.numberOfKatas, this.teamGroupArray);
+      this.fillEmptyKataTeamGroups();
+      this.teamBlueGroups = this.teamBlueGroups.filter(group => group.side == 'blue').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      this.teamRedGroups = this.teamBlueGroups.filter(group => group.side == 'red').sort((a, b) => (a.kata > b.kata) ? 1 : -1);
+      this.randomTeamOrder(this.teamBlueGroups);
+      this.randomTeamOrder(this.teamRedGroups);
+    }
+
 
   }
 
   fillEmptyKataGroups() {
     this.groupArray.forEach(group => {
       if ((this.competition.numberOfKatas - 1) == group.kata) {
-        for(let i = 1 ; i <= 8 ; i++) {
+        for (let i = 1; i <= 8; i++) {
           let offlineCompetitor = new OfflineCompetitor();
           offlineCompetitor.competitor = new Competitor();
           offlineCompetitor.competitor.name = '';
           offlineCompetitor.competitor.lastName = '';
           offlineCompetitor.country = new Country();
-          offlineCompetitor.country.name='';
+          offlineCompetitor.country.name = '';
           group.competitors.push(offlineCompetitor);
+        }
+      }
+    })
+  }
+
+  fillEmptyKataTeamGroups() {
+    this.teamGroupArray.forEach(group => {
+      if ((this.competition.numberOfKatas - 1) == group.kata) {
+        for (let i = 1; i <= 8; i++) {
+          let offlineTeam = new OfflineTeam();
+          offlineTeam.name = '';
+          group.teams.push(offlineTeam);
         }
       }
     })
@@ -110,28 +188,48 @@ export class CompetitorListComponent implements OnInit {
   cleanCompetitors() {
     this.groupArray.forEach(group => {
       group.competitors = new Array();
-    })
+    });
+  }
+
+  cleanTeams() {
+    this.teamGroupArray.forEach(group => {
+      group.teams = new Array();
+    });
   }
 
   exportPdf() {
-    var data = document.getElementById('sortTable'); 
-    html2canvas(data).then(canvas => { 
-    var imgWidth = 208; 
-    var pageHeight = 295; 
-    var imgHeight = canvas.height * imgWidth / canvas.width; 
-    var heightLeft = imgHeight; 
-    
-    const contentDataURL = canvas.toDataURL('image/png') 
-    let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF 
-    var position = 0; 
-    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight) 
-    pdf.save('MYPdf.pdf');
-    }); 
+    if(this.isSingle) {
+      var data = document.getElementById('sortTable');
+    } else if(this.isTeam) {
+      var data = document.getElementById('sortTeamTable');
+    }
+    this.saveOrderGroups();
+    html2canvas(data).then(canvas => {
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jspdf('p', 'mm', 'a4');
+      var position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      let pdfName = this.categorieName + '.pdf'
+      pdf.save(pdfName);
+    });
   }
 
   randomOrder(group: Array<Group>) {
     group.forEach(group => {
-      group.competitors.sort(function () { 
+      group.competitors.sort(function () {
+        return 0.5 - Math.random()
+      })
+    });
+  }
+
+  randomTeamOrder(teamGroup: Array<TeamGroup>) {
+    teamGroup.forEach(group => {
+      group.teams.sort(function () {
         return 0.5 - Math.random()
       })
     });
@@ -172,6 +270,33 @@ export class CompetitorListComponent implements OnInit {
     while (side > 0) {
       let group = this.createGroup(kataNumbers, 'red');
       this.groupArray.push(group);
+      side--;
+      kataNumbers--;
+    }
+  }
+
+  fillBlueSideTeams(side) {
+    let kataNumbers = this.competition.numberOfKatas;
+    while (side > 0) {
+      let group = this.createTeamGroup(kataNumbers, 'blue');
+      this.teamGroupArray.push(group);
+      side--;
+      kataNumbers--;
+    }
+  }
+
+  private createTeamGroup(kataNumbers: number, side: string) {
+    let group = new TeamGroup();
+    group.kata = kataNumbers;
+    group.side = side;
+    return group;
+  }
+
+  fillRedSideTeams(side) {
+    let kataNumbers = this.competition.numberOfKatas;
+    while (side > 0) {
+      let group = this.createTeamGroup(kataNumbers, 'red');
+      this.teamGroupArray.push(group);
       side--;
       kataNumbers--;
     }

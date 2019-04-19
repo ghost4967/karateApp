@@ -3,107 +3,117 @@
     <button nbButton (click)="shuffleGroups()"> Sortear </button>
     <button nbButton (click)="exportPdf()"> Guardar y Exportar </button>
   </nb-card-header>
-  <nb-list *ngIf="!startSort">
+  <nb-list *ngIf="!startSort && isSingle">
     <nb-list-item *ngFor="let data of offlineCompetitors">
       {{ data.competitor.name }} {{ data.competitor.lastName }} ( {{ data.country.name }} )
     </nb-list-item>
   </nb-list>
-  <nb-card-body *ngIf="startSort" id="sortTable" #sortTable>
+  <div *ngIf="!startSort && isTeam" >
+    <div *ngFor="let team of offlineTeams">
+    <label><strong> {{team.name }}</strong></label>
+    <nb-list>
+      <nb-list-item *ngFor="let competitor of team.competitors">
+        {{ competitor.name }} {{ competitor.lastName }}
+      </nb-list-item>
+    </nb-list>
+    </div>
+  </div>
+  <nb-card-body *ngIf="startSort && isSingle" id="sortTable" #sortTable>
     <div class="row">
       <div class="col-md-4 offset-md-4">
-          <table class="table table-bordered">
-              <thead style="background-color: #ffff33">
-                <tr>
-                  <th class="text-center" colspan="2">
-                    <p>
-                      <b>FINAL</b>
-                    </p>
-                  </th>
-  
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="align-right"> 1
-                  </td>
-                  <td class="align-right"> 
-                  </td>
-                </tr>
-                <tr>
-                    <td class="align-right"> 2
-                    </td>
-                    <td class="align-right"> 
-                    </td>
-                  </tr>
-              </tbody>
-            </table>
-        </div>
+        <table class="table table-bordered">
+          <thead style="background-color: #ffff33">
+            <tr>
+              <th class="text-center" colspan="2">
+                <p>
+                  <b>FINAL</b>
+                </p>
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-right"> 1
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+            <tr>
+              <td class="align-right"> 2
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <table class="table table-bordered">
-                <thead style="background-color: #ffcc66">
-                  <tr>
-                    <th class="text-center" colspan="2">
-                      <p>
-                        <b>BRONCE 1</b>
-                      </p>
-                    </th>
-    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="align-right"> 1
-                    </td>
-                    <td class="align-right"> 
-                    </td>
-                  </tr>
-                  <tr>
-                      <td class="align-right"> 2
-                      </td>
-                      <td class="align-right"> 
-                      </td>
-                    </tr>
-                </tbody>
-              </table>
-          </div>
+      <div class="col-md-4 offset-md-4">
+        <table class="table table-bordered">
+          <thead style="background-color: #ffcc66">
+            <tr>
+              <th class="text-center" colspan="2">
+                <p>
+                  <b>BRONCE 1</b>
+                </p>
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-right"> 1
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+            <tr>
+              <td class="align-right"> 2
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="row">
-          <div class="col-md-4 offset-md-4">
-              <table class="table table-bordered">
-                  <thead style="background-color: #ffcc66">
-                    <tr>
-                      <th class="text-center" colspan="2">
-                        <p>
-                          <b>BRONCE 2</b>
-                        </p>
-                      </th>
-      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="align-right"> 1
-                      </td>
-                      <td class="align-right"> 
-                      </td>
-                    </tr>
-                    <tr>
-                        <td class="align-right"> 2
-                        </td>
-                        <td class="align-right"> 
-                        </td>
-                      </tr>
-                  </tbody>
-                </table>
-            </div>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <table class="table table-bordered">
+          <thead style="background-color: #ffcc66">
+            <tr>
+              <th class="text-center" colspan="2">
+                <p>
+                  <b>BRONCE 2</b>
+                </p>
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-right"> 1
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+            <tr>
+              <td class="align-right"> 2
+              </td>
+              <td class="align-right">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6">
         <div *ngFor="let group of blueGroups">
-            <label><strong>KATA {{group.kata}}</strong> </label>
-            <table class="table table-bordered">
+          <label><strong>KATA {{group.kata}}</strong> </label>
+          <table class="table table-bordered">
             <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#73a1ff' }">
               <tr>
                 <th>
@@ -113,7 +123,7 @@
                 </th>
                 <th class="text-center">
                   <p>
-                  <b>Nombre del competidor</b>
+                    <b>Nombre del competidor</b>
                   </p>
                 </th>
 
@@ -121,9 +131,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let offlineCompetitor of group.competitors; let i = index">
-                <td class="align-right"> {{ i +1}}
+                <td class="align-right"> {{ i +1 }}
                 </td>
-                <td class="align-right">{{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}}  {{ offlineCompetitor.country.name }} 
+                <td class="align-right" *ngIf="offlineCompetitor.competitor.name != ''">
+                  {{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}} (
+                  {{ offlineCompetitor.country.name }} )
+                </td>
+                <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
                 </td>
               </tr>
             </tbody>
@@ -152,7 +166,11 @@
               <tr *ngFor="let offlineCompetitor of group.competitors; let i = index">
                 <td class="align-right"> {{ i +1}}
                 </td>
-                <td class="align-right">{{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}}  {{ offlineCompetitor.country.name }} 
+                <td class="align-right" *ngIf="offlineCompetitor.competitor.name != ''">
+                  {{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}} (
+                  {{ offlineCompetitor.country.name }} )
+                </td>
+                <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
                 </td>
               </tr>
             </tbody>
@@ -160,7 +178,168 @@
         </div>
       </div>
     </div>
-
   </nb-card-body>
+
+  <nb-card-body *ngIf="startSort && isTeam" id="sortTeamTable" #sortTeamTable>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <table class="table table-bordered">
+            <thead style="background-color: #ffff33">
+              <tr>
+                <th class="text-center" colspan="2">
+                  <p>
+                    <b>FINAL</b>
+                  </p>
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-right"> 1
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right"> 2
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <table class="table table-bordered">
+            <thead style="background-color: #ffcc66">
+              <tr>
+                <th class="text-center" colspan="2">
+                  <p>
+                    <b>BRONCE 1</b>
+                  </p>
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-right"> 1
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right"> 2
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <table class="table table-bordered">
+            <thead style="background-color: #ffcc66">
+              <tr>
+                <th class="text-center" colspan="2">
+                  <p>
+                    <b>BRONCE 2</b>
+                  </p>
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-right"> 1
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right"> 2
+                </td>
+                <td class="align-right">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div *ngFor="let group of teamBlueGroups">
+            <label><strong>KATA {{group.kata}}</strong> </label>
+            <table class="table table-bordered">
+              <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#73a1ff' }">
+                <tr>
+                  <th>
+                    <p>
+                      <b>Numero</b>
+                    </p>
+                  </th>
+                  <th class="text-center">
+                    <p>
+                      <b>Nombre del competidor</b>
+                    </p>
+                  </th>
+  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let offlineTeam of group.teams; let i = index">
+                  <td class="align-right"> {{ i +1 }}
+                  </td>
+                  <td class="align-right" *ngIf="offlineTeam.name != ''">
+                    {{ offlineTeam.name }} (
+                    {{ offlineTeam.country.name }} )
+                  </td>
+                  <td *ngIf="offlineTeam.name == ''" class="align-right">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div *ngFor="let group of teamReadGroups">
+            <label><strong>KATA {{group.kata}}</strong> </label>
+            <table class="table table-bordered">
+              <thead [ngStyle]="{'background-color': side == 'red' ? '#ff3333' : '#ff3333' }">
+                <tr>
+                  <th>
+                    <p>
+                      <b>Numero</b>
+                    </p>
+                  </th>
+                  <th class="text-center">
+                    <p>
+                      <b>Nombre del competidor</b>
+                    </p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let offlineTeam of group.teams; let i = index">
+                  <td class="align-right"> {{ i +1}}
+                  </td>
+                  <td class="align-right" *ngIf="offlineTeam.name != ''">
+                    {{ offlineTeam.name }}  (
+                    {{ offlineTeam.country.name }} )
+                  </td>
+                  <td *ngIf="offlineTeam.name == ''" class="align-right">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
 
 </nb-card>

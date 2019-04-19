@@ -15,9 +15,9 @@ export class SortService {
 
   constructor(private storeFirebase: AngularFirestore) { }
 
-  public shuffleGroups(comptetitorList, numberOfKatas, groupArray) {
+  public shuffleGroups(competitorList, numberOfKatas, groupArray) {
     let flag = 'blue';
-    comptetitorList.forEach(offlineCompetitors => {
+    competitorList.forEach(offlineCompetitors => {
       let randomIndex = Math.floor(Math.random() * offlineCompetitors.length);
       let data = offlineCompetitors[randomIndex];
       let side = this.sideArray[Math.floor(Math.random() * this.sideArray.length)];
@@ -41,6 +41,35 @@ export class SortService {
       }
     });
     return groupArray;
+  }
+
+  public shuffleTeamGroups(teamLists, numberOfKatas, teamGroupArray) {
+    let flag = 'blue';
+    teamLists.forEach(offlineTeams => {
+      let randomIndex = Math.floor(Math.random() * offlineTeams.length);
+      let data = offlineTeams[randomIndex];
+      let side = this.sideArray[Math.floor(Math.random() * this.sideArray.length)];
+      if (offlineTeams.length == 1) {
+        let sideToPut = side == flag ? flag : side;
+        let teams = teamGroupArray.find(group => group.kata == numberOfKatas && sideToPut == group.side);
+        teams.competitors.push(data);
+        if (side == flag) {
+          flag == this.sideArray.find(side => side != flag)
+        }
+      } else {
+        offlineTeams.forEach(team => {
+          if (data == team && teamGroupArray.some(teamGroup => !teamGroup.teams.find(team => team == team))) {
+            let blueGroup = teamGroupArray.find(group => group.kata == numberOfKatas && group.side == "blue");
+            blueGroup.competitors.push(data);
+          } else {
+            let redGroup = teamGroupArray.find(group => group.kata == numberOfKatas && group.side == "red");
+            redGroup.competitors.push(team);
+          }
+        });
+      }
+    });
+    return teamGroupArray;
+
   }
 
   public buildCompetition(numberOfCompetitors: number) {
