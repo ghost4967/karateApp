@@ -33,7 +33,7 @@ export class LoginLayout1 {
   validate():boolean {
     this.isUsernameValid = true;
     this.isPasswordValid = true;
-    this.karateService.getPasswordKArata().subscribe(data => {
+    this.karateService.getPassword().subscribe(data => {
         if (this.password !== data) {
           this.isPasswordValid = false;
         }

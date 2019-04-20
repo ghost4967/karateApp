@@ -22,7 +22,7 @@ export class KarateService {
     console.log('Hello KarateProvider Provider');
   }
 
-  getPasswordKArata(): any {
+  public getPassword(): any {
     return new Observable(observer => {
       this.firebase
         .object('JohnFinalKarate/password')

@@ -7,32 +7,42 @@ import { KarateLoginPageModule } from './karate-login.module';
 @Component({
   selector: 'page-karate-login',
   templateUrl: 'karate-login.html',
-  providers: [KarateService]
+  providers: []
 })
 export class KarateLoginPage {
-  params: any = [];
+  data: any;
   kataPassword: string;
+  
+  public password: string;
+
+  private isUsernameValid: boolean = true;
+  private isPasswordValid: boolean = true;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService ,
               public viewController:ViewController) {
     
-    this.params.data = {
-       "password": "Contraseña",
-       "login": "Ingresar",
-       "logo": "assets/images/icon-KataManager/LOGOKATA.png"
-    }
-    this.params.events = {
-      onLogin: function (params) {
-        karateService.getPasswordKArata().subscribe(data => {
-          if (params.password === data) {
-            navCtrl.setRoot('KarateHomePage');
-            navCtrl.popToRoot();
-          }
-        })
-      },
-   };
   }
 
   ionViewDidLoad() {
-    
+    this.karateService.getPassword().subscribe(data => {
+      this.kataPassword = data;
+    })
+
   }
+
+  login() {
+    if(this.validate()) {
+      this.navCtrl.setRoot('KarateHomePage');
+      this.navCtrl.popToRoot();
+    }
+
+  }
+
+  validate():boolean {
+    this.isPasswordValid = true;
+    if(this.password !== this.kataPassword) {
+      this.isPasswordValid = false;
+    }    
+    return this.isPasswordValid;
+ }
 }

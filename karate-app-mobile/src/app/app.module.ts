@@ -19,12 +19,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { KarateService } from '../services/karate.service';
 @NgModule({
     declarations: [MyApp],
     providers: [
         StatusBar, SplashScreen, BarcodeScanner, Camera, 
         ToastService, LoadingService, WheelSelector,
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        KarateService
     ],
     imports: [
         BrowserModule,

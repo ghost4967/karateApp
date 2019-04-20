@@ -6,12 +6,22 @@
 
 </ion-header>
 
-
-<ion-content padding>
-
-    <login-layout-1
-    [data]="params.data"
-    [events]="params.events">
-  </login-layout-1>
-
+<ion-content background-size padding>
+  <ion-grid>
+      <ion-row wrap no-padding>
+          <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+              <!---Logo-->
+              <img padding-bottom src="assets/images/icon-KataManager/LOGOKATA.png" >
+              <!---Input field password-->
+              <ion-item transparent>
+                  <ion-icon item-left icon-small name="lock"></ion-icon>                        
+                  <ion-label floating>Contraseña</ion-label>
+                  <ion-input required type="password" [(ngModel)]="password"></ion-input>
+                  <ion-label error-field color="secondary" no-margin *ngIf="!isPasswordValid">Contraseña Incorrecta</ion-label>
+              </ion-item>
+              <!---Login button-->
+              <button ion-button float-right button-clear-outline round outline (click)="login()">Ingresar</button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>
