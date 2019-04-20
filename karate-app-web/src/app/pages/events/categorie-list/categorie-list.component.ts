@@ -12,10 +12,15 @@ export class CategorieListComponent implements OnInit {
 
   event: Event = new Event();
   eventId: string;
+  isCompetition;
 
   constructor(private route: ActivatedRoute, private eventService: EventService) {
     this.eventId = route.snapshot.paramMap.get('eventId');
-    
+    this.isCompetition = this.route.snapshot.queryParamMap.get("competition");
+    if (this.isCompetition == null) {
+      this.isCompetition = false;
+    }
+
    }
 
   ngOnInit() {

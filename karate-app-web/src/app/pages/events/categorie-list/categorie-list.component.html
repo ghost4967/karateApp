@@ -14,9 +14,14 @@
       <tbody>
         <tr *ngFor="let categorie of event.categories">
           <td class="align-right">{{ categorie.name }}</td>
-          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}">
+          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}" *ngIf="!isCompetition">
             <button nbButton>
               Sortear
+            </button>
+          </td>
+          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" *ngIf="isCompetition">
+            <button nbButton>
+              Asignar Tatami
             </button>
           </td>
         </tr>

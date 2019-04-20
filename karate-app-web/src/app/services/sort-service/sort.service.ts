@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Competitor } from '../../models/competitor';
 import { FirebaseCompetition } from '../../models/firebase-competition';
 import { Group } from '../../models/group';
+import { TeamComponent } from '../../pages/dashboard/team/team.component';
 
 @Injectable({
   providedIn: 'root'
@@ -107,5 +108,14 @@ export class SortService {
 
   createCompetition(competition: FirebaseCompetition) {
     return this.storeFirebase.collection('competitions').add(Object.assign({}, competition));
+  }
+
+  createTeamCompetition(teamCompetition: TeamComponent) {
+    return this.storeFirebase.collection('team-competitions').add(Object.assign({}, teamCompetition));
+  }
+
+  getCompetitionByCategorieAndEvent(categorie: string, eventId: string) {
+    return this.storeFirebase.collection('competitions', ref => ref.where("categorie", "==", categorie)
+    .where("eventId", "==", eventId)).snapshotChanges();
   }
 }

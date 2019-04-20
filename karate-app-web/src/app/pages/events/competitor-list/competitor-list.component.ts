@@ -200,14 +200,15 @@ export class CompetitorListComponent implements OnInit {
   exportPdf() {
     if(this.isSingle) {
       var data = document.getElementById('sortTable');
+      this.saveOrderGroups();
     } else if(this.isTeam) {
       var data = document.getElementById('sortTeamTable');
+      this.saveTeamOrderGroups();
     }
-    this.saveOrderGroups();
     html2canvas(data).then(canvas => {
-      var imgWidth = 208;
+      var imgWidth = 150;
       var pageHeight = 295;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var imgHeight = 250;
       var heightLeft = imgHeight;
 
       const contentDataURL = canvas.toDataURL('image/png')
@@ -239,6 +240,10 @@ export class CompetitorListComponent implements OnInit {
     this.firebaseCompetition.categorie = this.categorieName;
     this.firebaseCompetition.eventId = this.eventId;
     this.groupArray.forEach(group => {
+      group.competitors.forEach(competitor => {
+        competitor.competitor = (Object.assign({}, competitor.competitor));
+        competitor.country = (Object.assign({}, competitor.country));
+      });
       const competitors = group.competitors.map((obj) => { return Object.assign({}, obj) });
       group.competitors = competitors;
     })
@@ -246,6 +251,19 @@ export class CompetitorListComponent implements OnInit {
     this.firebaseCompetition.groups = groups;
     this.firebaseCompetition.numberOfKatas = this.competition.numberOfKatas;
     this.sortService.createCompetition(this.firebaseCompetition);
+  }
+
+  saveTeamOrderGroups() {
+    this.firebaseTeamCompetition.categorie = this.categorieName;
+    this.firebaseTeamCompetition.eventId = this.eventId;
+    this.teamGroupArray.forEach(group => {
+      const team =  group.teams.map((obj) => { return Object.assign({}, obj) });
+      group.teams = team;
+    });
+    const groups = this.teamGroupArray.map((obj) => { return Object.assign({}, obj) });
+    this.firebaseTeamCompetition.groups = groups;
+    this.firebaseTeamCompetition.numberOfKatas  = this.competition.numberOfKatas;
+    this.sortService.createTeamCompetition(this.firebaseTeamCompetition);
   }
 
   fillBlueSide(side) {

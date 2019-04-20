@@ -15,7 +15,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { EventService } from './services/event-service/event.service';
-import { CategorieFilterPipe } from './pipes/categorie/categorie-filter.pipe';
 
 
 @NgModule({

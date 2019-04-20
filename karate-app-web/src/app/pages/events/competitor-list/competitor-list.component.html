@@ -2,6 +2,7 @@
   <nb-card-header>Lista de competidores
     <button nbButton (click)="shuffleGroups()"> Sortear </button>
     <button nbButton (click)="exportPdf()"> Guardar y Exportar </button>
+    <button nbButton  routerLink="/pages/events/{{eventId}}/categories"> Atras</button>
   </nb-card-header>
   <nb-list *ngIf="!startSort && isSingle">
     <nb-list-item *ngFor="let data of offlineCompetitors">
