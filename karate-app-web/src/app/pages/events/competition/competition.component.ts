@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort-service/sort.service';
 import { FirebaseCompetition } from '../../../models/firebase-competition';
 import { Group } from '../../../models/group';
+import { CompetitionService } from '../../../services/competition-service/competition-service';
+import { OfflineCompetitor } from '../../../models/offline-competitor';
 
 @Component({
   selector: 'ngx-competition',
@@ -16,10 +18,14 @@ export class CompetitionComponent implements OnInit {
   competitions: FirebaseCompetition[];
   blueGroups: Group[];
   redGroups: Group[];
+  katas: any;
 
-  constructor(private route: ActivatedRoute, private sortService: SortService) { 
+  constructor(private route: ActivatedRoute, private sortService: SortService, private competitionService: CompetitionService) { 
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.categorieName = route.snapshot.paramMap.get('categorieName');
+    this.competitionService.getKatas().subscribe(data => {
+      this.katas = data;
+    })
   }
 
   ngOnInit() {
@@ -34,6 +40,10 @@ export class CompetitionComponent implements OnInit {
       this.blueGroups = competition.groups.filter(group => group.side == 'blue' && group.kata == competition.numberOfKatas);
       this.redGroups = competition.groups.filter(group => group.side == 'red' && group.kata == competition.numberOfKatas);
     })
+  }
+
+  startCompetition(offlineCompetitor: OfflineCompetitor) {
+
   }
 
 }

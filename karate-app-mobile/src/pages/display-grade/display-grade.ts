@@ -124,6 +124,7 @@ export class DisplayGradePage {
   }
 
   restartGrading() {
+    
     this.service.restartSession(this.sessionName);
     this.judgeList.forEach(element => {
       this.service.restartJudgeStatus(this.sessionName, element.Nombre);
