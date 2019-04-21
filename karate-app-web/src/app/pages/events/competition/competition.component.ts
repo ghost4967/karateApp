@@ -19,6 +19,7 @@ export class CompetitionComponent implements OnInit {
   blueGroups: Group[];
   redGroups: Group[];
   katas: any;
+  competition: FirebaseCompetition = new FirebaseCompetition();
 
   constructor(private route: ActivatedRoute, private sortService: SortService, private competitionService: CompetitionService) { 
     this.eventId = route.snapshot.paramMap.get('eventId');
@@ -36,14 +37,19 @@ export class CompetitionComponent implements OnInit {
           ...e.payload.doc.data()
         } as FirebaseCompetition;
       });
-      let competition = this.competitions[0];
-      this.blueGroups = competition.groups.filter(group => group.side == 'blue' && group.kata == competition.numberOfKatas);
-      this.redGroups = competition.groups.filter(group => group.side == 'red' && group.kata == competition.numberOfKatas);
+      this.competition = this.competitions[0];
+      this.blueGroups = this.competition.groups.filter(group => group.side == 'blue' && group.kata == this.competition.numberOfKatas);
+      this.redGroups = this.competition.groups.filter(group => group.side == 'red' && group.kata == this.competition.numberOfKatas);
     })
   }
 
-  startCompetition(offlineCompetitor: OfflineCompetitor) {
+  startCompetition(offlineCompetitor, group) {
+    this.competitionService.addCompetitorToPanel(group.kataManager, offlineCompetitor, offlineCompetitor.kataName);
 
+  }
+
+  createPanel(group) {
+    this.competitionService.createPanel(group, group.kataManager, this.competition);
   }
 
 }

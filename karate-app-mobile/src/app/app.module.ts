@@ -20,10 +20,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 import { KarateService } from '../services/karate.service';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 @NgModule({
     declarations: [MyApp],
     providers: [
-        StatusBar, SplashScreen, BarcodeScanner, Camera, 
+        StatusBar, SplashScreen, BarcodeScanner, Camera,
         ToastService, LoadingService, WheelSelector,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         KarateService
@@ -33,6 +34,7 @@ import { KarateService } from '../services/karate.service';
         HttpModule, HttpClientModule,
         AngularFireModule.initializeApp(AppSettings.FIREBASE_CONFIG),
         AngularFireDatabaseModule, AngularFireAuthModule,
+        AngularFirestoreModule,
         IonicModule.forRoot(MyApp),
     ],
     bootstrap: [IonicApp],

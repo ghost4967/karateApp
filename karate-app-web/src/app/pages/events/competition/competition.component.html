@@ -35,7 +35,12 @@
       <div class="col-md-6" *ngFor="let group of blueGroups">
         <div class="form-group">
           <label> Nombre del panel: </label>
-          <input class="form-control">
+          <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="createPanel(group)">Create Panel</button>
+              </div>
+          </div>
           </div>
         <table class="table table-bordered">
           <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#73a1ff' }">
@@ -63,12 +68,12 @@
               <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
               </td>
               <td>
-                <ng-select [items]="katas" bindLabel="name" bindValue="id" labelForId="state"
-                  placeholder="Seleccione un kata" >
+                <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
+                  placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
                 </ng-select>
               </td>
               <td>
-                <button class="btn btn-primary btn-sm"> Competir </button>
+                <button class="btn btn-primary btn-sm" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
               </td>
             </tr>
           </tbody>

@@ -1,6 +1,8 @@
 import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+
 
 import { Observable } from 'rxjs/Observable';
 
@@ -18,8 +20,12 @@ export class KarateService {
   private noteListRef = this.firebase.list<any>('/JohnFinalKarate');
 
 
-  constructor(public http: HttpClient, private firebase: AngularFireDatabase) {
+  constructor(public http: HttpClient, private firebase: AngularFireDatabase,  private storeFirebase: AngularFirestore) {
     console.log('Hello KarateProvider Provider');
+  }
+
+  public saveGradeByCompetitor(grade) {
+    this.storeFirebase.collection('grades').add(grade);
   }
 
   public getPassword(): any {
@@ -44,7 +50,8 @@ export class KarateService {
       states: [
         {
           start: false,
-          restart: false
+          restart: false,
+          nextCompetitor: false
         }
       ]
     });
@@ -55,7 +62,8 @@ export class KarateService {
     .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
     .set({
       restart: true,
-      start: false
+      start: false,
+      nextCompetitor: false
     });
   }
 
@@ -82,6 +90,10 @@ export class KarateService {
   getByName(sessionName): any {
     this.items = this.firebase.list('JohnFinalKarate/'+sessionName+'/Group/').valueChanges();
     return this.items;
+  }
+
+  getSessionByName(sessionName) {
+    return this.firebase.list('JohnFinalKarate/'+sessionName).valueChanges();
   }
 
   getNumberOfJudges(sessionName): any {

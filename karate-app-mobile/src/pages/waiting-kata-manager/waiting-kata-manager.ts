@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
+import { Subscription } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,8 @@ import { KarateService } from '../../services/karate.service';
 export class WaitingKataManagerPage {
 
   sessionName: string;
-
+  competitorName: string;
+  kataName: string;
   pages = [
     {
       icon: 'trash',
@@ -20,13 +22,24 @@ export class WaitingKataManagerPage {
     }
   ]
 
+  subscription: Subscription;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService,
     private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName')
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaitingKataManagerPage');
+    this.subscription = this.karateService.getPanelName(this.sessionName).subscribe(data => {
+      this.competitorName = data.competitor.competitor.name + data.competitor.competitor.lastName;
+      this.kataName = data.competitor.kataName;
+      console.log(this.competitorName);
+      console.log(this.kataName);
+    })
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   enableGrade() {

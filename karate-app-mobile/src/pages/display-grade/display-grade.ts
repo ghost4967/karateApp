@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { KarateService } from '../../services/karate.service';
 import { Element } from '@angular/compiler';
 import { filterQueryId } from '@angular/core/src/view/util';
+import { Subscription } from 'rxjs';
+import { DragAndDropLayout1 } from '../../components/list-view/drag-and-drop/layout-1/drag-and-drop-layout-1';
 
 @IonicPage()
 @Component({
@@ -24,6 +26,9 @@ export class DisplayGradePage {
   promedioTecnico:any;
   promedioFisico:any;
   promedio:any;
+  grade: any;
+
+  subscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
       private alertController: AlertController) {
@@ -40,6 +45,14 @@ export class DisplayGradePage {
   }
 
   ionViewDidLoad() {
+    this.subscription = this.service.getPanelName(this.sessionName).subscribe(data => {
+      this.grade = {
+        competitor: data.competitor.competitor,
+        kata: data.kata,
+        categorie: data.categorie,
+      }
+    })
+
     this.service.getGrades(this.sessionName).subscribe(data => {
       this.gradeList = data;
       this.gradeList.forEach(element => {
@@ -86,7 +99,8 @@ export class DisplayGradePage {
 
         this.orderFisico.indexOf(this.tecnicoPintar[0]);
       }
-    })
+    });
+
   }  
 
   averageTecnico(list:Array<any>) {
@@ -124,12 +138,13 @@ export class DisplayGradePage {
   }
 
   restartGrading() {
-    
+    this.grade.finalGrade = this.promedio;
+    this.service.saveGradeByCompetitor(this.grade);
     this.service.restartSession(this.sessionName);
     this.judgeList.forEach(element => {
       this.service.restartJudgeStatus(this.sessionName, element.Nombre);
     });
-    this.navCtrl.setRoot('WaitingKataManagerPage', {
+    this.navCtrl.setRoot('WaitingCompetitorPage', {
       sessionName: this.sessionName
     });
     this.navCtrl.popToRoot();

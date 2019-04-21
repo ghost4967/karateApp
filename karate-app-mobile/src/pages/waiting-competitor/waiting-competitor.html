@@ -16,12 +16,12 @@
         </ion-list>
     </ion-content>
 </ion-menu>
-<ion-nav [root]="WaitingKataManagerPage" main #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="WaitingCompetitorPage" main #content swipeBackEnabled="false"></ion-nav>
 
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Ejecutando kata</ion-title>
+    <ion-title>Esperando Competidor</ion-title>
     <ion-buttons end>
         <button ion-button icon-only (click)="alertExit()">
           <ion-icon name="exit"></ion-icon>
@@ -34,12 +34,10 @@
 
 <ion-content padding>
   <h1>{{sessionName}}</h1>
-  <h2>{{competitorName}}</h2>
-  <h3>{{kataName}}</h3>
   <img src="assets/images/icon-KataManager/ejecutandoKata.png" >
 </ion-content>
-<ion-fab #fab bottom right>
-    <button button-ion-fab ion-fab  (click)="enableGrade()">
-        votar
+<ion-fab #fab bottom right *ngIf="isCompetitorPresent">
+    <button button-ion-fab ion-fab  (click)="goToKata()">
+        Iniciar
     </button>
 </ion-fab>

@@ -1,22 +1,18 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
+
 
 @IonicPage()
 @Component({
-  selector: 'page-start-kata',
-  templateUrl: 'start-kata.html',
-  providers: [KarateService]
+  selector: 'page-waiting-competitor',
+  templateUrl: 'waiting-competitor.html',
 })
-export class StartKataPage {
+export class WaitingCompetitorPage {
 
   sessionName: string;
-  judgeName: string;
-  judgesList: Array<any>;
-  judgesNumber: number;
-  subscription: Subscription;
-
+  isCompetitorPresent: boolean;
   pages = [
     {
       icon: 'trash',
@@ -24,40 +20,28 @@ export class StartKataPage {
       component: 'DeleteJudgesPage'
     }
   ]
+  subscription: Subscription;
 
 
-  isReadyToStart: boolean;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService,
-    private alertController: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertController: AlertController, 
+      private service: KarateService) {
     this.sessionName = navParams.get('sessionName');
-    console.log(this.sessionName);
-    this.judgesNumber = parseInt(navParams.get('judgesNumber'));
   }
 
   ionViewDidLoad() {
-    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
-      this.judgesList = data;
-      this.isReadyToStart = this.judgesList.length == this.judgesNumber;
-    });
-  }
-
-  ionViewWillEnter() {
-    this.subscription = this.service.getByName(this.sessionName).subscribe(data => {
-      this.judgesList = data;
-      this.isReadyToStart = this.judgesList.length == this.judgesNumber;
-    });
+    this.subscription = this.service.getStatusBySession(this.sessionName).subscribe(data =>{
+      this.isCompetitorPresent = data[0].nextCompetitor;
+    })
   }
 
   ionViewWillLeave() {
     this.subscription.unsubscribe();
   }
 
-  goToWaitingKataManager() {
-    this.navCtrl.setRoot('WaitingCompetitorPage', {
+  goToKata() {
+    this.navCtrl.setRoot('WaitingKataManagerPage', {
       sessionName: this.sessionName
-    });
-    this.navCtrl.popToRoot();
+    })
   }
 
   async alertExit() {
