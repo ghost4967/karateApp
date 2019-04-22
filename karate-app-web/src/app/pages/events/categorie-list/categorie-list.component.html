@@ -19,9 +19,12 @@
               Sortear
             </button>
           </td>
-          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" *ngIf="isCompetition">
-            <button nbButton>
-              Asignar Tatami
+          <td ngClass="text-center"  *ngIf="isCompetition">
+            <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'blue' }">
+              Competir lado azul
+            </button>
+            <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'red' }">
+              Competir lado rojo
             </button>
           </td>
         </tr>

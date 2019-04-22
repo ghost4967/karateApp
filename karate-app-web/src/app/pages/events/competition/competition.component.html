@@ -2,7 +2,7 @@
   <nb-card-header>Competencia de la categoria {{categorieName}}</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-6" *ngFor="let group of redGroups">
+      <div class="col-md-8 offset-2" *ngFor="let group of groups">
           <div class="form-group">
               <label> Nombre del panel: </label>
               <div class="input-group mb-3">
@@ -10,7 +10,7 @@
               </div>
               </div>
         <table class="table table-bordered">
-          <thead [ngStyle]="{'background-color': side == 'red' ? '#ff3333' : '#ff3333' }">
+          <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#ff3333' }">
             <tr>
               <th>
                 <p>
@@ -34,59 +34,18 @@
               </td>
               <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
               </td>
-              <td>
-                  <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
-                    placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
-                  </ng-select>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
-                  <button class="btn btn-success btn-xs" (click)="goToGradeView()">Guardar Nota</button>
-                </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6" *ngFor="let group of blueGroups">
-        <div class="form-group">
-          <label> Nombre del panel: </label>
-          <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
-          </div>
-          </div>
-        <table class="table table-bordered">
-          <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#73a1ff' }">
-            <tr>
-              <th>
-                <p>
-                  <b>Numero</b>
-                </p>
-              </th>
-              <th class="text-center" colspan="3">
-                <p>
-                  <b>Nombre del competidor</b>
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let offlineCompetitor of group.competitors; let i = index">
-              <td class="align-right"> {{ i +1}}
-              </td>
-              <td class="align-right" *ngIf="offlineCompetitor.competitor.name != ''">
-                {{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}} (
-                {{ offlineCompetitor.country.name }} )
-              </td>
-              <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
-              </td>
-              <td>
+              <td *ngIf="!offlineCompetitor.isGradePresent">
                 <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
                   placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
                 </ng-select>
               </td>
-              <td>
-                <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
-                <button class="btn btn-success btn-xs" (click)="goToGradeView()">Guardar Nota</button>
+              <td *ngIf="!offlineCompetitor.isGradePresent">
+                <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir
+                </button>
+                <button class="btn btn-success btn-xs" (click)="goToGradeView(offlineCompetitor, group)">Guardar Nota</button>
+              </td>
+              <td *ngIf="offlineCompetitor.isGradePresent">
+                <span class="badge badge-light">{{ offlineCompetitor.grade }}</span>
               </td>
             </tr>
           </tbody>

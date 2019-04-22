@@ -70,4 +70,8 @@ export class CompetitionService {
        grade: grade});
   }
 
+  getCompetitorGradeById(competitorId: string) {
+    return this.storeFirebase.collection('competitorgrade', ref => ref.where("competitor.competitor.id", "==", competitorId)).snapshotChanges();
+  }
+
 }
