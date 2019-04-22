@@ -24,8 +24,12 @@ export class KarateService {
     console.log('Hello KarateProvider Provider');
   }
 
-  public saveGradeByCompetitor(grade) {
-    this.storeFirebase.collection('grades').add(grade);
+  public saveGradeByCompetitor(name:any, grade:any) {
+    console.log(grade);
+    this.firebase.database.ref('/JohnFinalKarate' + '/' + name + '/competitor/')
+    .update({
+      grade: grade.finalGrade
+    });
   }
 
   public getPassword(): any {

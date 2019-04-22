@@ -5,6 +5,8 @@ import { FirebaseCompetition } from '../../../models/firebase-competition';
 import { Group } from '../../../models/group';
 import { CompetitionService } from '../../../services/competition-service/competition-service';
 import { OfflineCompetitor } from '../../../models/offline-competitor';
+import { Competitor } from '../../../models/competitor';
+
 
 @Component({
   selector: 'ngx-competition',
@@ -16,9 +18,12 @@ export class CompetitionComponent implements OnInit {
   eventId: string;
   categorieName: string;
   competitions: FirebaseCompetition[];
+  competitor: Competitor;
   blueGroups: Group[];
   redGroups: Group[];
   katas: any;
+  isEnableViewGrades: boolean;
+  sesion: string;
   competition: FirebaseCompetition = new FirebaseCompetition();
 
   constructor(private route: ActivatedRoute, private sortService: SortService, private competitionService: CompetitionService) { 
@@ -41,15 +46,27 @@ export class CompetitionComponent implements OnInit {
       this.blueGroups = this.competition.groups.filter(group => group.side == 'blue' && group.kata == this.competition.numberOfKatas);
       this.redGroups = this.competition.groups.filter(group => group.side == 'red' && group.kata == this.competition.numberOfKatas);
     })
+    
   }
 
   startCompetition(offlineCompetitor, group) {
     this.competitionService.addCompetitorToPanel(group.kataManager, offlineCompetitor, offlineCompetitor.kataName);
-
+    this.competitor = offlineCompetitor;
+    this.sesion = group.kataManager;
   }
 
   createPanel(group) {
     this.competitionService.createPanel(group, group.kataManager, this.competition);
   }
+  
+  goToGradeView() {
+    if(this.sesion !== undefined && this.competitor !== undefined) {
+      console.log(this.sesion);
+      this.competitionService.getGrade(this.sesion).subscribe(val => {
+        console.log(val);
+        this.competitionService.createCompetitorGrade(this.competitor, val);
+      });
 
+    }
+  }
 }

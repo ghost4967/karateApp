@@ -32,6 +32,10 @@ export class CompetitorService {
     return this.storeFirebase.collection('competitors').add(Object.assign({}, competitor));
   }
 
+  deleteCompetitor(competitor: Competitor) {
+    return this.storeFirebase.collection('competitors').doc(competitor.id).delete();
+  }
+
   createTeam(team: Team) {
     const competitors = team.competitors.map((obj) => { return Object.assign({}, obj) });
     team.competitors = competitors;

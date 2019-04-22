@@ -37,9 +37,6 @@
           <label> Nombre del panel: </label>
           <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="createPanel(group)">Create Panel</button>
-              </div>
           </div>
           </div>
         <table class="table table-bordered">
@@ -73,7 +70,8 @@
                 </ng-select>
               </td>
               <td>
-                <button class="btn btn-primary btn-sm" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
+                <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
+                <button class="btn btn-success btn-xs" (click)="goToGradeView()">Guardar Nota</button>
               </td>
             </tr>
           </tbody>

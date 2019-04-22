@@ -31,7 +31,7 @@ export class SortService {
         }
       } else {
         offlineCompetitors.forEach(competitor => {
-          if (data == competitor && groupArray.some(group => !group.competitors.find(competitor => competitor == competitor))) {
+          if (data == competitor) {
             let blueGroup = groupArray.find(group => group.kata == numberOfKatas && group.side == "blue");
             blueGroup.competitors.push(data);
           } else {
@@ -59,7 +59,7 @@ export class SortService {
         }
       } else {
         offlineTeams.forEach(team => {
-          if (data == team && teamGroupArray.some(teamGroup => !teamGroup.teams.find(team => team == team))) {
+          if (data == team) {
             let blueGroup = teamGroupArray.find(group => group.kata == numberOfKatas && group.side == "blue");
             blueGroup.competitors.push(data);
           } else {
@@ -75,9 +75,9 @@ export class SortService {
 
   public buildCompetition(numberOfCompetitors: number) {
     console.log(numberOfCompetitors);
-    if (numberOfCompetitors === 2 || numberOfCompetitors === 3) {
+    if (numberOfCompetitors == 2 || numberOfCompetitors == 3) {
       return this.buildCompetitionData(1, 1, numberOfCompetitors);
-    } else if (numberOfCompetitors === 4 || (numberOfCompetitors >= 5 && numberOfCompetitors <= 10)) {
+    } else if (numberOfCompetitors == 4 || (numberOfCompetitors >= 5 && numberOfCompetitors <= 10)) {
       return this.buildCompetitionData(2, 2, numberOfCompetitors);
     } else if (numberOfCompetitors >= 11 && numberOfCompetitors <= 24) {
       return this.buildCompetitionData(2, 3, numberOfCompetitors);

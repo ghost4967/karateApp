@@ -139,7 +139,7 @@ export class DisplayGradePage {
 
   restartGrading() {
     this.grade.finalGrade = this.promedio;
-    this.service.saveGradeByCompetitor(this.grade);
+    this.service.saveGradeByCompetitor(this.sessionName, this.grade);
     this.service.restartSession(this.sessionName);
     this.judgeList.forEach(element => {
       this.service.restartJudgeStatus(this.sessionName, element.Nombre);

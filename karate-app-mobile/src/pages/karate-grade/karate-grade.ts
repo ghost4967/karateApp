@@ -48,7 +48,7 @@ export class KarateGradePage {
     }).then(
       result => {
         console.log(result[0].description + ' at index: ' + result[0].index);
-        this.data.phisicLevel = result[0];
+        this.data.phisicLevel = result[0].description;
       },
       err => console.log('Error: ', err)
     );
@@ -71,7 +71,7 @@ export class KarateGradePage {
     }).then(
       result => {
         console.log(result[0].description + ' at index: ' + result[0].index);
-        this.data.tecnicLevel = result[0];
+        this.data.tecnicLevel = result[0].description;
       },
       err => console.log('Error: ', err)
     );
