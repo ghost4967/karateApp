@@ -57,7 +57,7 @@ export class CompetitionComponent implements OnInit {
             });
             let grade = grades[0];
             competitor['isGradePresent'] = grade == null ? false : true;
-            competitor['grade']  = grade == null ?  null : grade['grade'];
+            competitor['grade'] = grade == null ? null : grade['grade'];
           })
         })
       })
@@ -112,5 +112,25 @@ export class CompetitionComponent implements OnInit {
       })
     });
     offlineCompetitor.grade = grade;
+  }
+
+  nextKata(group: Group) {
+    group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
+    let qualifiedCompetitors = group.competitors.slice(0, 4);
+    let nextKata = this.competition.numberOfKatas - 1;
+    let nextGroup = this.competition.groups.filter(group => group.kata == nextKata && group.side == this.side)
+    nextGroup[0].competitors = [];
+    nextGroup[0].competitors = qualifiedCompetitors;
+    this.competitionService.updateCompetitionById(this.competition);
+    this.sortService.getCompetitionByCategorieAndEvent(this.categorieName, this.eventId).subscribe(data => {
+      this.competitions = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as FirebaseCompetition;
+      });
+      this.competition = this.competitions[0];
+      this.competitionService.updateKataNumber(this.competition)
+    });
   }
 }

@@ -74,4 +74,16 @@ export class CompetitionService {
     return this.storeFirebase.collection('competitorgrade', ref => ref.where("competitor.competitor.id", "==", competitorId)).snapshotChanges();
   }
 
+  updateCompetitionById(competition) {
+    this.storeFirebase.collection('competitions').doc(competition.id).update(competition);
+  }
+
+  updateKataNumber(competition: FirebaseCompetition) {
+    let nextKata = competition.numberOfKatas - 1;
+    let nextGroups = competition.groups.filter(group => group.kata == nextKata);
+    let allGroupsGraded = nextGroups.every(group => group.competitors.length == 4);
+    competition.numberOfKatas = allGroupsGraded ? nextKata : competition.numberOfKatas;
+    this.storeFirebase.collection('competitions').doc(competition.id).update(competition);
+  }
+
 }

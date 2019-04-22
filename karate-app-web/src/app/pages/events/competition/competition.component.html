@@ -3,12 +3,15 @@
   <nb-card-body>
     <div class="row">
       <div class="col-md-8 offset-2" *ngFor="let group of groups">
-          <div class="form-group">
-              <label> Nombre del panel: </label>
-              <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
+        <div class="form-group">
+          <label> Nombre del panel: </label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" (click)="nextKata(group)">Siguiente kata</button>
               </div>
-              </div>
+          </div>
+        </div>
         <table class="table table-bordered">
           <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#ff3333' }">
             <tr>
@@ -42,7 +45,8 @@
               <td *ngIf="!offlineCompetitor.isGradePresent">
                 <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
-                <button class="btn btn-success btn-xs" (click)="goToGradeView(offlineCompetitor, group)">Guardar Nota</button>
+                <button class="btn btn-success btn-xs" (click)="goToGradeView(offlineCompetitor, group)">Guardar
+                  Nota</button>
               </td>
               <td *ngIf="offlineCompetitor.isGradePresent">
                 <span class="badge badge-light">{{ offlineCompetitor.grade }}</span>
