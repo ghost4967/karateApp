@@ -3,6 +3,12 @@
   <nb-card-body>
     <div class="row">
       <div class="col-md-6" *ngFor="let group of redGroups">
+          <div class="form-group">
+              <label> Nombre del panel: </label>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
+              </div>
+              </div>
         <table class="table table-bordered">
           <thead [ngStyle]="{'background-color': side == 'red' ? '#ff3333' : '#ff3333' }">
             <tr>
@@ -11,7 +17,7 @@
                   <b>Numero</b>
                 </p>
               </th>
-              <th class="text-center">
+              <th class="text-center" colspan="3">
                 <p>
                   <b>Nombre del competidor</b>
                 </p>
@@ -28,6 +34,15 @@
               </td>
               <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
               </td>
+              <td>
+                  <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
+                    placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
+                  </ng-select>
+                </td>
+                <td>
+                  <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir </button>
+                  <button class="btn btn-success btn-xs" (click)="goToGradeView()">Guardar Nota</button>
+                </td>
             </tr>
           </tbody>
         </table>
