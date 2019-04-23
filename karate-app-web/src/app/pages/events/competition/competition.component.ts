@@ -49,7 +49,6 @@ export class CompetitionComponent implements OnInit {
         this.groups = this.competition.groups.filter(group => (group.side ==  ('final' || 'bronze' || 'bronze2'))&& group.kata == 1);
       } else {
         this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
-
       }
       this.groups.forEach(group => {
         group.competitors.forEach(competitor => {
@@ -127,15 +126,6 @@ export class CompetitionComponent implements OnInit {
     nextGroup[0].competitors = [];
     nextGroup[0].competitors = qualifiedCompetitors;
     this.competitionService.updateCompetitionById(this.competition);
-    this.sortService.getCompetitionByCategorieAndEvent(this.categorieName, this.eventId).subscribe(data => {
-      this.competitions = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as FirebaseCompetition;
-      });
-      this.competition = this.competitions[0];
-      this.competitionService.updateKataNumber(this.competition)
-    });
+    location.reload();
   }
 }
