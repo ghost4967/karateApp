@@ -49,7 +49,7 @@ export class CategorieListComponent implements OnInit {
 
   checkKataOfCategorie(categorie) {
     let competition = this.competitions.find(competition => competition.categorie == categorie);
-    let semifinalKata = competition.numberOfKatas - 1;
+    let semifinalKata = 2;
     let isBlueSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.length == 4 && group.side == 'blue');
     let isRedSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.length == 4 && group.side == 'red');
     return isBlueSideReady && isRedSideReady;
