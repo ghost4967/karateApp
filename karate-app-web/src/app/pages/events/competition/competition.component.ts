@@ -46,10 +46,9 @@ export class CompetitionComponent implements OnInit {
       });
       this.competition = this.competitions[0];
       if (this.side == 'final') {
-        this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
-
+        this.groups = this.competition.groups.filter(group => (group.side ==  ('final' || 'bronze' || 'bronze2'))&& group.kata == 1);
       } else {
-        this.groups = this.competition.groups.filter(group => (group.side ==  ('final' || 'bronze' || 'bronze2'))&& group.kata == this.competition.numberOfKatas);
+        this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
 
       }
       this.groups.forEach(group => {
