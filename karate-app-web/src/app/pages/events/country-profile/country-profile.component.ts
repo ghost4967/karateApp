@@ -50,4 +50,8 @@ export class CountryProfileComponent implements OnInit {
     });
   }
 
+  deleteCompetitors(competitor) {
+    this.competitorService.deleteCompetitor(competitor);
+  }
+
 }
