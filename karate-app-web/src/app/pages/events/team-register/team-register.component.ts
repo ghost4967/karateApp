@@ -45,7 +45,9 @@ export class TeamRegisterComponent implements OnInit {
         ...data.payload.data(),
       } as Event;
       this.categories = event.categories;
+      console.log(this.categories);
       this.categories = this.categories.filter(categorie => categorie.type == "team");
+      console.log(this.categories);
     });
     this.countryService.getCountryById(this.countryId).subscribe(data => {
       this.country = {

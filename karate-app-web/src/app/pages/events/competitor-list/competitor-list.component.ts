@@ -58,6 +58,10 @@ export class CompetitorListComponent implements OnInit {
     this.groupArray = new Array();
   }
 
+  deleteCompetitors(competitor) {
+    this.competitorService.deleteCompetitor(competitor);
+  }
+
   ngOnInit() {
     if (this.isSingle) {
       this.competitorService.getCompetitorsByCategorie(this.eventId, this.categorieName).subscribe(data => {

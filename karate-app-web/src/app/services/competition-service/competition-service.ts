@@ -5,6 +5,8 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { Group } from '../../models/group';
 import { FirebaseCompetition } from '../../models/firebase-competition';
 import { OfflineCompetitor } from '../../models/offline-competitor';
+import { Competitor } from '../../models/competitor';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +47,47 @@ export class CompetitionService {
      competitor: offlineCompetitor,
      kataName: kataName
     });
+  }
+
+  getGrade(sessionName: any) {
+    return new Observable(observer => {
+      this.firebase
+        .object('JohnFinalKarate/'+sessionName+'/competitor/grade')
+        .valueChanges()
+        .subscribe(snapshot => {
+          observer.next(snapshot);
+          observer.complete();
+        }, err => {
+          observer.error([]);
+          observer.complete();
+        });
+    });
+  }
+
+  createCompetitorGrade(competitor: Competitor, grade: any) {
+    this.storeFirebase.collection('competitorgrade').add({
+       competitor: competitor,
+       grade: grade});
+  }
+
+  getCompetitorGradeById(competitorId: string) {
+    return this.storeFirebase.collection('competitorgrade', ref => ref.where("competitor.competitor.id", "==", competitorId)).snapshotChanges();
+  }
+
+  updateCompetitionById(competition) {
+    this.storeFirebase.collection('competitions').doc(competition.id).update(competition);
+  }
+
+  updateKataNumber(competition: FirebaseCompetition) {
+    let nextKata = competition.numberOfKatas - 1;
+    let nextGroups = competition.groups.filter(group => group.kata == nextKata);
+    let allGroupsGraded = nextGroups.every(group => group.competitors.length == 4);
+    competition.numberOfKatas = allGroupsGraded ? nextKata : competition.numberOfKatas;
+    this.storeFirebase.collection('competitions').doc(competition.id).update(competition);
+  }
+
+  getByEvent(eventId: string) {
+    return this.storeFirebase.collection('competitions', ref => ref.where("eventId", "==", eventId)).snapshotChanges();
   }
 
 }

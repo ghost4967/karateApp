@@ -7,6 +7,7 @@
   <nb-list *ngIf="!startSort && isSingle">
     <nb-list-item *ngFor="let data of offlineCompetitors">
       {{ data.competitor.name }} {{ data.competitor.lastName }} ( {{ data.country.name }} )
+    <button nbButton (click)="deleteCompetitors(data.competitor)"> Delete </button>    
     </nb-list-item>
   </nb-list>
   <div *ngIf="!startSort && isTeam" >
