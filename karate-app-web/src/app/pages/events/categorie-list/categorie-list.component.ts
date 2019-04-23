@@ -41,7 +41,10 @@ export class CategorieListComponent implements OnInit {
           ...e.payload.doc.data()
         } as FirebaseCompetition;
       });
-    })
+      this.event.categories.forEach(categorie => {
+        categorie.isReadyToFinal = this.checkKataOfCategorie(categorie.name);
+      })
+    });
   }
 
   checkKataOfCategorie(categorie) {
