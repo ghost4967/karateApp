@@ -86,4 +86,8 @@ export class CompetitionService {
     this.storeFirebase.collection('competitions').doc(competition.id).update(competition);
   }
 
+  getByEvent(eventId: string) {
+    return this.storeFirebase.collection('competitions', ref => ref.where("eventId", "==", eventId)).snapshotChanges();
+  }
+
 }

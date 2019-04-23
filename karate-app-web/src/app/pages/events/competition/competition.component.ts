@@ -45,7 +45,13 @@ export class CompetitionComponent implements OnInit {
         } as FirebaseCompetition;
       });
       this.competition = this.competitions[0];
-      this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
+      if (this.side == 'final') {
+        this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
+
+      } else {
+        this.groups = this.competition.groups.filter(group => (group.side ==  ('final' || 'bronze' || 'bronze2'))&& group.kata == this.competition.numberOfKatas);
+
+      }
       this.groups.forEach(group => {
         group.competitors.forEach(competitor => {
           this.competitionService.getCompetitorGradeById(competitor.competitor.id).subscribe(data => {
