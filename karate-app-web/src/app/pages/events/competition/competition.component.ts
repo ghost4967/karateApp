@@ -126,6 +126,5 @@ export class CompetitionComponent implements OnInit {
     nextGroup[0].competitors = [];
     nextGroup[0].competitors = qualifiedCompetitors;
     this.competitionService.updateCompetitionById(this.competition);
-    location.reload();
   }
 }

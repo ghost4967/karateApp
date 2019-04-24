@@ -87,8 +87,9 @@ export class CategorieListComponent implements OnInit {
     finalGroup = this.prepareArray(finalGroup);
     bronzeGroup = this.prepareArray(bronzeGroup);
     secondBronze = this.prepareArray(secondBronze);
+    competition.numberOfKatas = 1;
 
-    this.competitionService.updateCompetitionById(competition.id);
+    this.competitionService.updateCompetitionById(competition);
 
   }
 
