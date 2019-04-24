@@ -4,6 +4,7 @@
     <div class="row">
       <div class="col-md-8 offset-2" *ngFor="let group of groups">
         <div class="form-group">
+          <h2>{{group.side}}</h2>
           <label> Nombre del panel: </label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">

@@ -64,14 +64,16 @@ export class CompetitionService {
     });
   }
 
-  createCompetitorGrade(competitor: Competitor, grade: any) {
+  createCompetitorGrade(competitor: Competitor, grade: any, kataNumber : number) {
     this.storeFirebase.collection('competitorgrade').add({
        competitor: competitor,
-       grade: grade});
+       grade: grade,
+      kata: kataNumber});
   }
 
-  getCompetitorGradeById(competitorId: string) {
-    return this.storeFirebase.collection('competitorgrade', ref => ref.where("competitor.competitor.id", "==", competitorId)).snapshotChanges();
+  getCompetitorGradeById(competitorId: string, kataNumber: number) {
+    return this.storeFirebase.collection('competitorgrade', ref => ref.where("competitor.competitor.id", "==", competitorId)
+    .where("kata", "==",kataNumber)).snapshotChanges();
   }
 
   updateCompetitionById(competition) {

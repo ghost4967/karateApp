@@ -45,14 +45,16 @@ export class CompetitionComponent implements OnInit {
         } as FirebaseCompetition;
       });
       this.competition = this.competitions[0];
+      console.log(this.competition);
       if (this.side == 'final') {
-        this.groups = this.competition.groups.filter(group => (group.side ==  ('final' || 'bronze' || 'bronze2'))&& group.kata == 1);
+        this.groups = this.competition.groups.filter(group => group.kata == 1);
       } else {
         this.groups = this.competition.groups.filter(group => group.side == this.side && group.kata == this.competition.numberOfKatas);
       }
+      console.log(this.groups);
       this.groups.forEach(group => {
         group.competitors.forEach(competitor => {
-          this.competitionService.getCompetitorGradeById(competitor.competitor.id).subscribe(data => {
+          this.competitionService.getCompetitorGradeById(competitor.competitor.id, this.competition.numberOfKatas).subscribe(data => {
             let grades = data.map(e => {
               return {
                 id: e.payload.doc.id,
@@ -74,14 +76,6 @@ export class CompetitionComponent implements OnInit {
     this.competitor = offlineCompetitor;
     this.sesion = group.kataManager;
     offlineCompetitor.isGradePresent = false;
-    this.competitionService.getGrade(group.kataManager).subscribe(data => {
-      offlineCompetitor.grade = data;
-      if (offlineCompetitor.grade !== null) {
-        offlineCompetitor.isGradePresent = true;
-        this.competitionService.createCompetitorGrade(offlineCompetitor, data);
-      }
-    })
-
   }
 
   createPanel(group) {
@@ -94,7 +88,7 @@ export class CompetitionComponent implements OnInit {
       this.competitionService.getGrade(group.kataManager).subscribe(val => {
         offlineCompetitor.grade = val;
         if (offlineCompetitor.grade !== null) {
-          this.competitionService.createCompetitorGrade(offlineCompetitor, val);
+          this.competitionService.createCompetitorGrade(offlineCompetitor, val, this.competition.numberOfKatas);
           offlineCompetitor.isGradePresent = true;
         }
       });
@@ -102,29 +96,18 @@ export class CompetitionComponent implements OnInit {
     }
   }
 
-  getGradeByCompetitor(competitorId, offlineCompetitor) {
-    let grade;
-    this.competitionService.getGrade(this.sesion).subscribe(data => {
-      this.competitionService.getCompetitorGradeById(competitorId).subscribe(data => {
-        let grades = data.map(e => {
-          return {
-            id: e.payload.doc.id,
-            ...e.payload.doc.data()
-          };
-        });
-        grade = grades[0];
-      })
-    });
-    offlineCompetitor.grade = grade;
-  }
-
   nextKata(group: Group) {
     group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
     let qualifiedCompetitors = group.competitors.slice(0, 4);
     let nextKata = this.competition.numberOfKatas - 1;
-    let nextGroup = this.competition.groups.filter(group => group.kata == nextKata && group.side == this.side)
+    let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side)
     nextGroup[0].competitors = [];
     nextGroup[0].competitors = qualifiedCompetitors;
+    let otherSide = this.side == "blue" ? "blue" : "red";
+    let nextGroupSide = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
+    if (nextGroupSide.competitors.length == 4) {
+      this.competition.numberOfKatas--;
+    }
     this.competitionService.updateCompetitionById(this.competition);
   }
 }

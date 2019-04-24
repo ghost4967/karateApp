@@ -49,9 +49,12 @@ export class CategorieListComponent implements OnInit {
 
   checkKataOfCategorie(categorie) {
     let competition = this.competitions.find(competition => competition.categorie == categorie);
+    if (competition == undefined) {
+      return false;
+    }
     let semifinalKata = 2;
-    let isBlueSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.length == 4 && group.side == 'blue');
-    let isRedSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.length == 4 && group.side == 'red');
+    let isBlueSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.every(competitor => competitor['grade']) && group.side == 'blue');
+    let isRedSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.every(competitor => competitor['grade']) && group.side == 'red');
     return isBlueSideReady && isRedSideReady;
   }
 
@@ -80,9 +83,9 @@ export class CategorieListComponent implements OnInit {
     secondBronze.kata = 1;
     secondBronze.side = 'bronze2';
     
-    competition.groups.push(finalGroup);
-    competition.groups.push(bronzeGroup);
-    competition.groups.push(secondBronze);
+    competition.groups.push((Object.assign({}, finalGroup)));
+    competition.groups.push((Object.assign({}, bronzeGroup)));
+    competition.groups.push((Object.assign({}, secondBronze)));
 
     finalGroup = this.prepareArray(finalGroup);
     bronzeGroup = this.prepareArray(bronzeGroup);
