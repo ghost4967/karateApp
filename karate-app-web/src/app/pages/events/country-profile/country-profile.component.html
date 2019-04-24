@@ -21,7 +21,7 @@
         <label>Competidores individuales: </label>
         <nb-list>
           <nb-list-item *ngFor="let competitor of competitors">
-            {{ competitor.name }} {{competitor.lastName}}
+            {{ competitor.name }} {{competitor.lastName}} ( {{competitor.categorie.name}} )
             <button type="button" class="btn btn-warning xs" (click)="deleteCompetitors(competitor)"> Borrar </button> 
           </nb-list-item>
         </nb-list>

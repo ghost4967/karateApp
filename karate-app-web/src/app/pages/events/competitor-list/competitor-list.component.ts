@@ -53,8 +53,9 @@ export class CompetitorListComponent implements OnInit {
     private sortService: SortService) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.categorieName = route.snapshot.paramMap.get('categorieName');
-    this.isSingle = this.categorieName.includes("INDIVIDUAL");
-    this.isTeam = this.categorieName.includes("EQUIPO");
+    // change in next release
+    this.isSingle =true;
+    this.isTeam = false;
     this.groupArray = new Array();
   }
 

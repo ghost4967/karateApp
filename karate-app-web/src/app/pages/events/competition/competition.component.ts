@@ -100,12 +100,14 @@ export class CompetitionComponent implements OnInit {
     group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
     let qualifiedCompetitors = group.competitors.slice(0, 4);
     let nextKata = this.competition.numberOfKatas - 1;
-    let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side)
-    nextGroup[0].competitors = [];
-    nextGroup[0].competitors = qualifiedCompetitors;
-    let otherSide = this.side == "blue" ? "blue" : "red";
-    let nextGroupSide = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
-    if (nextGroupSide.competitors.length == 4) {
+    let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
+    qualifiedCompetitors.forEach(competitor => {
+      delete competitor['grade'];
+    })
+    nextGroup.competitors = qualifiedCompetitors;
+    let otherSide = this.side == "blue" ? "red" : "blue";
+    let nextGroupSide = this.competition.groups.find(group => group.kata == nextKata && group.side == otherSide);
+    if (nextGroupSide.competitors.every(competitor => competitor['grade'])) {
       this.competition.numberOfKatas--;
     }
     this.competitionService.updateCompetitionById(this.competition);
