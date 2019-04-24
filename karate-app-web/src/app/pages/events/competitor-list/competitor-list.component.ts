@@ -219,7 +219,7 @@ export class CompetitorListComponent implements OnInit {
       const contentDataURL = canvas.toDataURL('image/png')
       let pdf = new jspdf('p', 'mm', 'a4');
       var position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.addImage(contentDataURL, 'PNG', 15, position, imgWidth, imgHeight);
       let pdfName = this.categorieName + '.pdf'
       pdf.save(pdfName);
     });
