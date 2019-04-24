@@ -22,6 +22,7 @@
         <nb-list>
           <nb-list-item *ngFor="let competitor of competitors">
             {{ competitor.name }} {{competitor.lastName}}
+            <button type="button" class="btn btn-warning xs" (click)="deleteCompetitors(competitor)"> Borrar </button> 
           </nb-list-item>
         </nb-list>
       </div>
@@ -32,6 +33,7 @@
           <nb-list>
             <nb-list-item *ngFor="let competitor of team.competitors">
               {{ competitor.name }} {{competitor.lastName}}
+              <button type="button" class="btn btn-warning xs" (click)="deleteCompetitors(competitor)"> Borrar </button> 
             </nb-list-item>
           </nb-list>
 
