@@ -61,6 +61,7 @@ export class CompetitionComponent implements OnInit {
                 ...e.payload.doc.data()
               } as Object;
             });
+            console.log(grades);
             let grade = grades[0];
             competitor['isGradePresent'] = grade == null ? false : true;
             competitor['grade'] = grade == null ? null : grade['grade'];
@@ -86,10 +87,36 @@ export class CompetitionComponent implements OnInit {
     if (group.kataManager !== undefined && offlineCompetitor !== undefined) {
       console.log(this.sesion);
       this.competitionService.getGrade(group.kataManager).subscribe(val => {
-        offlineCompetitor.grade = val;
-        if (offlineCompetitor.grade !== null) {
+        offlineCompetitor.grade = val;     
+        if (offlineCompetitor.grade !== null && !offlineCompetitor.restartGrading) {
           this.competitionService.createCompetitorGrade(offlineCompetitor, val, this.competition.numberOfKatas);
           offlineCompetitor.isGradePresent = true;
+        } else {
+          let index = group.competitors.findIndex(competitor => competitor.competitor == offlineCompetitor.competitor);
+          group.competitors[index].grade = val;
+          let competitors = group.competitors.filter(competitor => competitor['restartGrading']);
+          competitors.sort((c1,c2) => c2['grade'] - c1['grade']);
+          if (competitors.length === 2) {
+            let lessGradeCompetitor = competitors[1];
+            let maxGradeCompetitor = competitors[0];
+            this.competitionService.getCompetitorGradeById(maxGradeCompetitor.competitor.id, this.competition.numberOfKatas).subscribe(data => {
+              let grades = data.map(e => {
+                return {
+                  id: e.payload.doc.id,
+                  ...e.payload.doc.data()
+                } as Object;
+              });
+              console.log(grades);
+              let grade = grades[0];
+              maxGradeCompetitor['isGradePresent'] = grade == null ? false : true;
+              maxGradeCompetitor['grade'] = grade == null ? null : grade['grade'];
+            })
+            let lessGradeIndex = group.competitors.findIndex(competitor => competitor.competitor == lessGradeCompetitor.competitor);
+            group.competitors[lessGradeIndex].grade --;
+            competitors.forEach(competitor => competitor.isGradePresent = true);
+            console.log(group);  
+          }
+             
         }
       });
 
@@ -101,16 +128,27 @@ export class CompetitionComponent implements OnInit {
     let qualifiedCompetitors = group.competitors.slice(0, 4);
     let nextKata = this.competition.numberOfKatas - 1;
     let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
-    qualifiedCompetitors.forEach(competitor => {
-      delete competitor['grade'];
-    })
-    nextGroup.competitors = qualifiedCompetitors;
-    let otherSide = this.side == "blue" ? "red" : "blue";
-    let nextGroupSide = this.competition.groups.find(group => group.kata == nextKata && group.side == otherSide);
-    if (nextGroupSide.competitors.every(competitor => competitor['grade'])) {
-      this.competition.numberOfKatas--;
+    let fiveCompetitor = group.competitors[4];
+    if (fiveCompetitor['grade'] != qualifiedCompetitors[3]['grade']) {
+      qualifiedCompetitors.forEach(competitor => {
+        delete competitor['grade'];
+      });
+      nextGroup.competitors = qualifiedCompetitors;
+      let otherSide = this.side == "blue" ? "red" : "blue";
+      let nextGroupSide = this.competition.groups.find(group => group.kata == nextKata && group.side == otherSide);
+      if (nextGroupSide.competitors.every(competitor => competitor['grade'])) {
+        this.competition.numberOfKatas--;
+      }
+      this.competitionService.updateCompetitionById(this.competition);
+    } else {
+
+
     }
-    this.competitionService.updateCompetitionById(this.competition);
+  }
+
+  restartCompetitorCompetition(offlineCompetitor) {
+    offlineCompetitor.isGradePresent = false;
+    offlineCompetitor.restartGrading = true;
   }
   orderGrades(group: Group) {
     group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);

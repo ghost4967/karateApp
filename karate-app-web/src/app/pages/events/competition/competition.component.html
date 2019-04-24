@@ -49,6 +49,9 @@
               <td *ngIf="offlineCompetitor.isGradePresent">
                 <span class="badge badge-light">{{ offlineCompetitor.grade }}</span>
               </td>
+              <td *ngIf="offlineCompetitor.isGradePresent">
+                  <button class="btn btn-success btn-xs" (click)="restartCompetitorCompetition(offlineCompetitor)">Volver a votar</button>
+                </td>
             </tr>
           </tbody>
         </table>
