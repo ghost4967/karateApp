@@ -15,21 +15,25 @@
     <h3>Competidor: </h3>
     <h3>{{competitorName}}</h3>
     <br>
-    <h3 style="display: inline">Final:</h3>
-    <h1 style="display: inline">{{promedio}}</h1>
+    <h3>Final:</h3>
+    <h1>{{promedio}}</h1>
     <br>
+    <div style="margin-left:100px">
     <h2>Tecnico: </h2>
     <div *ngFor="let item of orderTecnico; let i = index;">
       <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)'>{{item}} |</h2>
     </div>
+  </div>
     <br/>
     <h3>Nivel Tecnico: </h3>
     <h3>{{promedioTecnico}}</h3>
     <br/>
+    <div style="margin-left:100px">
     <h2>Fisico: </h2>
     <div *ngFor="let orderFisico of orderFisico; let i = index;">
       <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico}} |</h2>
     </div>
+  </div>
     <br/>
     <h3>Nivel Atletico: </h3>
     <h3>{{promedioFisico}}</h3>
