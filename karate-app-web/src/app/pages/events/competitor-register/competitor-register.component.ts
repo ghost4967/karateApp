@@ -30,7 +30,7 @@ export class CompetitorRegisterComponent implements OnInit {
         ...data.payload.data()
       } as Event;
       this.categories = event.categories;
-      this.categories.filter(categorie => categorie.gender == "single");
+      //this.categories.filter(categorie => categorie.gender == "single");
     });
   }
 

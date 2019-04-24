@@ -124,11 +124,16 @@ export class CategorieListComponent implements OnInit {
     secondBronze.competitors.push(redSideCompetitors[1] != undefined ? redSideCompetitors[1] : (Object.assign({}, offlineCompetitor)));
     secondBronze.kata = 1;
     secondBronze.side = 'bronze2';
-
-    competition.groups.push((Object.assign({}, finalGroup)));
-    competition.groups.push((Object.assign({}, bronzeGroup)));
-    competition.groups.push((Object.assign({}, secondBronze)));
-
+    if(!competition.groups.some(group => group.side == "final")) {
+      competition.groups.push((Object.assign({}, finalGroup)));
+    }
+    if(!competition.groups.some(group => group.side == "bronze")) {
+      competition.groups.push((Object.assign({}, bronzeGroup)));
+    }
+    if(!competition.groups.some(group => group.side == "bronze2")) {
+      competition.groups.push((Object.assign({}, secondBronze)));
+    }
+    
     finalGroup = this.prepareArray(finalGroup);
     bronzeGroup = this.prepareArray(bronzeGroup);
     secondBronze = this.prepareArray(secondBronze);

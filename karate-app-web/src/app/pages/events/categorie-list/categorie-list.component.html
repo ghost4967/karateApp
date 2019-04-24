@@ -19,7 +19,7 @@
               Sortear
             </button>
           </td>
-          <td ngClass="text-center"  *ngIf="!categorie.isReadyToFinal && isCompetition">
+          <td ngClass="text-center"  *ngIf="isCompetition">
             <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'blue' }">
               Competir lado azul
             </button>
@@ -27,7 +27,7 @@
               Competir lado rojo
             </button>
           </td>
-          <td *ngIf="!categorie.isReadyToFinal && isCompetition">
+          <td *ngIf="isCompetition">
               <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'final' }"
               (click)="buildFinalGroups(categorie.name)">
                 Realizar final
