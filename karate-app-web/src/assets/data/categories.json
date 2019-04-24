@@ -21,12 +21,12 @@
     },
     {
         "name": "KATA INDIVIDUAL MASCULINO 16-17 AÑOS",
-        "gener": "male",
+        "gender": "male",
         "type": "single"
     },
     {
         "name": "KATA INDIVIDUAL FEMENINO 16-17 AÑOS",
-        "gener": "female",
+        "gender": "female",
         "type": "single"
     },
     {
