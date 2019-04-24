@@ -112,4 +112,7 @@ export class CompetitionComponent implements OnInit {
     }
     this.competitionService.updateCompetitionById(this.competition);
   }
+  orderGrades(group: Group) {
+    group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
+  }
 }
