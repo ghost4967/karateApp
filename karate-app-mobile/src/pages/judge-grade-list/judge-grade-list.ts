@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class JudgeGradeListPage {
 
   sessionName: string;
+  competitorName: string;
   judgeGradeList: Array<any>;
   judgeGradeListSended: Array<any> = new Array();
   animateClass: any;
@@ -29,6 +30,7 @@ export class JudgeGradeListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService,
     private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
+    this.competitorName = navParams.get('competitorName');
     this.animateClass = { 'fade-in-left-item': true };
     this.service.getNumberOfJudges(this.sessionName).subscribe(data => {
       this.judgesNumber = data;
@@ -55,7 +57,8 @@ export class JudgeGradeListPage {
 
   goToGradeView() {
     this.navCtrl.setRoot('DisplayGradePage', {
-      sessionName: this.sessionName
+      sessionName: this.sessionName,
+      competitorName: this.competitorName
     });
     this.navCtrl.popToRoot();
   }

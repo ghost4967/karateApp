@@ -15,6 +15,7 @@ import { DragAndDropLayout1 } from '../../components/list-view/drag-and-drop/lay
 export class DisplayGradePage {
 
   sessionName:string;
+  competitorName: string;
   gradeList:Array<any>;
   judgeList: Array<any>;
   orderTecnico:Array<any>;
@@ -33,6 +34,7 @@ export class DisplayGradePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: KarateService, 
       private alertController: AlertController) {
     this.sessionName = navParams.get('sessionName');
+    this.competitorName = navParams.get('competitorName');
     this.orderFisico = new Array();
     this.orderTecnico = new Array();
     this.tecnicoPintar = new Array();

@@ -31,7 +31,7 @@ export class WaitingKataManagerPage {
 
   ionViewDidLoad() {
     this.subscription = this.karateService.getPanelName(this.sessionName).subscribe(data => {
-      this.competitorName = data.competitor.competitor.name + data.competitor.competitor.lastName;
+      this.competitorName = data.competitor.competitor.name + " "+ data.competitor.competitor.lastName;
       this.kataName = data.competitor.kataName;
       console.log(this.competitorName);
       console.log(this.kataName);
@@ -45,7 +45,8 @@ export class WaitingKataManagerPage {
   enableGrade() {
     this.karateService.startGrading(this.sessionName);
     this.navCtrl.setRoot('JudgeGradeListPage', {
-      sessionName: this.sessionName
+      sessionName: this.sessionName,
+      competitorName: this.competitorName
     });
     this.navCtrl.popToRoot();
   }
