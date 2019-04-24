@@ -18,7 +18,7 @@
     <h3>Final:</h3>
     <h1>{{promedio}}</h1>
     <br>
-    <div style="margin-left:100px">
+    <div style="margin-left:350px">
     <h2>Tecnico: </h2>
     <div *ngFor="let item of orderTecnico; let i = index;">
       <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)'>{{item}} |</h2>
@@ -28,7 +28,7 @@
     <h3>Nivel Tecnico: </h3>
     <h3>{{promedioTecnico}}</h3>
     <br/>
-    <div style="margin-left:100px">
+    <div style="margin-left:350px">
     <h2>Fisico: </h2>
     <div *ngFor="let orderFisico of orderFisico; let i = index;">
       <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico}} |</h2>
