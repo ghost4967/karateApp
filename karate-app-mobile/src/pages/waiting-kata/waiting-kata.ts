@@ -39,6 +39,14 @@ export class WaitingKataPage {
     });
   }
 
+  ionViewWillEnter() {
+    this.subscription = this.service.getPanelName(this.sessionName).subscribe(data => {
+      this.competitorName = data.competitor.competitor.name + " "+ data.competitor.competitor.lastName;
+      this.kataName = data.competitor.kataName;
+      console.log(this.competitorName);
+      console.log(this.kataName);
+    });
+  }
   ionViewWillLeave() {
     this.subscription.unsubscribe();
   }
