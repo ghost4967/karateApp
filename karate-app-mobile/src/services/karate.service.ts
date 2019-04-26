@@ -30,6 +30,9 @@ export class KarateService {
     .update({
       grade: grade.finalGrade
     });
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + name + '/' + 'competitor/competitor')
+    .remove();
   }
 
   public getPassword(): any {
