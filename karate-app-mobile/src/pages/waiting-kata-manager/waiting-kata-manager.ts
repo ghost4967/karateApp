@@ -35,7 +35,7 @@ export class WaitingKataManagerPage {
       this.kataName = data.competitor.kataName;
       console.log(this.competitorName);
       console.log(this.kataName);
-    })
+    });
   }
 
   ionViewWillLeave() {

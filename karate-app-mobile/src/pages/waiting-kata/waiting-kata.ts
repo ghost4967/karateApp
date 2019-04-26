@@ -13,6 +13,8 @@ export class WaitingKataPage {
 
   sessionName: string;
   subscription: Subscription;
+  competitorName: string;
+  kataName: string;
 
   judgeName:string;
   isReadyToGrade: boolean;
@@ -24,6 +26,12 @@ export class WaitingKataPage {
   }
 
   ionViewDidLoad() {
+    this.subscription = this.service.getPanelName(this.sessionName).subscribe(data => {
+      this.competitorName = data.competitor.competitor.name + " "+ data.competitor.competitor.lastName;
+      this.kataName = data.competitor.kataName;
+      console.log(this.competitorName);
+      console.log(this.kataName);
+    });
     this.subscription = this.service.getStatusBySession(this.sessionName).subscribe(data => {
       this.isReadyToGrade = data[0].start;
       console.log(this.isReadyToGrade);

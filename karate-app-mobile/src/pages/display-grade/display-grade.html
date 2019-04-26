@@ -12,13 +12,13 @@
 </ion-header>
 
 <ion-content padding>
-    <h3>Competidor: </h3>
-    <h3>{{competitorName}}</h3>
+    <h4>Competidor: </h4>
+    <h4>{{competitorName}}</h4>
     <br>
     <h3>Final:</h3>
     <h1>{{promedio}}</h1>
     <br>
-    <div style="margin-left:350px">
+    <div>
     <h2>Tecnico: </h2>
     <div *ngFor="let item of orderTecnico; let i = index;">
       <h2 id=tecnico{{i}} [style.color]='getColor(i, gradeList)'>{{item}} |</h2>
@@ -28,14 +28,14 @@
     <h3>Nivel Tecnico: </h3>
     <h3>{{promedioTecnico}}</h3>
     <br/>
-    <div style="margin-left:350px">
+    <div>
     <h2>Fisico: </h2>
     <div *ngFor="let orderFisico of orderFisico; let i = index;">
       <h2 id=fisico{{i}} [style.color]='getColor(i, gradeList)'>{{orderFisico}} |</h2>
     </div>
   </div>
     <br/>
-    <h3>Nivel Atletico: </h3>
+    <h3 style="margin-left:0px">Nivel Atletico: </h3>
     <h3>{{promedioFisico}}</h3>
     <br>
 </ion-content>

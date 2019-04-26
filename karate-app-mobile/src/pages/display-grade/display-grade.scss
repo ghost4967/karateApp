@@ -1,23 +1,111 @@
 page-display-grade {
-    h1 {
+    ion-content{
         text-align: center;
+    }
+    h1 {
+        margin: 0;
         color: #0090d0 !important;
         font-weight: 500;
         font-size: 650%;
+        display: inline;        
     }
     h2 {
-        text-align: center;
+        margin: 0;
         font-weight: 500;
          font-size: 150%;
          display: inline;
         }
     h3 {
+        margin: 0;
+        color: #0090d0 !important;
+        font-weight: 500;
+        font-size: 250%;
+        display: inline; 
+        }
+    h4 {
+        margin: 0;
         text-align: center;
         color: #0090d0 !important;
         font-weight: 500;
         font-size: 250%;
+        display: inline; 
         }
-        
+    ion-fab{
+        size: 290%;
+    }
+        @media screen and (min-width: 690px) {
+            ion-content{
+                text-align: center;
+            }
+            h1 {
+                margin: 0;            
+                color: #0090d0 !important;
+                font-weight: 500;
+                font-size: 900%;  
+                display: inline;                        
+            }
+            h2 {
+                margin: 0;            
+                font-weight: 500;
+                 font-size: 290%;
+                 display: inline;
+                }
+            h3 {
+                margin: 0;
+                color: #0090d0 !important;
+                font-weight: 500;
+                font-size: 480%;
+                display: inline;            
+                }
+            h4 {
+                margin: 0;            
+                text-align: center;
+                color: #0090d0 !important;
+                font-weight: 500;
+                font-size: 290%;
+                display: inline;         
+                }
+        }
+        ion-fab{
+            font-size: 290%;
+        }
+    @media screen and (min-width: 830px) {
+        ion-content{
+            text-align: center;
+        }
+        h1 {
+            margin: 0;            
+            color: #0090d0 !important;
+            font-weight: 500;
+            font-size: 1000%;  
+            display: inline;                        
+        }
+        h2 {
+            margin: 0;            
+            font-weight: 500;
+             font-size: 350%;
+             display: inline;
+            }
+        h3 {
+            margin: 0;
+            color: #0090d0 !important;
+            font-weight: 500;
+            font-size: 600%;
+            display: inline;            
+            }
+        h4 {
+            margin: 0;            
+            text-align: center;
+            color: #0090d0 !important;
+            font-weight: 500;
+            font-size: 350%;
+            display: inline;         
+            }
+        ion-icon{
+            font-size: 305px;
+        }
+    }
+    
     img {
         position: absolute;
         top: 0; bottom:0; left: 0; right:0;
