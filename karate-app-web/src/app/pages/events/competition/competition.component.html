@@ -41,9 +41,9 @@
                 </ng-select>
               </td>
               <td *ngIf="!offlineCompetitor.isGradePresent">
-                <button class="btn btn-primary btn-xs" (click)="startCompetition(offlineCompetitor, group)"> Competir
+                <button class="btn btn-primary btn-xs" style="margin:5px" (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
-                <button class="btn btn-success btn-xs" (click)="goToGradeView(offlineCompetitor, group)">Guardar
+                <button class="btn btn-success btn-xs" style="margin:5px" (click)="goToGradeView(offlineCompetitor, group)">Guardar
                   Nota</button>
               </td>
               <td *ngIf="offlineCompetitor.isGradePresent">
@@ -56,8 +56,8 @@
           </tbody>
         </table>
         <div class="btn-toolbar">
-        <button class="btn btn-outline-primary pull-right" type="button" (click)="nextKata(group)">Siguiente kata</button>
-        <button class="btn btn-outline-default pull-left" type="button" (click)="orderGrades(group)">Ordenar resultados</button>
+        <!--<button class="btn btn-outline-primary pull-right" type="button" (click)="nextKata(group)">Siguiente kata</button>-->
+        <button class="btn btn-success btn-sm pull-right" style="margin-left:50em" type="button" (click)="orderGrades(group)">Ordenar resultados</button>
         </div>
       </div>
     </div>

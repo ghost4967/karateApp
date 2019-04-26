@@ -20,23 +20,23 @@
             </button>
           </td>
           <td ngClass="text-center"  *ngIf="isCompetition">
-            <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'blue' }">
+            <button nbButton class="btn btn-outline-primary" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'blue' }">
               Competir lado azul
             </button>
-            <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'red' }">
+            <button class="btn btn-outline-danger" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'red' }">
               Competir lado rojo
             </button>
           </td>
-          <td *ngIf="isCompetition">
+          <!--<td *ngIf="isCompetition">
               <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'final' }"
               (click)="buildFinalGroups(categorie.name)">
                 Realizar final
               </button>
-            </td>
+            </td>-->
         </tr>
       </tbody>
     </table>
 
-    
+
   </nb-card-body>
 </nb-card>

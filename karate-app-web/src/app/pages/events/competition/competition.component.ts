@@ -62,9 +62,9 @@ export class CompetitionComponent implements OnInit {
               } as Object;
             });
             console.log(grades);
-            let grade = grades[0];
-            competitor['isGradePresent'] = grade == null ? false : true;
-            competitor['grade'] = grade == null ? null : grade['grade'];
+            let grade = grades[grades.length];
+            /*competitor['isGradePresent'] = grade == null ? false : true;
+            competitor['grade'] = grade == null ? null : grade['grade'];*/
           })
         })
       })
@@ -88,10 +88,10 @@ export class CompetitionComponent implements OnInit {
       console.log(this.sesion);
       this.competitionService.getGrade(group.kataManager).subscribe(val => {
         offlineCompetitor.grade = val;     
-        if (offlineCompetitor.grade !== null && !offlineCompetitor.restartGrading) {
           this.competitionService.createCompetitorGrade(offlineCompetitor, val, this.competition.numberOfKatas);
           offlineCompetitor.isGradePresent = true;
-        } else {
+        /*
+         else {
           let index = group.competitors.findIndex(competitor => competitor.competitor == offlineCompetitor.competitor);
           group.competitors[index].grade = val;
           let competitors = group.competitors.filter(competitor => competitor['restartGrading']);
@@ -117,11 +117,13 @@ export class CompetitionComponent implements OnInit {
             console.log(group);  
           }
              
-        }
+        }*/
+        console.log(offlineCompetitor.grade);
       });
-
+      console.log(offlineCompetitor.grade);
     }
   }
+
 
   nextKata(group: Group) {
     group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
@@ -149,6 +151,7 @@ export class CompetitionComponent implements OnInit {
   restartCompetitorCompetition(offlineCompetitor) {
     offlineCompetitor.isGradePresent = false;
     offlineCompetitor.restartGrading = true;
+    offlineCompetitor.grade = null;
   }
   orderGrades(group: Group) {
     group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
