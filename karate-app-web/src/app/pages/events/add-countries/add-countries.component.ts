@@ -14,12 +14,13 @@ export class AddCountriesComponent implements OnInit {
   eventId: string;
   countries: Country[];
   countriesToAdd: Array<Country> = new Array();
-
+  allCountries;
 
   constructor(private countryService: CountryService, private route: ActivatedRoute) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.countryService.getCountries().subscribe(data => {
       this.defaultCountries = <Array<any>>data;
+      this.allCountries = this.defaultCountries;
     });
     this.countryService.getCountriesByEvent(this.eventId).subscribe(data => {
       this.countries = data.map(e => {
@@ -69,6 +70,12 @@ export class AddCountriesComponent implements OnInit {
         console.log('se elimino');
       }
     });
+  }
+
+  geCountryFlag(name) {
+    var country = this.allCountries.find(c => c.name === name);
+    var flagClass =  'flag-icon flag-icon-' + country.code.toLowerCase() + ' flag-icon-squared';
+    return flagClass;
   }
 
 }

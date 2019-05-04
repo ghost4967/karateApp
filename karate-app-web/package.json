@@ -58,6 +58,7 @@
     "echarts": "^4.0.2",
     "eva-icons": "^1.1.0",
     "firebase": "^5.9.3",
+    "flag-icon-css": "^3.3.0",
     "html2canvas": "^1.0.0-rc.1",
     "intl": "1.2.5",
     "ionicons": "2.0.1",
