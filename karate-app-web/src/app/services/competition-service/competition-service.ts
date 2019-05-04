@@ -92,4 +92,8 @@ export class CompetitionService {
     return this.storeFirebase.collection('competitions', ref => ref.where("eventId", "==", eventId)).snapshotChanges();
   }
 
+  getCompetitorsGrades(eventId: string) {
+    return this.storeFirebase.collection('competitorgrade', ref => ref.where('competitor.competitor.eventId', '==', eventId)).valueChanges();
+  }
+
 }

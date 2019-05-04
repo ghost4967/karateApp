@@ -12,6 +12,7 @@ import { CategorieListComponent } from './categorie-list/categorie-list.componen
 import { CompetitorListComponent } from './competitor-list/competitor-list.component';
 import { TeamRegisterComponent } from './team-register/team-register.component';
 import { CompetitionComponent } from './competition/competition.component';
+import { CategoryMedalTableComponent } from './category-medal-table/category-medal-table.component';
 
 const routes: Routes = [{
   path: '',
@@ -46,7 +47,11 @@ const routes: Routes = [{
   }, {
     path: ':eventId/categories/:categorieName/competition',
     component: CompetitionComponent
-  }],
+  }, {
+    path: 'category/medall-table',
+    component: CategoryMedalTableComponent
+  }
+],
 }];
 
 @NgModule({
@@ -66,5 +71,6 @@ export const routedComponents = [
   CategorieListComponent,
   CompetitorListComponent,
   TeamRegisterComponent,
-  CompetitionComponent
+  CompetitionComponent,
+  CategoryMedalTableComponent,
 ];
