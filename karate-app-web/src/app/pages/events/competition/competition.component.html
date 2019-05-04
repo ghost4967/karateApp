@@ -2,16 +2,21 @@
   <nb-card-header>Competencia de la categoria {{categorieName}}</nb-card-header>
   <nb-card-body>
     <div class="row">
+      <div class="jumbotron" *ngIf="readyToFinal">
+        <h1 class="display-4">Categoria preparada para la final</h1>
+        <p class="lead">vuelva atras y espera a que el otro grupo compita para pasar a la final</p>
+      </div>
       <div class="col-md-8 offset-2" *ngFor="let group of groups">
         <div class="form-group">
-          <h2>{{group.side}}</h2>
+          <h2 *ngIf = "group.side == 'blue'">Grupo 1</h2>
+          <h2 *ngIf = "group.side == 'red'">Grupo 2</h2>
           <label> Nombre del panel: </label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
           </div>
         </div>
         <table class="table table-bordered">
-          <thead [ngStyle]="{'background-color': side == 'blue' ? '#73a1ff' : '#ff3333' }">
+          <thead [ngStyle]="{'background-color':  group.kata != 1 ? '#ff3333' : '#ffffff' }">
             <tr>
               <th>
                 <p>
@@ -26,8 +31,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let offlineCompetitor of group.competitors; let i = index">
-              <td class="align-right"> {{ i +1}}
+            <tr *ngFor="let offlineCompetitor of group.competitors; let i = index"
+              [ngStyle]="{'background-color': offlineCompetitor.qualified ? '#99ff99' : '#ffffff'}">
+              <td class="align-right" [ngStyle]="{'background-color':  group.kata == 1 && i == 0  ? '#73a1ff' : '#ff3333' }"> {{ i +1}}
               </td>
               <td class="align-right" *ngIf="offlineCompetitor.competitor.name != ''">
                 {{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}} (
@@ -41,23 +47,28 @@
                 </ng-select>
               </td>
               <td *ngIf="!offlineCompetitor.isGradePresent">
-                <button class="btn btn-primary btn-xs" style="margin:5px" (click)="startCompetition(offlineCompetitor, group)"> Competir
+                <button class="btn btn-primary btn-xs" style="margin:5px"
+                  (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
-                <button class="btn btn-success btn-xs" style="margin:5px" (click)="goToGradeView(offlineCompetitor, group)">Guardar
+                <button class="btn btn-success btn-xs" style="margin:5px"
+                  (click)="goToGradeView(offlineCompetitor, group)">Guardar
                   Nota</button>
               </td>
               <td *ngIf="offlineCompetitor.isGradePresent">
                 <span class="badge badge-light">{{ offlineCompetitor.grade }}</span>
               </td>
               <td *ngIf="offlineCompetitor.isGradePresent">
-                  <button class="btn btn-success btn-xs" (click)="restartCompetitorCompetition(offlineCompetitor)">Volver a votar</button>
-                </td>
+                <button class="btn btn-success btn-xs" (click)="restartCompetitorCompetition(offlineCompetitor)">Volver
+                  a votar</button>
+              </td>
             </tr>
           </tbody>
         </table>
         <div class="btn-toolbar">
-        <!--<button class="btn btn-outline-primary pull-right" type="button" (click)="nextKata(group)">Siguiente kata</button>-->
-        <button class="btn btn-success btn-sm pull-right" style="margin-left:50em" type="button" (click)="orderGrades(group)">Ordenar resultados</button>
+          <button class="btn btn-outline-primary pull-right" *ngIf="group.kata != 2" type="button"
+            (click)="nextKata(group)">Siguiente kata</button>
+          <button class="btn btn-outline-primary pull-left" type="button" (click)="orderGrades(group)">Ordenar
+            resultados</button>
         </div>
       </div>
     </div>
