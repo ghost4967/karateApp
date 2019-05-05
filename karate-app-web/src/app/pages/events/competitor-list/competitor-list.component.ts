@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompetitorService } from '../../../services/competitor-service/competitor.service';
 import { Competitor } from '../../../models/competitor';
@@ -15,6 +15,8 @@ import { TeamFirebaseCompetition } from '../../../models/team-firebase-competiti
 import { TeamGroup } from '../../../models/team-group';
 import { OfflineTeam } from '../../../models/offline-team';
 import { Team } from '../../../models/team';
+import { NbDialogService } from '@nebular/theme';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-competitor-list',
@@ -49,7 +51,7 @@ export class CompetitorListComponent implements OnInit {
   countries: Array<Country> = new Array();
 
   constructor(private route: ActivatedRoute, private competitorService: CompetitorService,
-    private countryService: CountryService,
+    private countryService: CountryService, private dialogService: NbDialogService, private toastr: ToastrService,
     private sortService: SortService) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.categorieName = route.snapshot.paramMap.get('categorieName');
@@ -57,10 +59,6 @@ export class CompetitorListComponent implements OnInit {
     this.isSingle =true;
     this.isTeam = false;
     this.groupArray = new Array();
-  }
-
-  deleteCompetitors(competitor) {
-    this.competitorService.deleteCompetitor(competitor);
   }
 
   ngOnInit() {
@@ -120,6 +118,16 @@ export class CompetitorListComponent implements OnInit {
       }
 
     });
+  }
+
+  deleteCompetitors(competitor, ref) {
+    this.competitorService.deleteCompetitor(competitor);
+    ref.close()
+    this.toastr.success('exitosamente.', 'Competidor eliminado');
+  }
+
+  open(dialog: TemplateRef<any>, name, lastName) {
+    this.dialogService.open(dialog, { context: 'Esta seguro que desea eliminar a '+ name + ' ' + lastName + '?' });
   }
 
   fillOfflineCompetitors() {

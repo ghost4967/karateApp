@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { Country } from '../../../models/country';
 import { ActivatedRoute } from '@angular/router';
 import { CountryService } from '../../../services/country-service/country.service';
 import { CompetitorService } from '../../../services/competitor-service/competitor.service';
 import { Competitor } from '../../../models/competitor';
 import { Team } from '../../../models/team';
+import { NbDialogService } from '@nebular/theme';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-country-profile',
@@ -19,7 +21,9 @@ export class CountryProfileComponent implements OnInit {
   competitors: Competitor[];
   teams: Team[];
 
-  constructor(private route: ActivatedRoute, private countryService: CountryService, private competitorService: CompetitorService) { 
+  constructor(private route: ActivatedRoute, private countryService: CountryService, 
+    private dialogService: NbDialogService, private competitorService: CompetitorService,
+    private toastr: ToastrService) { 
     this.countryId = route.snapshot.paramMap.get('countryId');
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.competitorService.getCompetitorsByCountry(this.countryId).subscribe(data => {
@@ -50,8 +54,14 @@ export class CountryProfileComponent implements OnInit {
     });
   }
 
-  deleteCompetitors(competitor) {
+  open(dialog: TemplateRef<any>, name, lastName) {
+    this.dialogService.open(dialog, { context: 'Esta seguro que desea eliminar a ' + name+ ' '+lastName +'?' });
+  }
+
+  deleteCompetitors(competitor, ref) {
     this.competitorService.deleteCompetitor(competitor);
+    ref.close()
+    this.toastr.success('exitosamente.', 'Competidor eliminado');
   }
 
 }

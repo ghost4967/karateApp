@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { EventService } from './services/event-service/event.service';
 import { FormsModule } from '@angular/forms';
 import { NbSpinnerModule } from '@nebular/theme/components/spinner/spinner.module';
+import { NbDialogModule, NbButtonModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -31,11 +32,13 @@ import { NbSpinnerModule } from '@nebular/theme/components/spinner/spinner.modul
     AngularFirestoreModule,
     FormsModule,
     NbSpinnerModule,
+    NbButtonModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
+    NbDialogModule.forRoot(),
     ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent],
