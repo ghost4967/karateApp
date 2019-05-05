@@ -1,0 +1,50 @@
+<nb-card class="col-md-12" id="medal-table">
+  <nb-card-header> Medallero General </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">
+            <p>
+              <b>Pais</b>
+            </p>
+          </th>
+          <th class="text-center">
+            <p>
+              <b>Oro</b>
+            </p>
+          </th>
+          <th class="text-center">
+            <p>
+              <b>Plata</b>
+            </p>
+          </th>
+          <th class="text-center">
+            <p>
+              <b>Bronce</b>
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of displayTable">
+          <td class="text-center">
+            {{row.country}}
+          </td>
+          <td class="text-center">
+            {{row.gold}}
+          </td>
+          <td class="text-center">
+            {{row.silver}}
+          </td>
+          <td class="text-center">
+            {{row.bronze}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="exportPdf()"> Exportar </button>
+  </nb-card-footer>
+</nb-card>
