@@ -27,7 +27,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let country of countries">
-            <td class="align-right">{{ country.name }}</td>
+            <td class="align-right">
+              {{ country.name }}
+              <span class="{{geCountryFlag(country.name)}}"></span> 
+            </td>
             <td> <button type="button" class="btn btn-primary btn-icon" 
                   routerLink="/pages/events/{{eventId}}/add-countries/{{country.id}}">
                 <i class="ion-plus-round"></i>

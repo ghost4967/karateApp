@@ -12,7 +12,10 @@
             <button nbButton style="margin:5px"  routerLink="/pages/events/{{event.id}}/categories">Sortear</button>
             <button nbButton style="margin:5px" routerLink="/pages/events/{{event.id}}/add-countries">Paises</button>
             <button nbButton style="margin:5px" routerLink="/pages/events/{{event.id}}/categories" [queryParams]="{ competition: true }">Competencia</button>
-            
+            <button class="btn btn-outline-warning" style="margin:5px"
+              routerLink="/pages/events/{{eventId}}//medal-table">
+              Ver medallero
+            </button>
           </div>
         </div>
       </div>

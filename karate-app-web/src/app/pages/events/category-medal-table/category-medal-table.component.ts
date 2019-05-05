@@ -4,7 +4,6 @@ import { from, of, zip } from 'rxjs';
 import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'ngx-category-medal-table',

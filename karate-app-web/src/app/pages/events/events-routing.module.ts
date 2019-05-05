@@ -13,6 +13,7 @@ import { CompetitorListComponent } from './competitor-list/competitor-list.compo
 import { TeamRegisterComponent } from './team-register/team-register.component';
 import { CompetitionComponent } from './competition/competition.component';
 import { CategoryMedalTableComponent } from './category-medal-table/category-medal-table.component';
+import { EventMedalTableComponent } from './event-medal-table/event-medal-table.component';
 
 const routes: Routes = [{
   path: '',
@@ -50,6 +51,9 @@ const routes: Routes = [{
   }, {
     path: ':eventId/category/:categorieName/medall-table',
     component: CategoryMedalTableComponent
+  }, {
+    path: ':eventId/medal-table',
+    component: EventMedalTableComponent
   }
 ],
 }];
@@ -73,4 +77,5 @@ export const routedComponents = [
   TeamRegisterComponent,
   CompetitionComponent,
   CategoryMedalTableComponent,
+  EventMedalTableComponent
 ];
