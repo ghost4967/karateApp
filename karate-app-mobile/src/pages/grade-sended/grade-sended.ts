@@ -32,7 +32,7 @@ export class GradeSendedPage {
         });
         this.navCtrl.popToRoot();
       }
-    })
+    });
   }
 
   ionViewWillLeave() {

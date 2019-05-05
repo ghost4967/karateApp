@@ -43,7 +43,7 @@ export class DisplayGradePage {
     this.fisicoPromedio = new Array();
     this.service.getByName(this.sessionName).subscribe(data => {
       this.judgeList = data;
-    })
+    });
   }
 
   ionViewDidLoad() {
