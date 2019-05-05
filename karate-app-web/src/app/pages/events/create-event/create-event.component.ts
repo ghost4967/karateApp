@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
-  CataForm: FormGroup;
 
   event: Event = new Event();
   categories: any;
@@ -27,7 +26,6 @@ export class CreateEventComponent implements OnInit {
 
   ngOnInit() {
     this.createEventForm = this.buildCreateEventForm();
-    this.CataForm = this.buildCataForm();
   }
 
   buildCreateEventForm () {
@@ -49,11 +47,6 @@ export class CreateEventComponent implements OnInit {
     return this.formBuilder.group({
       categorie: ['', [Validators.required]]
     })
-  }
-
-  get categorie() {
-    this.toastr.success('locooooooo');
-    return this.CataForm.get('categorie');
   }
 
   get name() {
