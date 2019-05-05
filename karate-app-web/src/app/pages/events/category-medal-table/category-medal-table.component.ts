@@ -12,9 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CategoryMedalTableComponent implements OnInit {
 
   competitionGrades;
-  // eventId = '6OAtwwvhR9luz0bvzfBF';
-  eventId = 'qERtQif88D6EIqNrFYxL';
-  category = 'KATA INDIVIDUAL MASCULINO 12-13 AÑOS';
+  eventId;
+  category;
   competitors = [];
   kataGroups = [];
   competition;
@@ -53,8 +52,7 @@ export class CategoryMedalTableComponent implements OnInit {
         }, p => p),
         mergeMap(group => zip(of(group.key), group.pipe(toArray())))
       )
-      .subscribe(data => { this.competitors.push(data); console.log(data) })
-    console.log(this.competitionGrades);
+      .subscribe(data => { this.competitors.push(data); })
     this.keepOnlyLatestKata();
     this.splitInGroups();
     this.sortFinals();
@@ -68,7 +66,6 @@ export class CategoryMedalTableComponent implements OnInit {
       competitorsWithLatestKata.push([element[0], this.getLatestKata(data)]);
     });
     this.competitors = competitorsWithLatestKata;
-    console.log(this.competitors);
   }
 
   getLatestKata(data) {
@@ -92,7 +89,6 @@ export class CategoryMedalTableComponent implements OnInit {
       }
       this.kataGroups[kataNumber].push(element);
     });
-    console.log(this.kataGroups);
   }
 
   sortFinals() {
@@ -104,9 +100,6 @@ export class CategoryMedalTableComponent implements OnInit {
         case 'bronze2': this.bronze2.push(finalist); break;
       }
     });
-    console.log(this.final);
-    console.log(this.bronze);
-    console.log(this.bronze2);
   }
 
   getSide(finalistName) {
@@ -130,7 +123,6 @@ export class CategoryMedalTableComponent implements OnInit {
   }
 
   buildMedalTable() {
-    /* place[x][0] the name of the participant place[x][1] the data*/
     if (this.final[0][1].grade > this.final[1][1].grade) {
       this.addMedal(this.final[0][0], 1);
       this.addMedal(this.final[1][0], 2);
