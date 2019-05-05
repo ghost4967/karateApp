@@ -43,8 +43,7 @@
           <option *ngFor="let categorie of categories" [ngValue]="categorie">{{categorie.name}}</option>
         </select>
       </div>
-      <button nbButton (click)="registerCompetitor()"
-        routerLink="/pages/events/{{eventId}}/add-countries/{{countryId}}"> Registrar Competidor </button>
+      <button nbButton (click)="registerCompetitor()"> Registrar Competidor </button>
     </form>
   </nb-card-body>
 </nb-card>
