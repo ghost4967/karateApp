@@ -14,25 +14,35 @@
       <tbody>
         <tr *ngFor="let categorie of event.categories">
           <td class="align-right">{{ categorie.name }}</td>
-          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}" *ngIf="!categorie.isReadyToFinal && !isCompetition">
+          <td ngClass="text-center" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}"
+            *ngIf="!categorie.isReadyToFinal && !isCompetition">
             <button nbButton>
               Sortear
             </button>
           </td>
-          <td ngClass="text-center"  *ngIf="isCompetition && !categorie.isReadyToFinal">
-            <button nbButton class="btn btn-outline-primary" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'blue' }">
+          <td ngClass="text-center" *ngIf="isCompetition && !categorie.isReadyToFinal">
+            <button nbButton class="btn btn-outline-primary" style="margin:5px"
+              routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
+              [queryParams]="{ side: 'blue' }">
               Competir Grupo 1
             </button>
-            <button class="btn btn-outline-danger" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'red' }">
+            <button class="btn btn-outline-danger" style="margin:5px"
+              routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
+              [queryParams]="{ side: 'red' }">
               Competir Grupo 2
             </button>
           </td>
-          <td ngClass="text-center"  *ngIf="isCompetition && categorie.isReadyToFinal">
-              <button nbButton class="btn btn-outline-primary" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'final' }"
-              (click)="buildFinalGroups(categorie.name)">
-                Realizar final
-              </button>
-            </td>
+          <td ngClass="text-center" *ngIf="isCompetition && categorie.isReadyToFinal">
+            <button nbButton class="btn btn-outline-primary" style="margin:5px"
+              routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
+              [queryParams]="{ side: 'final' }" (click)="buildFinalGroups(categorie.name)">
+              Realizar final
+            </button>
+            <button class="btn btn-outline-warning" style="margin:5px"
+              routerLink="/pages/events/{{event.id}}/category/{{categorie.name}}/medall-table">
+              Ver medallero
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
