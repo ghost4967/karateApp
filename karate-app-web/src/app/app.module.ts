@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +32,7 @@ import { EventService } from './services/event-service/event.service';
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent],
   providers: [
