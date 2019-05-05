@@ -43,7 +43,7 @@
               <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
               </td>
               <td *ngIf="!offlineCompetitor.isGradePresent">
-                <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
+                <ng-select [items]="katas" bindLabel="name" bindValue="name" [searchFn]="searchId"
                   placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
                 </ng-select>
               </td>

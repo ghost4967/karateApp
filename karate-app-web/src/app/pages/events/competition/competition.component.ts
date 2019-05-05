@@ -42,6 +42,10 @@ export class CompetitionComponent implements OnInit {
     })
   }
 
+  searchId(term: string, item: any) {
+    return item.name.toLowerCase().indexOf(term.toLocaleLowerCase()) > -1 || item.id === parseInt(term);
+  }
+
   ngOnInit() {
     this.sortService.getCompetitionByCategorieAndEvent(this.categorieName, this.eventId).subscribe(data => {
       this.competitions = data.map(e => {
@@ -80,6 +84,7 @@ export class CompetitionComponent implements OnInit {
     this.competitionService.addCompetitorToPanel(group.kataManager, offlineCompetitor, offlineCompetitor.kataName);
     this.competitor = offlineCompetitor;
     this.sesion = group.kataManager;
+    console.log(offlineCompetitor.kataName);
     offlineCompetitor.isGradePresent = false;
     offlineCompetitor.inGradingProcess = true;
     let subscription: Subscription;
