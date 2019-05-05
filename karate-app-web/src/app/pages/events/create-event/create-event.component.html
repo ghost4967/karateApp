@@ -80,7 +80,6 @@
                     <nb-checkbox *ngFor="let categorie of categories | categorieFilter: 'male'" [(ngModel)]="categorie.check" name="categorie" class="form-control">{{ categorie.name }}</nb-checkbox>
                   </div>
                 </div>
-                <!-- <p *ngIf="categorie.touched && categorie.invalid" class="alert-danger"><sup>*</sup>Porfavor</p> -->
               </div>
               <button nbButton (click)="createEvent()"> Crear Evento </button>
             </form>
