@@ -8,8 +8,8 @@
       </div>
       <div class="col-md-8 offset-2" *ngFor="let group of groups">
         <div class="form-group">
-          <h2 *ngIf = "group.side == 'blue'">Grupo 1</h2>
-          <h2 *ngIf = "group.side == 'red'">Grupo 2</h2>
+          <h2 *ngIf="group.side == 'blue'">Grupo 1</h2>
+          <h2 *ngIf="group.side == 'red'">Grupo 2</h2>
           <label> Nombre del panel: </label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Nombre del panel" [(ngModel)]="group.kataManager">
@@ -33,7 +33,8 @@
           <tbody>
             <tr *ngFor="let offlineCompetitor of group.competitors; let i = index"
               [ngStyle]="{'background-color': offlineCompetitor.qualified ? '#99ff99' : '#ffffff'}">
-              <td class="align-right" [ngStyle]="{'background-color':  group.kata == 1 && i == 0  ? '#73a1ff' : '#ff3333' }"> {{ i +1}}
+              <td class="align-right"
+                [ngStyle]="{'background-color':  group.kata == 1 && i == 0  ? '#73a1ff' : '#ff3333' }"> {{ i +1}}
               </td>
               <td class="align-right" *ngIf="offlineCompetitor.competitor.name != ''">
                 {{ offlineCompetitor.competitor.name }} {{ offlineCompetitor.competitor.lastName}} (
@@ -42,12 +43,12 @@
               <td *ngIf="offlineCompetitor.competitor.name == ''" class="align-right">
               </td>
               <td *ngIf="!offlineCompetitor.isGradePresent">
-                <ng-select [items]="katas" bindLabel="name" bindValue="name" labelForId="state"
+                <ng-select [items]="katas" bindLabel="name" bindValue="name" [searchFn]="searchId"
                   placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
                 </ng-select>
               </td>
               <td *ngIf="!offlineCompetitor.isGradePresent && !offlineCompetitor.inGradingProcess">
-                <button class="btn btn-primary btn-xs" style="margin:5px"
+                <button class="btn btn-primary btn-xs" style="margin:5px" 
                   (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
                 <button class="btn btn-success btn-xs" style="margin:5px"
@@ -62,9 +63,14 @@
                   a votar</button>
               </td>
               <td *ngIf="offlineCompetitor.inGradingProcess">
-                 <p>Calificando ....</p>
-                  <button class="btn btn-danger btn-xs" (click)="cancelGradeProcess(offlineCompetitor)">Cancelar votacion</button>
-                </td>
+                <p>Compitiendo ....</p>
+                <button class="btn btn-danger btn-xs" (click)="cancelGradeProcess(offlineCompetitor)">Cancelar
+                  votacion</button>
+              </td>
+              <td *ngIf="offlineCompetitor.hasRepeatedGrade" [ngStyle]="{'background-color': '#ff3333' }">
+                <button class="btn btn-danger btn-xs" (click)="addToDrawGroup(offlineCompetitor, group)">Llevar a
+                  desempate</button>
+              </td>
             </tr>
           </tbody>
         </table>
