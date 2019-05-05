@@ -19,6 +19,7 @@ export class JudgeGradeListPage {
   isEnableViewGrades: boolean = false;
   judgesNumber: string;
   subscription: Subscription;
+  restartSession: boolean;
   pages = [
     {
       icon: 'trash',
@@ -43,6 +44,15 @@ export class JudgeGradeListPage {
       this.fillSendedList();
       this.isEnableViewGrades = this.judgeGradeListSended.length == parseInt(this.judgesNumber);
       console.log(this.isEnableViewGrades);
+    });
+    this.subscription = this.service.getStatusBySession(this.sessionName).subscribe(data => {
+      this.restartSession = data[0].restart;
+      if (this.restartSession) {
+        this.navCtrl.setRoot('WaitingCompetitorPage',{
+          sessionName: this.sessionName
+        });
+        this.navCtrl.popToRoot();
+      }
     });
   }
   ionViewWillEnter() {

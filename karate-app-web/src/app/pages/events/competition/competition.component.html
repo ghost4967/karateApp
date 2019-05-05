@@ -46,7 +46,7 @@
                   placeholder="Seleccione un kata" [(ngModel)]="offlineCompetitor.kataName">
                 </ng-select>
               </td>
-              <td *ngIf="!offlineCompetitor.isGradePresent">
+              <td *ngIf="!offlineCompetitor.isGradePresent && !offlineCompetitor.inGradingProcess">
                 <button class="btn btn-primary btn-xs" style="margin:5px"
                   (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
@@ -61,6 +61,10 @@
                 <button class="btn btn-success btn-xs" (click)="restartCompetitorCompetition(offlineCompetitor)">Volver
                   a votar</button>
               </td>
+              <td *ngIf="offlineCompetitor.inGradingProcess">
+                 <p>Calificando ....</p>
+                  <button class="btn btn-danger btn-xs" (click)="cancelGradeProcess(offlineCompetitor)">Cancelar votacion</button>
+                </td>
             </tr>
           </tbody>
         </table>
