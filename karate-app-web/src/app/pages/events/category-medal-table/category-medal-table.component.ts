@@ -32,6 +32,19 @@ export class CategoryMedalTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.competitionService.getMedalTable(this.eventId, this.category).subscribe(
+      (response: any) => {
+        if (response.length > 0) {
+          this.medalTable = response[0].data;
+          this.isDataSaved = true;
+        } else {
+          this.buildData();
+        }
+      }
+    );
+  }
+
+  buildData() {
     this.competitionService.getCompetitorsGrades(this.eventId, this.category).subscribe(
       response => {
         this.competitionGrades = response;
@@ -43,7 +56,6 @@ export class CategoryMedalTableComponent implements OnInit {
         );
       }
     );
-
   }
 
   groupGrades() {
@@ -197,7 +209,7 @@ export class CategoryMedalTableComponent implements OnInit {
   }
 
   saveMedalTable() {
-    if(!this.isDataSaved) {
+    if (!this.isDataSaved) {
       this.isDataSaved = true;
       this.competitionService.saveMedalTable(this.eventId, this.category, this.medalTable);
     }

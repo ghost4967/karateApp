@@ -136,4 +136,12 @@ export class CompetitionService {
       }
     );
   }
+
+  getMedalTable(eventId: string, category: string) {
+    return this.storeFirebase.collection('medal-table', ref => ref
+      .where('eventId', '==', eventId)
+      .where('category', '==', category))
+    .valueChanges();
+  }
+
 }
