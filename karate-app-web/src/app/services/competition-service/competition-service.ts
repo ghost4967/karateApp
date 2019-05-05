@@ -126,4 +126,21 @@ export class CompetitionService {
     .valueChanges();
   }
 
+  saveMedalTable(eventId: string, category: string, data) {
+    this.storeFirebase.collection('medal-table').add(
+      {
+        eventId: eventId,
+        category: category,
+        data: data
+      }
+    );
+  }
+
+  getMedalTable(eventId: string, category: string) {
+    return this.storeFirebase.collection('medal-table', ref => ref
+      .where('eventId', '==', eventId)
+      .where('category', '==', category))
+    .valueChanges();
+  }
+
 }
