@@ -1,18 +1,20 @@
-<nb-card class="col-md-12">
+<nb-card class="col-md-12" id="medal-table">
   <nb-card-header> Medallero {{category}} </nb-card-header>
   <nb-card-body>
     <table class="table table-bordered">
       <thead>
-        <th class="text-center">
-          <p>
-            <b>Posicion</b>
-          </p>
-        </th>
-        <th class="text-center">
-          <p>
-            <b>Competidor</b>
-          </p>
-        </th>
+        <tr>
+          <th class="text-center">
+            <p>
+              <b>Posicion</b>
+            </p>
+          </th>
+          <th class="text-center">
+            <p>
+              <b>Competidor</b>
+            </p>
+          </th>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let medal of medalTable">
@@ -26,4 +28,7 @@
       </tbody>
     </table>
   </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="exportPdf()"> Exportar </button>
+  </nb-card-footer>
 </nb-card>

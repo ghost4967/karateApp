@@ -7,6 +7,7 @@ import { FirebaseCompetition } from '../../models/firebase-competition';
 import { OfflineCompetitor } from '../../models/offline-competitor';
 import { Competitor } from '../../models/competitor';
 import { Observable } from 'rxjs/Observable';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -126,4 +127,13 @@ export class CompetitionService {
     .valueChanges();
   }
 
+  saveMedalTable(eventId: string, category: string, data) {
+    this.storeFirebase.collection('medal-table').add(
+      {
+        eventId: eventId,
+        category: category,
+        data: data
+      }
+    );
+  }
 }
