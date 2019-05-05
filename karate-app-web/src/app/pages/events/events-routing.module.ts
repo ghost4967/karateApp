@@ -48,7 +48,7 @@ const routes: Routes = [{
     path: ':eventId/categories/:categorieName/competition',
     component: CompetitionComponent
   }, {
-    path: 'category/medall-table',
+    path: ':eventId/category/:categorieName/medall-table',
     component: CategoryMedalTableComponent
   }
 ],

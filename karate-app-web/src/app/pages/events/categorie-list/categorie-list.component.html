@@ -26,6 +26,9 @@
             <button class="btn btn-outline-danger" style="margin:5px" routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'red' }">
               Competir lado rojo
             </button>
+            <button class="btn btn-outline-warning" style="margin:5px" routerLink="/pages/events/{{event.id}}/category/{{categorie.name}}/medall-table">
+              Ver medallero
+            </button>
           </td>
           <!--<td *ngIf="isCompetition">
               <button nbButton routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition" [queryParams]="{ side: 'final' }"
