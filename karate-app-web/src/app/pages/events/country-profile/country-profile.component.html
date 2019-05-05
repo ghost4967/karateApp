@@ -1,31 +1,44 @@
 <nb-card>
   <nb-card-header>
     {{country.name}}
-    <button type="button" class="btn btn-primary pull-right"
-      routerLink="/pages/events/{{eventId}}/country/{{countryId}}/add-competitor">
-      Añadir Competidor
-    </button>
+    <div>
+      <button type="button" class="btn btn-primary float-right"
+        routerLink="/pages/events/{{eventId}}/country/{{countryId}}/add-competitor">
+        Añadir Competidor
+      </button>
     <!--<button type="button" class="btn btn-primary pull-right"
-      routerLink="/pages/events/{{eventId}}/country/{{countryId}}/add-team">
-      Añadir Equipo
-    </button>-->
-    <button type="button" class="btn btn-default" routerLink="/pages/events/{{eventId}}/add-countries">
-      Atras
-    </button>
+          routerLink="/pages/events/{{eventId}}/country/{{countryId}}/add-team">
+          Añadir Equipo
+        </button>-->
+      <button type="button" class="btn btn-secondary float-right" routerLink="/pages/events/{{eventId}}/add-countries">
+        Atras
+      </button>
+    </div>
   </nb-card-header>
 </nb-card>
 <nb-card>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md">
         <label>Competidores individuales: </label>
         <nb-list>
           <nb-list-item *ngFor="let competitor of competitors">
             {{ competitor.name }} {{competitor.lastName}} ( {{competitor.categorie.name}} )
-            <button type="button" class="btn btn-warning xs" (click)="deleteCompetitors(competitor)"> Borrar </button> 
+            <button type="button" class="btn btn-danger float-right xs" (click)="open(dialog, competitor.name, competitor.lastName)"> Borrar </button> 
+            <ng-template #dialog let-data let-ref="dialogRef">
+              <nb-card>
+                <nb-card-header>Eliminar competidor</nb-card-header>
+                <nb-card-body>{{ data }}</nb-card-body>
+                <nb-card-footer>
+                  <button nbButton type="button" class="btn btn-secondary float-left" (click)="ref.close()">Cancelar</button>
+                  <button nbButton type="button" class="btn btn-success float-right" (click)="deleteCompetitors(competitor, ref)">Eliminar</button>
+                </nb-card-footer>
+              </nb-card>
+            </ng-template>
           </nb-list-item>
         </nb-list>
       </div>
+    </div>
     <!--
       <div class="col-md-6">
         <label>Equipos: </label>
@@ -41,6 +54,6 @@
         </div>
       </div>
       -->
-    </div>
+
   </nb-card-body>
 </nb-card>
