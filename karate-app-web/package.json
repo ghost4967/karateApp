@@ -70,6 +70,7 @@
     "ngx-country-picker": "^2.0.0",
     "ngx-country-select": "^2.0.6",
     "ngx-echarts": "^4.0.1",
+    "ngx-toastr": "^10.0.2",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
