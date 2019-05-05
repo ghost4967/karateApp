@@ -43,12 +43,6 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  buildCataForm() {
-    return this.formBuilder.group({
-      categorie: ['', [Validators.required]]
-    })
-  }
-
   get name() {
     return this.createEventForm.get('name');
   }
