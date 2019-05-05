@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Categorie } from '../../../models/categorie';
 import { EventService } from '../../../services/event-service/event.service';
 import { Competitor } from '../../../models/competitor';
 import { Event } from '../../../models/event';
 import { CompetitorService } from '../../../services/competitor-service/competitor.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'ngx-competitor-register',
@@ -12,13 +13,14 @@ import { CompetitorService } from '../../../services/competitor-service/competit
   styleUrls: ['./competitor-register.component.scss']
 })
 export class CompetitorRegisterComponent implements OnInit {
-
+  competitorForm: FormGroup;
   eventId: string;
   countryId: string;
   categories: Categorie[];
   competitor: Competitor = new Competitor();
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, private competitorService: CompetitorService) {
+  constructor(private route: ActivatedRoute, private eventService: EventService, private competitorService: CompetitorService,
+    private formBuilder: FormBuilder, private router: Router) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.countryId = route.snapshot.paramMap.get('countryId');
    }
@@ -31,11 +33,18 @@ export class CompetitorRegisterComponent implements OnInit {
       } as Event;
       this.categories = event.categories;
       //this.categories.filter(categorie => categorie.gender == "single");
+      this.competitorForm = this.buildCompetitorForm();
     });
   }
 
   onChange(gender) {
     this.categories.filter(categorie => categorie.gender == gender);
+  }
+
+  buildCompetitorForm() {
+    return this.formBuilder.group({
+      
+    });
   }
 
   registerCompetitor() {
