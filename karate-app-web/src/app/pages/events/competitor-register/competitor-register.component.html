@@ -1,50 +1,61 @@
 <nb-card>
-  <nb-card-header> Registro del competidor </nb-card-header>
-  <nb-card-body>
-    <form>
+  <nb-card-header> Registro del competidor para el evento: {{nameEvent}}</nb-card-header>
+  <nb-card-body *ngIf="addCompetitorForm ; else loading">
+    <form [formGroup]="addCompetitorForm">
       <div class="form-group">
-        <label for="name">Nombres:</label>
-        <input type="text" class="form-control" placeholder="Nombres" [(ngModel)]="competitor.name" name="name">
+        <label for="name">Nombre*:</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" [(ngModel)]="competitor.name" 
+        name="name" required>
+        <p *ngIf="name.touched && name.invalid" class="alert-danger"><sup>*</sup>Porfavor escriba el nombre del competidor</p>
       </div>
       <div class="form-group">
-        <label>Apellido Paterno:</label>
-        <input type="text" class="form-control" placeholder="Apellido paterno" [(ngModel)]="competitor.lastName"
+        <label>Apellido Paterno*:</label>
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Apellido paterno" [(ngModel)]="competitor.lastName"
           name="lastName">
+          <p *ngIf="lastName.touched && lastName.invalid" class="alert-danger"><sup>*</sup>Porfavor escriba el apellido paterno del competidor</p>
       </div>
       <div class="form-group">
         <label>Apellido Materno:</label>
-        <input type="text" class="form-control" placeholder="Apellido materno" [(ngModel)]="competitor.secondLastName"
+        <input type="text" class="form-control" formControlName="secondLastName" placeholder="Apellido materno" [(ngModel)]="competitor.secondLastName"
           name="secondLastName">
       </div>
       <div class="form-group">
         <label>Fecha de nacimiento:</label>
-        <input nbInput class="form-control" placeholder="Fecha de nacimiento"
+        <input nbInput class="form-control" type="text" formControlName="birthDate" placeholder="Fecha de nacimiento"
           [nbDatepicker]="birthDatePicker" [(ngModel)]="competitor.birthDate" 
           name="birthDate">
         <nb-datepicker #birthDatePicker></nb-datepicker>
       </div>
       <div class="form-group">
           <label>Nro de documento:</label>
-          <input type="text" class="form-control" placeholder="Numero de documento" [(ngModel)]="competitor.ci"
+          <input type="text" class="form-control" formControlName="ci" placeholder="Numero de documento" [(ngModel)]="competitor.ci"
             name="ci">
         </div>
       <div class="form-group">
-        <label>Genero:</label>
-        <select class="form-control" placeholder="Seleccione el genero" (change)="onChange($event.target.value)"
+        <label>Genero*:</label>
+        <select class="form-control" formControlName="gender" placeholder="Seleccione el genero" (change)="onChange($event.target.value)"
           [(ngModel)]="competitor.gender" name="gender">
+          <option  selected="true" disabled>seleccione un genero</option>
           <option value="male">Masculino</option>
           <option value="female">Femenino</option>
         </select>
+        <p *ngIf="gender.touched && gender.invalid" class="alert-danger"><sup>*</sup>Porfavor seleccione el genero del competidor</p>
       </div>
       <div class="form-group">
-        <label>Categoria:</label>
-        <select class="form-control" placeholder="Seleccione la categoria" [(ngModel)]="competitor.categorie"
+        <label>Categoria*:</label>
+        <select class="form-control" formControlName="categorie" placeholder="Seleccione la categoria" [(ngModel)]="competitor.categorie"
           name="categorie">
+          <option  selected="true" disabled>seleccione una categoria</option>
           <option *ngFor="let categorie of categories" [ngValue]="categorie">{{categorie.name}}</option>
         </select>
+        <p *ngIf="categorie.touched && categorie.invalid" class="alert-danger"><sup>*</sup>Porfavor seleccione una categoria para el competidor</p>
       </div>
-      <button nbButton (click)="registerCompetitor()"
-        routerLink="/pages/events/{{eventId}}/add-countries/{{countryId}}"> Registrar Competidor </button>
+      <button nbButton [disabled]="!addCompetitorForm.valid" (click)="registerCompetitor()"> Registrar Competidor </button>
     </form>
   </nb-card-body>
+  <ng-template #loading>
+    <nb-card [nbSpinner]="loading" nbSpinnerStatus="danger" >
+      <nb-card-body></nb-card-body>
+    </nb-card>
+  </ng-template>
 </nb-card>

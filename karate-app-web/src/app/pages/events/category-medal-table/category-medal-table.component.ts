@@ -3,6 +3,8 @@ import { CompetitionService } from '../../../services/competition-service/compet
 import { from, of, zip } from 'rxjs';
 import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'ngx-category-medal-table',
@@ -21,6 +23,7 @@ export class CategoryMedalTableComponent implements OnInit {
   bronze = [];
   bronze2 = [];
   medalTable = [];
+  isDataSaved = false;
 
   constructor(private competitionService: CompetitionService,
     private route: ActivatedRoute) {
@@ -29,6 +32,19 @@ export class CategoryMedalTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.competitionService.getMedalTable(this.eventId, this.category).subscribe(
+      (response: any) => {
+        if (response.length > 0) {
+          this.medalTable = response[0].data;
+          this.isDataSaved = true;
+        } else {
+          this.buildData();
+        }
+      }
+    );
+  }
+
+  buildData() {
     this.competitionService.getCompetitorsGrades(this.eventId, this.category).subscribe(
       response => {
         this.competitionGrades = response;
@@ -40,7 +56,6 @@ export class CategoryMedalTableComponent implements OnInit {
         );
       }
     );
-
   }
 
   groupGrades() {
@@ -124,45 +139,78 @@ export class CategoryMedalTableComponent implements OnInit {
 
   buildMedalTable() {
     if (this.final[0][1].grade > this.final[1][1].grade) {
-      this.addMedal(this.final[0][0], 1);
-      this.addMedal(this.final[1][0], 2);
+      this.addMedal(this.final[0], 1);
+      this.addMedal(this.final[1], 2);
     } else {
-      this.addMedal(this.final[1][0], 1);
-      this.addMedal(this.final[0][0], 2);
+      this.addMedal(this.final[1], 1);
+      this.addMedal(this.final[0], 2);
     }
     if (this.bronze[0][1].grade > this.bronze[1][1].grade) {
-      this.addMedal(this.bronze[0][0], 3);
-      this.addMedal(this.bronze[1][0], 5);
+      this.addMedal(this.bronze[0], 3);
+      this.addMedal(this.bronze[1], 5);
     } else {
-      this.addMedal(this.bronze[1][0], 3);
-      this.addMedal(this.bronze[0][0], 5);
+      this.addMedal(this.bronze[1], 3);
+      this.addMedal(this.bronze[0], 5);
     }
     if (this.bronze2[0][1].grade > this.bronze2[1][1].grade) {
-      this.addMedal(this.bronze2[0][0], 3);
-      this.addMedal(this.bronze2[1][0], 5);
+      this.addMedal(this.bronze2[0], 3);
+      this.addMedal(this.bronze2[1], 5);
     } else {
-      this.addMedal(this.bronze2[1][0], 3);
-      this.addMedal(this.bronze2[0][0], 5);
+      this.addMedal(this.bronze2[1], 3);
+      this.addMedal(this.bronze2[0], 5);
     }
     for (let i = 2; i < this.kataGroups.length; i++) {
       const group = this.kataGroups[i];
       var place = 5 + ((i - 1) * 2);
       group.forEach(element => {
-        this.addMedal(element[0], place);
+        this.addMedal(element, place);
       });
     }
     this.medalTable = this.medalTable.sort((competitor1, competitor2) => {
       return competitor1.place - competitor2.place;
     }
     );
+    console.log(this.medalTable);
   }
 
   addMedal(competitor, place) {
     this.medalTable.push(
       {
-        competitor: competitor,
-        place: place
+        competitor: competitor[0],
+        place: place,
+        country: competitor[1].competitor.country
       }
     );
   }
+
+  exportPdf() {
+    this.saveMedalTable();
+    var pdf = new jspdf('p', 'pt', 'letter');
+    var data = document.getElementById('medal-table');
+    var margins = {
+      top: 80,
+      bottom: 60,
+      left: 40,
+      width: 522
+    };
+    pdf.fromHTML(
+      data,
+      margins.left,
+      margins.top, {
+        'width': margins.width
+      },
+      (dispose) => {
+        let pdfName = this.category + '.pdf'
+        pdf.save(pdfName);
+      }
+      , margins);
+  }
+
+  saveMedalTable() {
+    if (!this.isDataSaved) {
+      this.isDataSaved = true;
+      this.competitionService.saveMedalTable(this.eventId, this.category, this.medalTable);
+    }
+  }
+
 }
