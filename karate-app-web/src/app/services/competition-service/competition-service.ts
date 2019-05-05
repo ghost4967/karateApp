@@ -56,12 +56,32 @@ export class CompetitionService {
         .valueChanges()
         .subscribe(snapshot => {
           observer.next(snapshot);
-          observer.complete();
         }, err => {
           observer.error([]);
           observer.complete();
         });
     });
+  }
+
+  restartSession(sessionName) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
+    .set({
+      restart: true,
+      start: false,
+      nextCompetitor: false
+    });
+  }
+
+  getJudgesBySessionName(sessionName): any {
+   return this.firebase.list('JohnFinalKarate/'+sessionName+'/Group/').valueChanges();
+    
+  }
+
+  restartJudgeStatus(sessionName, judgeName) {
+     this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Group' + '/' + judgeName+'/value')
+    .set(false);
   }
 
   createCompetitorGrade(competitor: Competitor, grade: any, kataNumber : number) {

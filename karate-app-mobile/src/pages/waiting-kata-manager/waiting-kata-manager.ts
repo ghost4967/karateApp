@@ -14,6 +14,7 @@ export class WaitingKataManagerPage {
   sessionName: string;
   competitorName: string;
   kataName: string;
+  restartSession: boolean;
   pages = [
     {
       icon: 'trash',
@@ -35,6 +36,16 @@ export class WaitingKataManagerPage {
       this.kataName = data.competitor.kataName;
       console.log(this.competitorName);
       console.log(this.kataName);
+    });
+
+    this.subscription = this.karateService.getStatusBySession(this.sessionName).subscribe(data => {
+      this.restartSession = data[0].restart;
+      if (this.restartSession) {
+        this.navCtrl.setRoot('WaitingCompetitorPage',{
+          sessionName: this.sessionName
+        });
+        this.navCtrl.popToRoot();
+      }
     });
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { Subscription } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -11,9 +12,11 @@ import { WheelSelector } from '@ionic-native/wheel-selector';
 })
 export class KarateGradePage {
 
-  sessioName: string;
+  sessionName: string;
   judgeName: string;
   gradeList = [];
+  subscription: Subscription;
+  restartSession: boolean;
 
   data = {
     tecnicLevel: "7.0",
@@ -21,7 +24,7 @@ export class KarateGradePage {
   }
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService, 
             private alertController: AlertController, private selector: WheelSelector) {
-    this.sessioName = navParams.get('sessionName');
+    this.sessionName = navParams.get('sessionName');
     this.judgeName = navParams.get('judgeName');
     
     
@@ -29,6 +32,16 @@ export class KarateGradePage {
 
   ionViewDidLoad() {
     this.gradeList = this.karateService.getGradeList();
+    this.subscription = this.karateService.getStatusBySession(this.sessionName).subscribe(data => {
+      this.restartSession = data[0].restart;
+      if (this.restartSession) {
+        this.navCtrl.setRoot('WaitingKataPage',{
+          sessionName: this.sessionName,
+          judgeName: this.judgeName
+        });
+        this.navCtrl.popToRoot();
+      }
+    });
   }
 
   selectPhisic() {
@@ -78,9 +91,9 @@ export class KarateGradePage {
   }
 
   sendGrade() {
-    this.karateService.createGrade(this.data,this.sessioName, this.judgeName);
+    this.karateService.createGrade(this.data,this.sessionName, this.judgeName);
     this.navCtrl.setRoot('GradeSendedPage', {
-      sessionName: this.sessioName,
+      sessionName: this.sessionName,
       judgeName: this.judgeName
     });
     this.navCtrl.popToRoot();

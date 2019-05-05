@@ -6,6 +6,7 @@ import { Group } from '../../../models/group';
 import { CompetitionService } from '../../../services/competition-service/competition-service';
 import { OfflineCompetitor } from '../../../models/offline-competitor';
 import { Competitor } from '../../../models/competitor';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -76,6 +77,27 @@ export class CompetitionComponent implements OnInit {
     this.competitor = offlineCompetitor;
     this.sesion = group.kataManager;
     offlineCompetitor.isGradePresent = false;
+    offlineCompetitor.inGradingProcess = true;
+    this.competitionService.getGrade(group.kataManager).subscribe(val => {
+      if (val != null) {
+        offlineCompetitor.inGradingProcess = false;
+      }
+    });
+  }
+
+  cancelGradeProcess(offlineCompetitor) {
+    offlineCompetitor.inGradingProcess = false;
+    offlineCompetitor.isGradePresent = false;
+    this.competitionService.restartSession(this.sesion);
+    let subscription: Subscription;
+    subscription = this.competitionService.getJudgesBySessionName(this.sesion).subscribe(data => {
+      let judgeList = data;
+      console.log(judgeList);
+      judgeList.forEach(element => {
+        this.competitionService.restartJudgeStatus(this.sesion, element.Nombre);
+      });
+    });
+    subscription.unsubscribe();
   }
 
   createPanel(group) {
@@ -88,6 +110,7 @@ export class CompetitionComponent implements OnInit {
         offlineCompetitor.grade = val;
         this.competitionService.createCompetitorGrade(offlineCompetitor, val, group.kata);
         offlineCompetitor.isGradePresent = true;
+        offlineCompetitor.inGradingProcess = false;
       });
     }
   }
