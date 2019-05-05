@@ -45,53 +45,15 @@ export class CategorieListComponent implements OnInit {
         } as FirebaseCompetition;
       });
       this.event.categories.forEach(categorie => {
-        categorie.isReadyToFinal = this.checkKataOfCategorie(categorie.name);
-        console.log(categorie.isReadyToFinal);
+        categorie.isReadyToFinal = this.isReadyToFinal(categorie.name);
       })
     });
   }
 
-   checkKataOfCategorie(categorie) {
+  isReadyToFinal(categorie) {
     let competition = this.competitions.find(competition => competition.categorie == categorie);
-    if (competition == undefined) {
-      return false;
-    }
-    let semifinalKata = 2;
-
-
-    let blueSideGroup = competition.groups.find(group => group.kata == semifinalKata && group.side == 'blue');
-    blueSideGroup.competitors.forEach(competitor => {
-      this.competitionService.getCompetitorGradeById(competitor.competitor.id, semifinalKata).subscribe(data => {
-        let grades = data.map(e => {
-          return {
-            id: e.payload.doc.id,
-            ...e.payload.doc.data()
-          } as Object;
-        });
-        let grade = grades[0];
-        competitor['isGradePresent'] = grade == null ? false : true;
-      })
-    });
-    let isBlueSideReady;
-    let isRedSideReady;
-    let redSideGroup = competition.groups.find(group => group.kata == semifinalKata && group.side == 'red');
-    redSideGroup.competitors.forEach(competitor => {
-      this.competitionService.getCompetitorGradeById(competitor.competitor.id, semifinalKata).subscribe(data => {
-        let grades = data.map(e => {
-          return {
-            id: e.payload.doc.id,
-            ...e.payload.doc.data()
-          } as Object;
-        });
-        let grade = grades[0];
-        competitor['isGradePresent'] = grade == null ? false : true;
-          console.log(isBlueSideReady);
-      })
-    });
-    isBlueSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.every(competitor => competitor['isGradePresent']) && group.side == 'blue');
-    isRedSideReady = competition.groups.some(group => group.kata == semifinalKata && group.competitors.every(competitor => competitor['isGradePresent']) && group.side == 'red');
-    return  isBlueSideReady && isRedSideReady;
-
+    let groups = competition != undefined ? competition.groups.filter(group => group.kata != 1) : [];
+    return competition != undefined ? groups.every(group =>  group.isGraded) : false;
   }
 
   buildFinalGroups(categorie) {
@@ -124,6 +86,21 @@ export class CategorieListComponent implements OnInit {
     secondBronze.competitors.push(redSideCompetitors[1] != undefined ? redSideCompetitors[1] : (Object.assign({}, offlineCompetitor)));
     secondBronze.kata = 1;
     secondBronze.side = 'bronze2';
+    finalGroup.competitors.forEach(competitor => {
+      delete competitor['grade'];
+      delete competitor['qualified'];
+      delete competitor['isGradePresent']
+    });
+    bronzeGroup.competitors.forEach(competitor => {
+      delete competitor['grade'];
+      delete competitor['qualified'];
+      delete competitor['isGradePresent']
+    });
+    secondBronze.competitors.forEach(competitor => {
+      delete competitor['grade'];
+      delete competitor['qualified'];
+      delete competitor['isGradePresent']
+    });
     if(!competition.groups.some(group => group.side == "final")) {
       competition.groups.push((Object.assign({}, finalGroup)));
     }
