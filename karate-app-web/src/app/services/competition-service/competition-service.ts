@@ -112,4 +112,18 @@ export class CompetitionService {
     return this.storeFirebase.collection('competitions', ref => ref.where("eventId", "==", eventId)).snapshotChanges();
   }
 
+  getCompetitorsGrades(eventId: string, category: string) {
+    return this.storeFirebase.collection('competitorgrade', ref => ref
+      .where('competitor.competitor.eventId', '==', eventId)
+      .where('competitor.competitor.categorie.name', '==', category))
+    .valueChanges();
+  }
+
+  getCompetition(eventId, category) {
+    return this.storeFirebase.collection('competitions', ref => ref
+      .where('eventId', '==', eventId)
+      .where('categorie', '==', category))
+    .valueChanges();
+  }
+
 }
