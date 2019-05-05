@@ -16,6 +16,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { EventService } from './services/event-service/event.service';
+import { FormsModule } from '@angular/forms';
+import { NbSpinnerModule } from '@nebular/theme/components/spinner/spinner.module';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { EventService } from './services/event-service/event.service';
     AppRoutingModule,
     AngularFireDatabaseModule, AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
+    NbSpinnerModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
