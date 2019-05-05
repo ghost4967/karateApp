@@ -5,7 +5,8 @@ import { EventService } from '../../../services/event-service/event.service';
 import { Competitor } from '../../../models/competitor';
 import { Event } from '../../../models/event';
 import { CompetitorService } from '../../../services/competitor-service/competitor.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-competitor-register',
@@ -13,14 +14,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./competitor-register.component.scss']
 })
 export class CompetitorRegisterComponent implements OnInit {
-  competitorForm: FormGroup;
+  addCompetitorForm: FormGroup;
+  nameEvent: string;
   eventId: string;
   countryId: string;
   categories: Categorie[];
   competitor: Competitor = new Competitor();
 
   constructor(private activatedRoute: ActivatedRoute, private eventService: EventService, private competitorService: CompetitorService,
-    private formBuilder: FormBuilder, private router: Router) {
+    private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService) {
     this.eventId = activatedRoute.snapshot.paramMap.get('eventId');
     this.countryId = activatedRoute.snapshot.paramMap.get('countryId');
    }
@@ -33,7 +35,8 @@ export class CompetitorRegisterComponent implements OnInit {
       } as Event;
       this.categories = event.categories;
       //this.categories.filter(categorie => categorie.gender == "single");
-      this.competitorForm = this.buildCompetitorForm();
+      this.addCompetitorForm = this.buildAddCompetitorForm();
+      this.nameEvent = event.name;
     });
   }
 
@@ -41,19 +44,34 @@ export class CompetitorRegisterComponent implements OnInit {
     this.categories.filter(categorie => categorie.gender == gender);
   }
 
-  buildCompetitorForm() {
-    return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
+  buildAddCompetitorForm() {
+     return this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
       secondLastName: [''],
       birthDate: [''],
       ci: [''],
-      gender: ['', [Validators.required]],
-      categorie: ['', [Validators.required]],
+      gender: ['', Validators.required],
+      categorie: ['', Validators.required],
       eventId: this.eventId,
-      countryId: this.countryId
-
+     countryId: this.countryId
     });
+  }
+
+  get name() {
+    return this.addCompetitorForm.get('name');
+  }
+
+  get lastName() {
+    return this.addCompetitorForm.get('lastName');
+  }
+
+  get gender() {
+    return this.addCompetitorForm.get('gender');
+  }
+
+  get categorie() {
+    return this.addCompetitorForm.get('categorie');
   }
 
   goToAddCountries() {
@@ -61,10 +79,19 @@ export class CompetitorRegisterComponent implements OnInit {
   }
 
   registerCompetitor() {
+    if (this.competitor.secondLastName === undefined) {
+      delete this.competitor.secondLastName;
+    }
+    if (this.competitor.birthDate === undefined) {
+      delete this.competitor.birthDate;
+    }
+    if (this.competitor.ci === undefined) {
+      delete this.competitor.ci;
+    }
     this.competitor.eventId = this.eventId;
     this.competitor.countryId = this.countryId;
     this.competitorService.createCompetitor(this.competitor);
+    this.toastr.success("exitosamente.", "Competidor registrado ");
     this.goToAddCountries();
   }
-
 }
