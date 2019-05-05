@@ -194,14 +194,12 @@ export class CategoryMedalTableComponent implements OnInit {
       width: 522
     };
     pdf.fromHTML(
-      data, // HTML string or DOM elem ref.
-      margins.left, // x coord
-      margins.top, {// y coord
+      data,
+      margins.left,
+      margins.top, {
         'width': margins.width
       },
       (dispose) => {
-        // dispose: object with X, Y of the last line add to the PDF 
-        //          this allow the insertion of new lines after html
         let pdfName = this.category + '.pdf'
         pdf.save(pdfName);
       }
