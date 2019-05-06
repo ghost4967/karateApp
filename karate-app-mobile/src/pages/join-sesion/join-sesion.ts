@@ -101,7 +101,6 @@ export class JoinSesionPage {
       ]
     });
     await alert.present();
-    //getByName, getNumberOfJudges
   }
 
   hasSpaceForANewJudge() {
