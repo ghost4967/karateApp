@@ -20,7 +20,6 @@ export class JoinSesionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService,
     private alertController: AlertController) {
-
   }
 
   ionViewDidLoad() {
@@ -84,7 +83,6 @@ export class JoinSesionPage {
       ]
     });
     await alert.present();
-    //getByName, getNumberOfJudges
   }
 
   async alertNoSpace() {
