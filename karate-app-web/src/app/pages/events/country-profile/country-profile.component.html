@@ -24,7 +24,7 @@
         <nb-list>
           <nb-list-item *ngFor="let competitor of competitors">
             {{ competitor.name }} {{competitor.lastName}} ( {{competitor.categorie.name}} )
-            <button type="button" class="btn btn-danger float-right xs" (click)="open(dialog, competitor.name, competitor.lastName)"> Borrar </button> 
+            <button nbButton size="xsmall" class="float-right" status="danger" (click)="open(dialog, competitor.name, competitor.lastName)"> Borrar </button> 
             <ng-template #dialog let-data let-ref="dialogRef">
               <nb-card>
                 <nb-card-header>Eliminar competidor</nb-card-header>
