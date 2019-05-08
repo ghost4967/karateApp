@@ -7,7 +7,7 @@
   <nb-list *ngIf="!startSort && isSingle">
     <nb-list-item *ngFor="let comp of offlineCompetitors">
       {{ comp.competitor.name }} {{ comp.competitor.lastName }} ( {{ comp.country.name }} )
-    <button nbButton status="danger" class="float-right" (click)="open(dialog,  comp.competitor.name, comp.competitor.lastName)"> Borrar </button>  
+    <button nbButton status="danger" size="xsmall" class="float-right" (click)="open(dialog,  comp.competitor.name, comp.competitor.lastName)"> Borrar </button>  
     <ng-template #dialog let-data let-ref="dialogRef">
         <nb-card>
           <nb-card-header>Eliminar competidor</nb-card-header>
