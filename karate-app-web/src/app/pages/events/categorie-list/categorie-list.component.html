@@ -21,7 +21,7 @@
             </button>
           </td>
           <td ngClass="text-center" *ngIf="isCompetition && !categorie.isReadyToFinal">
-            <button nbButton class="btn btn-outline-primary" style="margin:5px"
+            <button nbButton class="btn btn-outline-danger" style="margin:5px"
               routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
               [queryParams]="{ side: 'blue' }">
               Competir Grupo 1
