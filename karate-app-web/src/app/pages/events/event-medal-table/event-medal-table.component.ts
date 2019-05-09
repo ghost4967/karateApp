@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompetitionService } from '../../../services/competition-service/competition-service';
 import { CountryService } from '../../../services/country-service/country.service';
 import * as jspdf from 'jspdf';
@@ -20,8 +20,8 @@ export class EventMedalTableComponent implements OnInit {
 
   constructor(private competitionService: CompetitionService,
     private countryService: CountryService,
-    private route: ActivatedRoute) {
-    this.eventId = route.snapshot.paramMap.get('eventId');
+    private activateRoute: ActivatedRoute, private router: Router) {
+    this.eventId = activateRoute.snapshot.paramMap.get('eventId');
   }
 
   ngOnInit() {
@@ -36,6 +36,10 @@ export class EventMedalTableComponent implements OnInit {
         this.getGeneralMedalTable();
       }
     );
+  }
+
+  goEvent() {
+    this.router.navigate([`/pages/events/event-view/${this.eventId}`]);
   }
 
   getGeneralMedalTable() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../../services/country-service/country.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from '../../../models/country';
 
 @Component({
@@ -16,8 +16,8 @@ export class AddCountriesComponent implements OnInit {
   countriesToAdd: Array<Country> = new Array();
   allCountries;
 
-  constructor(private countryService: CountryService, private route: ActivatedRoute) {
-    this.eventId = route.snapshot.paramMap.get('eventId');
+  constructor(private countryService: CountryService, private activateRoute: ActivatedRoute, private router: Router) {
+    this.eventId = activateRoute.snapshot.paramMap.get('eventId');
     this.countryService.getCountries().subscribe(data => {
       this.defaultCountries = <Array<any>>data;
       this.allCountries = this.defaultCountries;
@@ -44,6 +44,11 @@ export class AddCountriesComponent implements OnInit {
       this.cleanDefaultCountries();      
     });
   }
+
+  goEvent() {
+    this.router.navigate([`/pages/events/event-view/${this.eventId}`]);
+  }
+
 
   addToList(event) {
     let country = new Country();

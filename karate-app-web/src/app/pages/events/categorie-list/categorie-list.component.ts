@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../../../models/event';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../services/event-service/event.service';
 import { FirebaseCompetition } from '../../../models/firebase-competition';
 import { CompetitionService } from '../../../services/competition-service/competition-service';
@@ -21,9 +21,10 @@ export class CategorieListComponent implements OnInit {
   isCompetition;
   competitions: FirebaseCompetition[];
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, private competitionService: CompetitionService) {
-    this.eventId = route.snapshot.paramMap.get('eventId');
-    this.isCompetition = this.route.snapshot.queryParamMap.get("competition");
+  constructor(private activateRoute: ActivatedRoute, private eventService: EventService, private competitionService: CompetitionService,
+    private router: Router) {
+    this.eventId = activateRoute.snapshot.paramMap.get('eventId');
+    this.isCompetition = this.activateRoute.snapshot.queryParamMap.get("competition");
     if (this.isCompetition == null) {
       this.isCompetition = false;
     }
@@ -48,6 +49,10 @@ export class CategorieListComponent implements OnInit {
         categorie.isReadyToFinal = this.isReadyToFinal(categorie.name);
       })
     });
+  }
+
+  goEvent() {
+    this.router.navigate([`/pages/events/event-view/${this.eventId}`]);
   }
 
   isReadyToFinal(categorie) {
