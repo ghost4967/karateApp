@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../../services/country-service/country.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from '../../../models/country';
 
 @Component({
@@ -14,12 +14,13 @@ export class AddCountriesComponent implements OnInit {
   eventId: string;
   countries: Country[];
   countriesToAdd: Array<Country> = new Array();
+  allCountries;
 
-
-  constructor(private countryService: CountryService, private route: ActivatedRoute) {
-    this.eventId = route.snapshot.paramMap.get('eventId');
+  constructor(private countryService: CountryService, private activateRoute: ActivatedRoute, private router: Router) {
+    this.eventId = activateRoute.snapshot.paramMap.get('eventId');
     this.countryService.getCountries().subscribe(data => {
       this.defaultCountries = <Array<any>>data;
+      this.allCountries = this.defaultCountries;
     });
     this.countryService.getCountriesByEvent(this.eventId).subscribe(data => {
       this.countries = data.map(e => {
@@ -43,6 +44,11 @@ export class AddCountriesComponent implements OnInit {
       this.cleanDefaultCountries();      
     });
   }
+
+  goEvent() {
+    this.router.navigate([`/pages/events/event-view/${this.eventId}`]);
+  }
+
 
   addToList(event) {
     let country = new Country();
@@ -69,6 +75,12 @@ export class AddCountriesComponent implements OnInit {
         console.log('se elimino');
       }
     });
+  }
+
+  geCountryFlag(name) {
+    var country = this.allCountries.find(c => c.name === name);
+    var flagClass =  'flag-icon flag-icon-' + country.code.toLowerCase() + ' flag-icon-squared';
+    return flagClass;
   }
 
 }

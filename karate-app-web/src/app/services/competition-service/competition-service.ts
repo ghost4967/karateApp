@@ -143,4 +143,10 @@ export class CompetitionService {
     .valueChanges();
   }
 
+  getEventMedalTables(eventId: string) {
+    return this.storeFirebase.collection('medal-table', ref => ref
+      .where('eventId', '==', eventId))
+    .valueChanges();
+  }
+
 }

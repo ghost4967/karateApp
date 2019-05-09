@@ -1,13 +1,23 @@
 <nb-card>
   <nb-card-header>Lista de competidores
-    <button nbButton (click)="shuffleGroups()"> Sortear </button>
-    <button nbButton (click)="exportPdf()"> Guardar y Exportar </button>
-    <button nbButton  routerLink="/pages/events/{{eventId}}/categories"> Atras</button>
+    <button nbButton status="primary" class="float-right" (click)="shuffleGroups()"> Sortear </button>
+    <button nbButton status="success" class="float-right" (click)="exportPdf()"> Guardar y Exportar </button>
+    <button nbButton status="primary" class="float-right"  routerLink="/pages/events/{{eventId}}/categories"> Atras</button>
   </nb-card-header>
   <nb-list *ngIf="!startSort && isSingle">
-    <nb-list-item *ngFor="let data of offlineCompetitors">
-      {{ data.competitor.name }} {{ data.competitor.lastName }} ( {{ data.country.name }} )
-    <button nbButton (click)="deleteCompetitors(data.competitor)"> Delete </button>    
+    <nb-list-item *ngFor="let comp of offlineCompetitors">
+      {{ comp.competitor.name }} {{ comp.competitor.lastName }} ( {{ comp.country.name }} )
+    <button nbButton status="danger" size="xsmall" class="float-right" (click)="open(dialog,  comp.competitor.name, comp.competitor.lastName)"> Borrar </button>  
+    <ng-template #dialog let-data let-ref="dialogRef">
+        <nb-card>
+          <nb-card-header>Eliminar competidor</nb-card-header>
+          <nb-card-body>{{ data }}</nb-card-body>
+          <nb-card-footer>
+            <button nbButton type="button" class="btn btn-secondary float-left" (click)="ref.close()">Cancelar</button>
+            <button nbButton type="button" class="btn btn-success float-right" (click)="deleteCompetitors(comp.competitor, ref)">Eliminar</button>
+          </nb-card-footer>
+        </nb-card>
+      </ng-template>
     </nb-list-item>
   </nb-list>
   <div *ngIf="!startSort && isTeam" >

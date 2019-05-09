@@ -11,7 +11,9 @@
     (add)=addToList($event)
     (remove)="removeFromList($event)">
 </ng-select>
+<br>
 <button nbButton (click)="addCountries()">Guardar</button>
+<button nbButton (click)="goEvent()" class="float-right">Atras</button>
   </nb-card-body>
 </nb-card>
 <nb-card>
@@ -27,7 +29,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let country of countries">
-            <td class="align-right">{{ country.name }}</td>
+            <td class="align-right">
+              {{ country.name }}
+              <span class="{{geCountryFlag(country.name)}}"></span> 
+            </td>
             <td> <button type="button" class="btn btn-primary btn-icon" 
                   routerLink="/pages/events/{{eventId}}/add-countries/{{country.id}}">
                 <i class="ion-plus-round"></i>

@@ -10,12 +10,17 @@
           <div class="btn-group">
 
             <button nbButton style="margin:5px"  routerLink="/pages/events/{{event.id}}/categories">Sortear</button>
-            <button nbButton style="margin:5px" routerLink="/pages/events/{{event.id}}/add-countries">Paises</button>
+            <button nbButton style="margin:5px" (click)="goContries()">Paises</button>
             <button nbButton style="margin:5px" routerLink="/pages/events/{{event.id}}/categories" [queryParams]="{ competition: true }">Competencia</button>
-            
+            <button class="btn btn-outline-warning" style="margin:5px" (click)="goMedal()">
+              Ver medallero
+            </button>
           </div>
         </div>
       </div>
+      <button class="float-right" style="margin:5px"  nbButton (click)="gotEventList()">
+       Atras
+      </button>       
     </nb-card-body>
   </nb-card>
 </div>

@@ -79,8 +79,12 @@ export class CompetitorRegisterComponent implements OnInit {
   }
 
   registerCompetitor() {
+    this.competitor.name = this.competitor.name.toUpperCase();
+    this.competitor.lastName = this.competitor.lastName.toUpperCase();
     if (this.competitor.secondLastName === undefined) {
       delete this.competitor.secondLastName;
+    }else {
+      this.competitor.secondLastName = this.competitor.secondLastName.toUpperCase();
     }
     if (this.competitor.birthDate === undefined) {
       delete this.competitor.birthDate;
@@ -90,6 +94,7 @@ export class CompetitorRegisterComponent implements OnInit {
     }
     this.competitor.eventId = this.eventId;
     this.competitor.countryId = this.countryId;
+
     this.competitorService.createCompetitor(this.competitor);
     this.toastr.success("exitosamente.", "Competidor registrado ");
     this.goToAddCountries();
