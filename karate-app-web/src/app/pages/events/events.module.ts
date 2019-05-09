@@ -9,6 +9,7 @@ import { CategorieFilterPipe } from '../../pipes/categorie/categorie-filter.pipe
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { GroupsFilterPipe } from '../../pipes/groups/groups-filter.pipe';
+import { DrawModalComponent } from './competition/draw-modal/draw-modal.component';
 
 
 @NgModule({
@@ -21,6 +22,9 @@ import { GroupsFilterPipe } from '../../pipes/groups/groups-filter.pipe';
   ],
   declarations: [
     ...routedComponents, CategorieFilterPipe, GroupsFilterPipe
+  ],
+  entryComponents: [
+    DrawModalComponent
   ],
   providers:[]
 })
