@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../../../models/event';
 import { EventService } from '../../../services/event-service/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-event-profile',
@@ -13,8 +13,8 @@ export class EventProfileComponent implements OnInit {
   event: Event = new Event();
   eventId: string;
 
-  constructor( private route: ActivatedRoute, private eventService: EventService) {
-    this.eventId = route.snapshot.paramMap.get('eventId');
+  constructor( private activateRoute: ActivatedRoute, private eventService: EventService, private router: Router) {
+    this.eventId = activateRoute.snapshot.paramMap.get('eventId');
    
    }
 
@@ -27,4 +27,16 @@ export class EventProfileComponent implements OnInit {
     });
   }
 
+  gotEventList () {
+    this.router.navigate(['/pages/events/event-list']);
+  }
+
+  goMedal () {
+    this.router.navigate([`/pages/events/${this.eventId}/medal-table`]);
+  }
+
+  goContries() {
+    //routerLink="/pages/events/{{event.id}}/add-countries"
+    this.router.navigate([`/pages/events/${this.eventId}/add-countries`])
+  }
 }

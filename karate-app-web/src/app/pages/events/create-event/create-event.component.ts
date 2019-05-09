@@ -86,4 +86,8 @@ export class CreateEventComponent implements OnInit {
   gotEventList () {
     this.router.navigate(['/pages/events/event-list']);
   }
+
+  goDashboard () {
+    this.router.navigate(['']);
+  }
 }
