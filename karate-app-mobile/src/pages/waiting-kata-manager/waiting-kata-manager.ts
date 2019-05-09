@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 import { Subscription } from 'rxjs';
+import { MbscTimerOptions, mobiscroll } from '@mobiscroll/angular';
 
+mobiscroll.settings = {
+  theme: 'ios-dark',
+  lang: 'es'
+};
 @IonicPage()
 @Component({
   selector: 'page-waiting-kata-manager',
@@ -24,6 +29,17 @@ export class WaitingKataManagerPage {
   ]
 
   subscription: Subscription;
+
+  timer: number;
+  timerSettings: MbscTimerOptions = {
+      display: 'inline',
+      targetTime: 300,
+      maxWheel: 'minutes',
+      minWidth: 100,
+      onFinish: () => {
+      }
+  };
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService,
     private alertController: AlertController) {

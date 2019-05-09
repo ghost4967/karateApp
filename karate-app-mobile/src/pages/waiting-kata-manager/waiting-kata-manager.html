@@ -31,12 +31,18 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <h3>{{kataName}}</h3> 
-  <h2>{{competitorName}}</h2>  
-  <h1 style="text-align: center; color: #0090d0 !important; margin: 0;">{{sessionName}}</h1>
-  <img style="top: 120px;" src="assets/images/icon-KataManager/ejecutandoKata.png" >
+    <h3>{{kataName}}</h3>
+    <h2>{{competitorName}}</h2>
+    <h1 style="text-align: center; color: #0090d0 !important; margin: 0;">{{sessionName}}</h1>
+    <img style="top: 120px;" src="assets/images/icon-KataManager/ejecutandoKata.png">
+    <!-- Wanda Agregale CSS para que pueda verse bien, y luego lo colocas en el lugar que te parezca mejor-->
+    <mbsc-form>
+        <mbsc-form-group>
+            <mbsc-form-group-title>Karate App</mbsc-form-group-title>
+            <div [(ngModel)]="timer" mbsc-timer [mbsc-options]="timerSettings"></div>
+        </mbsc-form-group>
+    </mbsc-form>
 </ion-content>
 <ion-fab #fab bottom right>
     <button button-ion-fab ion-fab  (click)="enableGrade()">
