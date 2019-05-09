@@ -13,6 +13,7 @@ import { CompetitorListComponent } from './competitor-list/competitor-list.compo
 import { TeamRegisterComponent } from './team-register/team-register.component';
 import { CompetitionComponent } from './competition/competition.component';
 import { CategoryMedalTableComponent } from './category-medal-table/category-medal-table.component';
+import { DrawModalComponent } from './competition/draw-modal/draw-modal.component';
 
 const routes: Routes = [{
   path: '',
@@ -73,4 +74,5 @@ export const routedComponents = [
   TeamRegisterComponent,
   CompetitionComponent,
   CategoryMedalTableComponent,
+  DrawModalComponent
 ];
