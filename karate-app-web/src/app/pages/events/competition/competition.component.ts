@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { GroupsFilterPipe } from '../../../pipes/groups/groups-filter.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DrawModalComponent } from './draw-modal/draw-modal.component';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CompetitionComponent implements OnInit {
   qualifiedCompetitors: any;
 
   constructor(private route: ActivatedRoute, private sortService: SortService, private competitionService: CompetitionService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private location: Location) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.side = route.snapshot.queryParamMap.get('side')
     this.categorieName = route.snapshot.paramMap.get('categorieName');
@@ -61,8 +62,13 @@ export class CompetitionComponent implements OnInit {
       });
       this.competition = this.competitions[0];
       if (this.side == 'final') {
-        this.groups = this.competition.groups.filter(group => group.kata == 1);
-      } else {
+        this.groups = this.competition.groups.filter(group => group.side == 'final');
+      } else if (this.side == 'bronze') {
+        this.groups = this.competition.groups.filter(group => group.side == 'bronze');
+      } else if (this.side == 'bronze2') {
+        this.groups = this.competition.groups.filter(group => group.side == 'bronze2');
+      }
+      else {
         this.groups = this.competition.groups.filter(group => group.side == this.side && !group.isGraded && group.competitors.every(competitor => competitor.competitor.name != ''));
       }
       this.readyToFinal = this.groups.length == 0;
@@ -83,6 +89,10 @@ export class CompetitionComponent implements OnInit {
       })
     });
 
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   startCompetition(offlineCompetitor, group) {

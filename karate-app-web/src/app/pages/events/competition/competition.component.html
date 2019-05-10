@@ -1,5 +1,8 @@
 <nb-card>
   <nb-card-header>Competencia de la categoria {{categorieName}}</nb-card-header>
+  <h3 *ngIf="side == 'final'">Final</h3>
+  <h3 *ngIf="side == 'bronze'">Bronce 1</h3>
+  <h3 *ngIf="side == 'bronze2'">Bronce 2</h3>
   <nb-card-body>
     <div class="row">
       <div class="jumbotron" *ngIf="readyToFinal">
@@ -69,7 +72,6 @@
                   desempate</button>
               </td>
             </tr>
-     
           </tbody>
       
         </table>
@@ -81,6 +83,7 @@
         </div>
       </div>
     </div>
+    <button nbButton (click)="goBack()" class="float-right">Atras</button>
   </nb-card-body>
 </nb-card>
 
