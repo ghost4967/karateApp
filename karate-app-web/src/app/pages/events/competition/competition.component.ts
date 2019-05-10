@@ -99,6 +99,7 @@ export class CompetitionComponent implements OnInit {
         offlineCompetitor.inGradingProcess = false;
         offlineCompetitor.isGradePresent = true;
         this.competitionService.createCompetitorGrade(offlineCompetitor, val, group.kata);
+        this.competitionService.postKataName(this.sesion, this.categorieName, this.groups, this.side);
         subscription.unsubscribe();
       }
     });
