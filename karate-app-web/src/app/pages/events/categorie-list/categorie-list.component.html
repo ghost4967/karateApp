@@ -36,17 +36,17 @@
             <button nbButton class="btn btn-outline-success" style="margin:5px"
               routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
               [queryParams]="{ side: 'final'}" (click)="buildFinalGroups(categorie.name)">
-              Realizar Final
+              Final
             </button>
             <button nbButton class="btn btn-outline-info" style="margin:5px"
               routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
               [queryParams]="{ side: 'bronze'}" (click)="buildFinalGroups(categorie.name)">
-              Realizar Bronce 1
+              Bronce 1
             </button>
             <button nbButton class="btn btn-outline-info" style="margin:5px"
               routerLink="/pages/events/{{event.id}}/categories/{{categorie.name}}/competition"
               [queryParams]="{ side: 'bronze2'}" (click)="buildFinalGroups(categorie.name)">
-              Realizar Bronce 2
+              Bronce 2
             </button>
             <button class="btn btn-outline-warning" style="margin:5px"
               routerLink="/pages/events/{{event.id}}/category/{{categorie.name}}/medall-table">
