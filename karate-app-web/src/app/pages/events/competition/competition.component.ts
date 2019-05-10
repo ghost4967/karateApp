@@ -35,7 +35,7 @@ export class CompetitionComponent implements OnInit {
   drawGroups: Array<Group> = new Array();
   drawCompetitors: Array<any> = new Array();
   startDrawGrading: boolean;
-  qualifiedCompetitors: [];
+  qualifiedCompetitors: any;
 
   constructor(private route: ActivatedRoute, private sortService: SortService, private competitionService: CompetitionService,
     private modalService: NgbModal) {
@@ -126,27 +126,34 @@ export class CompetitionComponent implements OnInit {
 
 
   nextKata(group: Group) {
-    group.competitors.sort((c1, c2) => c2['grade'] - c1['grade']);
     this.startDrawGrading = false;
     this.drawCompetitors = [];
-    let qualifiedCompetitors = group.competitors.slice(0, 4);
-    let nextKata = group.kata - 1;
-    let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
-    if (group.competitors.every(competitor => competitor['grade'])) {
-      group.isGraded = true;
-    }
-    qualifiedCompetitors.forEach(competitor => {
-      delete competitor['grade'];
-      delete competitor['qualified'];
-      delete competitor['isGradePresent']
-    });
-    qualifiedCompetitors.reverse();
-    nextGroup.competitors = qualifiedCompetitors;
-    if (group.isGraded) {
+    if (group.kata == 2) {
       let searchGroup = this.competition.groups.find(g => g.kata == group.kata && g.side == group.side);
       searchGroup.isGraded = true;
+      searchGroup.competitors = this.qualifiedCompetitors;
       this.competitionService.updateCompetitionById(this.competition);
+    } else {
+      let qualifiedCompetitors = this.qualifiedCompetitors.slice(0, 4);
+      let nextKata = group.kata - 1;
+      let nextGroup = this.competition.groups.find(group => group.kata == nextKata && group.side == this.side);
+      if (group.competitors.every(competitor => competitor['grade'])) {
+        group.isGraded = true;
+      }
+      qualifiedCompetitors.forEach(competitor => {
+        delete competitor['grade'];
+        delete competitor['qualified'];
+        delete competitor['isGradePresent']
+      });
+      qualifiedCompetitors.reverse();
+      nextGroup.competitors = qualifiedCompetitors;
+      if (group.isGraded) {
+        let searchGroup = this.competition.groups.find(g => g.kata == group.kata && g.side == group.side);
+        searchGroup.isGraded = true;
+        this.competitionService.updateCompetitionById(this.competition);
+      }
     }
+    this.qualifiedCompetitors = [];
   }
 
   restartCompetitorCompetition(offlineCompetitor) {
@@ -165,24 +172,25 @@ export class CompetitionComponent implements OnInit {
       group.competitors.slice(0, 3).forEach(competitor => {
         competitor['qualified'] = true;
       });
-      let searchGroup = this.competition.groups.find(g => g.kata == group.kata && g.side == group.side);
-      searchGroup.isGraded = true;
-      this.competitionService.updateCompetitionById(this.competition);
+      if (this.drawGroups.length == 0) {
+     
+      }
     } else {
-      group.competitors.slice(0, 4).forEach(competitor => {
-        this.drawGroups.forEach(group => {
-          if (group.competitors.find(c => c['grade'] == competitor['grade'])) {
+      group.competitors.forEach(competitor => {
+        this.drawGroups.forEach(drawGroup => {
+          if (drawGroup.competitors.find(c => c['grade'] == competitor['grade'])) {
             competitor['qualified'] = true;
             competitor['hasRepeatedGrade'] = true;
-            if (group.competitors.lastIndexOf(competitor) == group.competitors.length - 1) {
+            if (drawGroup.competitors.lastIndexOf(competitor) == drawGroup.competitors.length - 1) {
               competitor['isEnableToStartReplay'] = true;
             }
-          } else {
+          } else if (group.competitors.slice(0, group.kata == 2 ? 3 :4).find(c => c['grade'] == competitor['grade'])) {
             competitor['qualified'] = true;
           }
         })
       });
     }
+    this.qualifiedCompetitors = group.competitors;
   }
 
   checkGrades(group) {
@@ -219,8 +227,10 @@ export class CompetitionComponent implements OnInit {
         })
         competitor['hasRepeatedGrade'] = false;
         this.changePosition(group.competitors, group.competitors.findIndex(c => c.competitor == competitor.competitor), competitor['index']);
-      })
-    })
+      });
+      this.qualifiedCompetitors = group.competitors;
+      console.log(this.qualifiedCompetitors);
+    });
   }
 
   private cleanGrades(group) {
