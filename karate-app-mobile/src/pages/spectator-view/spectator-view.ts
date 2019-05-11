@@ -40,15 +40,15 @@ export class SpectatorViewPage {
       if (this.view === 'displayGrade') {
         this.displayGrade();
       }
-      if(this.view === 'qualified') {
+      if (this.view === 'qualified') {
         this.showQualifieds();
       }
     })
   }
 
   ionViewWillLeave() {
-    if(!!this.subscription) this.subscription.unsubscribe();
-    if(!!this.subscription2)this.subscription2.unsubscribe();
+    if (!!this.subscription) this.subscription.unsubscribe();
+    if (!!this.subscription2) this.subscription2.unsubscribe();
   }
 
   loadCompetitorData() {
@@ -65,7 +65,7 @@ export class SpectatorViewPage {
   }
 
   getcountryCode() {
-    this.countryCode = this.countryService !== undefined? this.countryService.getAlpha2Code(this.country) : '';
+    this.countryCode = this.countryService !== undefined ? this.countryService.getAlpha2Code(this.country) : '';
   }
 
   displayGrade() {
