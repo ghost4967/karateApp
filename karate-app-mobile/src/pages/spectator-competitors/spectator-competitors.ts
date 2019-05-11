@@ -25,7 +25,7 @@ export class SpectatorCompetitorsPage {
   constructor(public navCtrl: NavController,
     private service: KarateService,
     public navParams: NavParams) {
-    this.panel = navParams.get('sessionName');
+    this.panel = navParams.get('panel');
     this.category = navParams.get('category');
     this.side = navParams.get('side');
   }

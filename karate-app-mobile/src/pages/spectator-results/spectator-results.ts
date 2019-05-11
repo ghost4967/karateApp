@@ -65,7 +65,7 @@ export class SpectatorResultsPage {
     this.phisicalDisplayGrades = this.getDisplayValues(this.phisicalGrades, 30);
     this.finalGrade = parseFloat(this.displayGrades[this.displayGrades.length - 1].value)
       + parseFloat(this.phisicalDisplayGrades[this.phisicalDisplayGrades.length - 1].value);
-    this.finalGrade = this.finalGrade.toFixed(1);
+    this.finalGrade = this.finalGrade.toFixed(2);
   }
 
   getDisplayValues(array: any[], multiplicative) {
@@ -78,7 +78,7 @@ export class SpectatorResultsPage {
       return acumulative + increment;
     }, 0);
     values.push({
-      value: ((sum * multiplicative) / 100).toFixed(1),
+      value: ((sum * multiplicative) / 100).toFixed(2),
       color: 'yellow'
     })
     return values;
