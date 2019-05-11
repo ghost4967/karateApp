@@ -182,28 +182,19 @@ export class CompetitionComponent implements OnInit {
     this.buildDrawGroups(group, repeatedGrades);
     console.log(this.drawGroups);
     console.log(group);
-    if (group.kata == 2) {
-      group.competitors.slice(0, 3).forEach(competitor => {
-        competitor['qualified'] = true;
-      });
-      if (this.drawGroups.length == 0) {
-     
-      }
-    } else {
-      group.competitors.forEach(competitor => {
-        this.drawGroups.forEach(drawGroup => {
-          if (drawGroup.competitors.find(c => c['grade'] == competitor['grade'])) {
-            competitor['qualified'] = true;
-            competitor['hasRepeatedGrade'] = true;
-            if (drawGroup.competitors.lastIndexOf(competitor) == drawGroup.competitors.length - 1) {
-              competitor['isEnableToStartReplay'] = true;
-            }
-          } else if (group.competitors.slice(0, group.kata == 2 ? 3 :4).find(c => c['grade'] == competitor['grade'])) {
-            competitor['qualified'] = true;
+    group.competitors.forEach(competitor => {
+      this.drawGroups.forEach(drawGroup => {
+        if (drawGroup.competitors.find(c => c['grade'] == competitor['grade'])) {
+          competitor['qualified'] = true;
+          competitor['hasRepeatedGrade'] = true;
+          if (drawGroup.competitors.lastIndexOf(competitor) == drawGroup.competitors.length - 1) {
+            competitor['isEnableToStartReplay'] = true;
           }
-        })
-      });
-    }
+        } else if (group.competitors.slice(0, group.kata == 2 ? 3 : 4).find(c => c['grade'] == competitor['grade'])) {
+          competitor['qualified'] = true;
+        }
+      })
+    });
     this.qualifiedCompetitors = group.competitors;
   }
 
