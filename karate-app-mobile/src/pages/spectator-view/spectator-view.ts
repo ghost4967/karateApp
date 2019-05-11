@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { KarateService } from '../../services/karate.service';
 import { CountryServiceProvider } from '../../services/country-service';
-/**
- * Generated class for the SpectatorViewPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,12 +13,14 @@ export class SpectatorViewPage {
   hasCompetitor = false;
   panel;
   subscription;
+  subscription2;
   competitorName;
   kataName;
   country;
   countryCode;
   view = 'waitingJudges';
-  category = "kata individual masculino 12-13 años | ronda 2 | groupo 2 ";
+  category = '';
+  side;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -38,24 +34,38 @@ export class SpectatorViewPage {
     this.subscription = this.service.getStatusBySession(this.panel).subscribe(data => {
       this.hasCompetitor = data[0].nextCompetitor;
       this.view = data[0].view;
-      if(this.hasCompetitor){
+      if (this.hasCompetitor) {
         this.loadCompetitorData();
       }
-      if(this.view === 'displayGrade'){
+      if (this.view === 'displayGrade') {
         this.displayGrade();
+      }
+      if(this.view === 'qualified') {
+        this.showQualifieds();
       }
     })
   }
 
+  ionViewWillLeave() {
+    if(!!this.subscription) this.subscription.unsubscribe();
+    if(!!this.subscription2)this.subscription2.unsubscribe();
+  }
+
   loadCompetitorData() {
-    this.subscription = this.service.getPanelName(this.panel).subscribe(data => {
+    this.subscription2 = this.service.getPanelName(this.panel).subscribe(data => {
       this.competitorName = data.competitor.competitor.name + " " + data.competitor.competitor.lastName;
       this.kataName = data.competitor.kataName;
       this.country = data.competitor.country.name;
-      this.countryCode = this.countryService.getAlpha2Code(this.country);
+      this.getcountryCode();
+      this.category = data.competitor.competitor.categorie.name;
+      this.side = data.kata.side === 'red' ? 'GRUPO 2' : 'GRUPO 1'
       console.log(this.competitorName);
       console.log(this.kataName);
     });
+  }
+
+  getcountryCode() {
+    this.countryCode = this.countryService !== undefined? this.countryService.getAlpha2Code(this.country) : '';
   }
 
   displayGrade() {
@@ -66,6 +76,15 @@ export class SpectatorViewPage {
       competitorName: this.competitorName,
       country: this.country,
       countryCode: this.countryCode
+    });
+    this.navCtrl.popToRoot();
+  }
+
+  showQualifieds() {
+    this.navCtrl.setRoot('SpectatorCompetitorsPage', {
+      panel: this.panel,
+      category: this.category,
+      side: this.side
     });
     this.navCtrl.popToRoot();
   }

@@ -9,7 +9,7 @@
   <ion-grid style="height: 100%">
     <ion-row align-items-center>
       <ion-col col-3 class="text">
-        <h3 class="hh3">TATAMI 1</h3>
+        <h3 class="hh3">{{panel}}</h3>
       </ion-col>
       <ion-col col-9 class="text">
         <h1 class="hh1"> KATA MANAGER </h1>
@@ -17,11 +17,11 @@
     </ion-row>
     <ion-row>
       <div class="white-badge">
-        KATA INDIVIDUAL MASCULINO 12-13 ANIOS | GRUPO 2
+        {{category}} | {{side}}
       </div>
     </ion-row>
     <ul align-items-center class="custom-row">
-      <div *ngFor="let competitor of competitors" class="text competitors-name">
+      <div *ngFor="let competitor of displayCompetitors" class="text competitors-name">
         {{competitor.position}} &nbsp; &nbsp; {{competitor.name}} ({{competitor.country}})
       </div>
     </ul>

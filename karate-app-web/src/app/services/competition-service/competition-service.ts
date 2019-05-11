@@ -149,4 +149,17 @@ export class CompetitionService {
     .valueChanges();
   }
 
+  saveQualified(sessionName, competitors) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'qualified' )
+    .set(competitors);
+  }
+
+  setView(sessionName, view) {
+    this.firebase.database
+    .ref('/JohnFinalKarate' + '/' + sessionName + '/states/0/')
+    .update({
+      view: view
+    });
+  }
 }
