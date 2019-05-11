@@ -55,9 +55,10 @@ export class KarateService {
         {
           start: false,
           restart: false,
-          nextCompetitor: false
+          nextCompetitor: false,
+          view: 'waitingJudges'
         }
-      ]
+      ],
     });
   }
 
@@ -127,7 +128,7 @@ export class KarateService {
   startGrading(sessionName) {
     this.firebase.database
     .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'states' + '/0' )
-    .set({
+    .update({
       start: true,
       restart: false
     });
@@ -197,6 +198,13 @@ export class KarateService {
       start: false
     });
     
+  }
+
+  setView(sessionName, view) {
+    this.firebase.database.ref('/JohnFinalKarate' + '/' + sessionName + '/states/0/')
+    .update({
+      view: view
+    });
   }
 
 }

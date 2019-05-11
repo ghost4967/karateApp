@@ -11,8 +11,8 @@ export class KarateHomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertController: AlertController) {
   }
 
-  joinSesion() {
-    this.navCtrl.push('JoinSesionPage');
+  joinSesion(spectate) {
+    this.navCtrl.push('JoinSesionPage', {isSpectator: spectate});
   }
 
   ionViewDidLoad() {

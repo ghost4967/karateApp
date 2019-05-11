@@ -22,6 +22,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 import { KarateService } from '../services/karate.service';
+import { CountryServiceProvider } from '../services/country-service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 @NgModule({
     declarations: [MyApp],
@@ -29,7 +30,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
         StatusBar, SplashScreen, BarcodeScanner, Camera,
         ToastService, LoadingService, WheelSelector,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-        KarateService
+        KarateService,
+        CountryServiceProvider
     ],
     imports: [ 
     FormsModule, 

@@ -17,13 +17,36 @@ export class JoinSesionPage {
   };
   error: string;
   errorName: string;
+  isSpectator;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private karateService: KarateService,
     private alertController: AlertController) {
+    this.isSpectator = navParams.get('isSpectator');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JoinSesionPage');
+  }
+
+  executeAction() {
+    if (this.isSpectator) {
+      if (this.data.sessionName.length != 0) {
+        this.karateService.getPanelName(this.data.sessionName).subscribe(dataSesion => {
+          if (!dataSesion) {
+            this.error = 'El panel no existe por favor intente de nuevo.';
+            this.errorName = '';
+          } else {
+            this.navCtrl.setRoot('SpectatorViewPage', {
+              sessionName: this.data.sessionName
+            });
+          }
+        })
+      } else {
+        this.error = 'El panel es requerido por favor intente de nuevo.';
+      }
+    } else {
+      this.joinToSession();
+    }
   }
 
   joinToSession() {

@@ -146,6 +146,7 @@ export class DisplayGradePage {
     this.judgeList.forEach(element => {
       this.service.restartJudgeStatus(this.sessionName, element.Nombre);
     });
+    this.service.setView(this.sessionName, 'waitingCompetitor');
     this.navCtrl.setRoot('WaitingCompetitorPage', {
       sessionName: this.sessionName
     });
