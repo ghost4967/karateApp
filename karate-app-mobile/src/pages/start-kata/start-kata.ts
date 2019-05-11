@@ -54,6 +54,7 @@ export class StartKataPage {
   }
 
   goToWaitingKataManager() {
+    this.service.setView(this.sessionName, 'waitingCompetitor');
     this.navCtrl.setRoot('WaitingCompetitorPage', {
       sessionName: this.sessionName
     });
