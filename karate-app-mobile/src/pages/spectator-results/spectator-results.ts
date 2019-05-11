@@ -18,6 +18,7 @@ export class SpectatorResultsPage {
   panel;
   competitorName;
   subscription;
+  subscription2;
   competitor;
   kataName;
   category;
@@ -37,7 +38,7 @@ export class SpectatorResultsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SpectatorResultsPage');
-    this.service.getGrades(this.panel).subscribe(data => {
+    this.subscription = this.service.getGrades(this.panel).subscribe(data => {
       var gradeList = data;
       gradeList.forEach(element => {
         this.grades.push(element.Tecnico);
@@ -45,13 +46,18 @@ export class SpectatorResultsPage {
       });
       this.loadGrades();
     });
-    this.service.getStatusBySession(this.panel).subscribe(data => {
+    this.subscription2 = this.service.getStatusBySession(this.panel).subscribe(data => {
       if (data[0].view === 'waitingCompetitor') {
         this.navCtrl.setRoot('SpectatorViewPage', {
           sessionName: this.panel
         });
       }
     })
+  }
+  
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   loadGrades() {

@@ -155,6 +155,10 @@ export class CompetitionComponent implements OnInit {
         delete competitor['qualified'];
         delete competitor['isGradePresent']
       });
+
+      this.competitionService.saveQualified(this.sesion, qualifiedCompetitors);
+      this.competitionService.setView(this.sesion, 'qualified');
+
       qualifiedCompetitors.reverse();
       nextGroup.competitors = qualifiedCompetitors;
       if (group.isGraded) {
