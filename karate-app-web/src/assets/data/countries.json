@@ -970,5 +970,33 @@
     {
         "name": "Zimbabwe",
         "code": "ZW"
+    },
+    {
+        "name": "Costa Rica - San Jose",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Alajuela",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Cartago",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Heredia",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Guanacaste",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Puntarenas",
+        "code": "CR"
+    },
+    {
+        "name": "Costa Rica - Limón",
+        "code": "CR"
     }
 ]
