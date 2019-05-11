@@ -40,15 +40,15 @@ export class SpectatorViewPage {
       if (this.view === 'displayGrade') {
         this.displayGrade();
       }
-      if(this.view === 'qualified') {
+      if (this.view === 'qualified') {
         this.showQualifieds();
       }
     })
   }
 
   ionViewWillLeave() {
-    if(!!this.subscription) this.subscription.unsubscribe();
-    if(!!this.subscription2)this.subscription2.unsubscribe();
+    if (!!this.subscription) this.subscription.unsubscribe();
+    if (!!this.subscription2) this.subscription2.unsubscribe();
   }
 
   loadCompetitorData() {
@@ -58,14 +58,18 @@ export class SpectatorViewPage {
       this.country = data.competitor.country.name;
       this.getcountryCode();
       this.category = data.competitor.competitor.categorie.name;
-      this.side = data.kata.side === 'red' ? 'GRUPO 2' : 'GRUPO 1'
+      this.side = this.getSide(data);
       console.log(this.competitorName);
       console.log(this.kataName);
     });
   }
 
   getcountryCode() {
-    this.countryCode = this.countryService !== undefined? this.countryService.getAlpha2Code(this.country) : '';
+    this.countryCode = this.countryService !== undefined ? this.countryService.getAlpha2Code(this.country) : '';
+  }
+
+  getSide(data) {
+    return !!data.kata ? (data.kata.side === 'red' ? 'GRUPO 2' : 'GRUPO 1') : '';
   }
 
   displayGrade() {
