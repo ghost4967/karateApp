@@ -58,7 +58,7 @@ export class SpectatorViewPage {
       this.country = data.competitor.country.name;
       this.getcountryCode();
       this.category = data.competitor.competitor.categorie.name;
-      this.side = this.getSide(data);
+      this.side = data.side === 'red' ? 'GRUPO 2' : 'GRUPO 1'
       console.log(this.competitorName);
       console.log(this.kataName);
     });
@@ -66,10 +66,6 @@ export class SpectatorViewPage {
 
   getcountryCode() {
     this.countryCode = this.countryService !== undefined ? this.countryService.getAlpha2Code(this.country) : '';
-  }
-
-  getSide(data) {
-    return !!data.kata ? (data.kata.side === 'red' ? 'GRUPO 2' : 'GRUPO 1') : '';
   }
 
   displayGrade() {
