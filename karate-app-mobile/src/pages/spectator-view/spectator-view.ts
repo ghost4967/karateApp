@@ -58,7 +58,7 @@ export class SpectatorViewPage {
       this.country = data.competitor.country.name;
       this.getcountryCode();
       this.category = data.competitor.competitor.categorie.name;
-      this.side = data.kata.side === 'red' ? 'GRUPO 2' : 'GRUPO 1'
+      this.side = data.side === 'red' ? 'GRUPO 2' : 'GRUPO 1'
       console.log(this.competitorName);
       console.log(this.kataName);
     });

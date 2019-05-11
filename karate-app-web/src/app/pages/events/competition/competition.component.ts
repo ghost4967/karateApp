@@ -96,7 +96,7 @@ export class CompetitionComponent implements OnInit {
   }
 
   startCompetition(offlineCompetitor, group) {
-    this.competitionService.addCompetitorToPanel(group.kataManager, offlineCompetitor, offlineCompetitor.kataName);
+    this.competitionService.addCompetitorToPanel(group.kataManager, offlineCompetitor, offlineCompetitor.kataName, this.side);
     this.competitor = offlineCompetitor;
     this.sesion = group.kataManager;
     console.log(offlineCompetitor.kataName);
@@ -109,7 +109,6 @@ export class CompetitionComponent implements OnInit {
         offlineCompetitor.inGradingProcess = false;
         offlineCompetitor.isGradePresent = true;
         this.competitionService.createCompetitorGrade(offlineCompetitor, val, group.kata);
-        this.competitionService.postKataName(this.sesion, this.categorieName, this.groups, this.side);
         subscription.unsubscribe();
       }
     });

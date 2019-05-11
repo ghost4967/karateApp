@@ -34,7 +34,7 @@ export class CompetitionService {
     });
   }
 
-  addCompetitorToPanel(name: string, offlineCompetitor: OfflineCompetitor, kataName) {
+  addCompetitorToPanel(name: string, offlineCompetitor: OfflineCompetitor, kataName, side) {
     this.firebase.database
     .ref('/JohnFinalKarate' + '/' + name + '/' + 'states' + '/0' )
     .set({
@@ -45,7 +45,8 @@ export class CompetitionService {
     this.firebase.database.ref('/JohnFinalKarate' + '/' + name)
     .update({
      competitor: offlineCompetitor,
-     kataName: kataName
+     kataName: kataName,
+     side: side
     });
   }
 
@@ -83,15 +84,6 @@ export class CompetitionService {
     .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Group' + '/' + judgeName+'/value')
     .set(false);
   }
-  postKataName(sessionName, categorieName, katas, side) {
-    this.firebase.database
-   .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'kata')
-   .set({
-     categorie: categorieName,
-     kata: katas,
-     side: side
-   });
- }
 
   createCompetitorGrade(competitor: Competitor, grade: any, kataNumber : number) {
     this.storeFirebase.collection('competitorgrade').add({
