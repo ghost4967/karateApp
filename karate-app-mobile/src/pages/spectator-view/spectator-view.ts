@@ -54,7 +54,7 @@ export class SpectatorViewPage {
   loadCompetitorData() {
     this.subscription2 = this.service.getPanelName(this.panel).subscribe(data => {
       this.competitorName = data.competitor.competitor.name + " " + data.competitor.competitor.lastName;
-      this.kataName = data.competitor.kataName;
+      this.kataName = data.kataName;
       this.country = data.competitor.country.name;
       this.getcountryCode();
       this.category = data.competitor.competitor.categorie.name;
