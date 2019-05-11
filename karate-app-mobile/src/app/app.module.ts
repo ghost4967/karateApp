@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { MbscModule } from '@mobiscroll/angular';
 import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,7 +33,9 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
         KarateService,
         CountryServiceProvider
     ],
-    imports: [
+    imports: [ 
+    FormsModule, 
+    MbscModule,
         BrowserModule,
         HttpModule, HttpClientModule,
         AngularFireModule.initializeApp(AppSettings.FIREBASE_CONFIG),

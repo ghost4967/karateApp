@@ -4,19 +4,19 @@
     <form [formGroup]="addCompetitorForm">
       <div class="form-group">
         <label for="name">Nombre*:</label>
-        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" [(ngModel)]="competitor.name" 
+        <input type="text" class="form-control uppercase" formControlName="name" placeholder="Nombre" [(ngModel)]="competitor.name" 
         name="name" required>
         <p *ngIf="name.touched && name.invalid" class="alert-danger"><sup>*</sup>Porfavor escriba el nombre del competidor</p>
       </div>
       <div class="form-group">
         <label>Apellido Paterno*:</label>
-        <input type="text" class="form-control" formControlName="lastName" placeholder="Apellido paterno" [(ngModel)]="competitor.lastName"
+        <input type="text" class="form-control uppercase" formControlName="lastName" placeholder="Apellido paterno" [(ngModel)]="competitor.lastName"
           name="lastName">
           <p *ngIf="lastName.touched && lastName.invalid" class="alert-danger"><sup>*</sup>Porfavor escriba el apellido paterno del competidor</p>
       </div>
       <div class="form-group">
         <label>Apellido Materno:</label>
-        <input type="text" class="form-control" formControlName="secondLastName" placeholder="Apellido materno" [(ngModel)]="competitor.secondLastName"
+        <input type="text" class="form-control uppercase" formControlName="secondLastName" placeholder="Apellido materno" [(ngModel)]="competitor.secondLastName"
           name="secondLastName">
       </div>
       <div class="form-group">
@@ -50,7 +50,8 @@
         </select>
         <p *ngIf="categorie.touched && categorie.invalid" class="alert-danger"><sup>*</sup>Porfavor seleccione una categoria para el competidor</p>
       </div>
-      <button nbButton [disabled]="!addCompetitorForm.valid" (click)="registerCompetitor()"> Registrar Competidor </button>
+      <button nbButton class="float-right" [disabled]="!addCompetitorForm.valid" (click)="registerCompetitor()"> Registrar Competidor </button>
+      <button nbButton class="btn btn-secondary float-left"  (click)="goToAddCountries()">Cancelar</button>
     </form>
   </nb-card-body>
   <ng-template #loading>

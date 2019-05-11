@@ -4,6 +4,7 @@ import { from, of, zip } from 'rxjs';
 import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import * as jspdf from 'jspdf';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-category-medal-table',
@@ -25,7 +26,7 @@ export class CategoryMedalTableComponent implements OnInit {
   isDataSaved = false;
 
   constructor(private competitionService: CompetitionService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private location: Location) {
     this.eventId = route.snapshot.paramMap.get('eventId');
     this.category = route.snapshot.paramMap.get('categorieName');
   }
@@ -55,6 +56,10 @@ export class CategoryMedalTableComponent implements OnInit {
         );
       }
     );
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   groupGrades() {

@@ -83,6 +83,15 @@ export class CompetitionService {
     .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'Group' + '/' + judgeName+'/value')
     .set(false);
   }
+  postKataName(sessionName, categorieName, katas, side) {
+    this.firebase.database
+   .ref('/JohnFinalKarate' + '/' + sessionName + '/' + 'kata')
+   .set({
+     categorie: categorieName,
+     kata: katas,
+     side: side
+   });
+ }
 
   createCompetitorGrade(competitor: Competitor, grade: any, kataNumber : number) {
     this.storeFirebase.collection('competitorgrade').add({

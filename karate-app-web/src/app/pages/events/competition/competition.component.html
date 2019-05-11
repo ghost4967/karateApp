@@ -1,5 +1,8 @@
 <nb-card>
   <nb-card-header>Competencia de la categoria {{categorieName}}</nb-card-header>
+  <h3 *ngIf="side == 'final'">Final</h3>
+  <h3 *ngIf="side == 'bronze'">Bronce 1</h3>
+  <h3 *ngIf="side == 'bronze2'">Bronce 2</h3>
   <nb-card-body>
     <div class="row">
       <div class="jumbotron" *ngIf="readyToFinal">
@@ -51,9 +54,6 @@
                 <button class="btn btn-primary btn-xs" style="margin:5px" 
                   (click)="startCompetition(offlineCompetitor, group)"> Competir
                 </button>
-                <button class="btn btn-success btn-xs" style="margin:5px"
-                  (click)="goToGradeView(offlineCompetitor, group)">Guardar
-                  Nota</button>
               </td>
               <td *ngIf="offlineCompetitor.isGradePresent">
                 <span class="badge badge-light">{{ offlineCompetitor.grade }}</span>
@@ -68,19 +68,23 @@
                   votacion</button>
               </td>
               <td *ngIf="offlineCompetitor.hasRepeatedGrade" [ngStyle]="{'background-color': '#ff3333' }">
-                <button class="btn btn-danger btn-xs" (click)="addToDrawGroup(offlineCompetitor, group)">Llevar a
+                <button class="btn btn-danger btn-xs" *ngIf="offlineCompetitor.isEnableToStartReplay" (click)="startReplay(offlineCompetitor, group)">Llevar a
                   desempate</button>
               </td>
             </tr>
           </tbody>
+      
         </table>
         <div class="btn-toolbar">
           <button class="btn btn-outline-primary pull-right" *ngIf="group.kata != 2" type="button"
             (click)="nextKata(group)">Siguiente kata</button>
-          <button class="btn btn-outline-primary pull-left" type="button" (click)="orderGrades(group)">Ordenar
+          <button  class="btn btn-outline-primary pull-left" type="button" *ngIf="checkGrades(group)" (click)="orderGrades(group)">Ordenar
             resultados</button>
         </div>
       </div>
     </div>
+    <button nbButton (click)="goBack()" class="float-right">Atras</button>
   </nb-card-body>
 </nb-card>
+
+
