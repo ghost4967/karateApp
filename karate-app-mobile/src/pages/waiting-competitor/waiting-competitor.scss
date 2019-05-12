@@ -1,13 +1,37 @@
-page-waiting-competitor {
-    h1 {
-        text-align: center;
-        color: #0090d0 !important
+ page-waiting-competitor {
+     h1 {
+         text-align: center;
+         color: #0090d0 !important
     }
-    img {
-        position: absolute;
-        top: 0; bottom:0; left: 0; right:0;
-        margin: auto;
-        max-width: 80%;
-        max-height: 70%;
-    }
+     img {
+         position: absolute;
+         top: 0; bottom:0; left: 0; right:0;
+         margin: auto;
+         max-width: 80%;
+         max-height: 70%;
+     }
+     [main-menu] {
+         button {
+           padding-left: 30px;
+         }
+    
+         .item-inner {
+           margin-left: 0 !important;
+         }
+    
+         [icon-small] {
+           margin-top: 18px !important;
+         }
+       }
+       // Settings Submenu
+    
+       [submenu] {
+         ion-label {
+           padding-left: 30px !important;
+         }
+       }
+    
+     ion-header > ion-navbar > div.toolbar-content.toolbar-content-md > ion-title > div {
+         text-transform: none !important;
+     }
 }
