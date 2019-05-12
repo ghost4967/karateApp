@@ -20,7 +20,9 @@
 
 <ion-header>
     <ion-navbar>
-
+        <button ion-button menuToggle>
+            <ion-icon class="icon-menu" name="menu"></ion-icon>
+        </button>
         <ion-title>{{sessionName}}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="alertExit()">

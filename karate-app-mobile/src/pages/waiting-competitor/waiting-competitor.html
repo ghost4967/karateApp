@@ -20,24 +20,27 @@
 
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Esperando Competidor</ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only (click)="alertExit()">
-          <ion-icon name="exit"></ion-icon>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon class="icon-menu" name="menu"></ion-icon>
         </button>
-      </ion-buttons>
-  </ion-navbar>
+        <ion-title>Esperando Competidor</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="alertExit()">
+                <ion-icon name="exit"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h1>{{sessionName}}</h1>
-  <img src="assets/images/icon-KataManager/ejecutandoKata.png" >
+    <h1>{{sessionName}}</h1>
+    <img src="assets/images/icon-KataManager/ejecutandoKata.png">
 </ion-content>
 <ion-fab #fab bottom right *ngIf="isCompetitorPresent">
-    <button button-ion-fab ion-fab  (click)="goToKata()">
+    <button button-ion-fab ion-fab (click)="goToKata()">
         Iniciar
     </button>
 </ion-fab>
